@@ -3,7 +3,7 @@
 > **Kompetisi UI/UX In Action — MIA 2026 UPN Veteran Jakarta**  
 > Mengubah beban sampah rumah tangga menjadi berkah bernilai ekonomi melalui siklus ekonomi sirkular yang transparan, modern, dan mudah digunakan.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-pilahin--app.surge.sh-10b981?style=for-the-badge&logo=surge&logoColor=white)](https://pilahin-app.surge.sh)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-pilahin--app--beta.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://pilahin-app-beta.vercel.app)
 [![React](https://img.shields.io/badge/React-18.3-61dafb?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6.4-646cff?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
@@ -12,8 +12,9 @@
 ---
 
 ## 🚀 Live Demo
-Aplikasi telah dideploy dan dapat diakses langsung secara publik tanpa instalasi:
-👉 **[https://pilahin-app.surge.sh](https://pilahin-app.surge.sh)**
+Aplikasi telah dideploy di **Vercel** dan dapat diakses langsung secara publik tanpa instalasi:
+👉 **[https://pilahin-app-beta.vercel.app](https://pilahin-app-beta.vercel.app)**  
+*(Mirror cadangan Surge: [https://pilahin-app.surge.sh](https://pilahin-app.surge.sh))*
 
 ---
 
