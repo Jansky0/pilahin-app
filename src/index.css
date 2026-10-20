@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  /* ============================================================
+     1. TYPOGRAPHY & FONT FAMILIES
+     ============================================================ */
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-numeric: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Inter', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ============================================================
+     2. FRESH ECO-TECH COLOR PALETTE
+     ============================================================ */
+  /* Canvas & Card Surfaces */
+  --color-canvas: #f8fafc;
+  --color-card: #ffffff;
+  --color-card-border: #e2e8f0;
+
+  /* Primary Emerald Brand (Action, Hero, Badges) */
+  --color-emerald-primary: #059669;
+  --color-emerald-hover: #047857;
+  --color-emerald-surface: #ecfdf5;
+  --color-emerald-border: #a7f3d0;
+  --color-emerald-glow: #10b981;
+
+  /* Circular Teal Brand (Eco-Innovation, Flow) */
+  --color-teal-primary: #0d9488;
+  --color-teal-hover: #0f766e;
+  --color-teal-surface: #f0fdfa;
+  --color-teal-border: #99f6e4;
+
+  /* Deep Slate (Fintech Prestige, High Contrast Headings) */
+  --color-slate-deep: #0f172a;
+  --color-slate-surface: #1e293b;
+  --color-slate-text: #0f172a;
+  --color-slate-muted: #64748b;
+  --color-slate-subtle: #94a3b8;
+  --color-slate-border: #e2e8f0;
+
+  /* Semantic Brand Aliases */
+  --color-brand-emerald: #059669;
+  --color-brand-teal: #0d9488;
+  --color-brand-slate: #0f172a;
+  --color-brand-canvas: #f8fafc;
+
+  /* Accents */
+  --color-amber-primary: #f59e0b;
+  --color-amber-surface: #fffbeb;
+  --color-amber-border: #fde68a;
+  --color-sky-primary: #0284c7;
+  --color-sky-surface: #f0f9ff;
+
+  /* ============================================================
+     3. DIFFUSE MODERN SHADOWS (AMBIENT SOFT SHADOWS)
+     ============================================================ */
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -2px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 10px 25px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -4px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 35px -8px rgba(15, 23, 42, 0.12), 0 8px 16px -6px rgba(15, 23, 42, 0.04);
+  --shadow-bento: 0 2px 10px -2px rgba(15, 23, 42, 0.04), 0 1px 3px -1px rgba(15, 23, 42, 0.02);
+  --shadow-navbar: 0 -4px 20px 0 rgba(15, 23, 42, 0.05);
+  --shadow-glow-emerald: 0 0 24px -4px rgba(5, 150, 105, 0.28);
+  --shadow-glow-amber: 0 0 20px -4px rgba(245, 158, 11, 0.25);
+}
+
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Custom scrollbar styling for mobile feel */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+
+/* Hide horizontal scrollbar while retaining touch scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
