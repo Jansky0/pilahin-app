@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Recycle,
   ShoppingBag,
@@ -16,6 +16,7 @@ import {
   TrendingUp,
   Info,
   ChevronRight,
+  ChevronLeft,
   QrCode,
   Check,
   AlertCircle,
@@ -55,7 +56,6 @@ export default function App() {
 
   // User & Wallet State
   const [walletBalance, setWalletBalance] = useState(148500);
-  const [greenPoints, setGreenPoints] = useState(320);
   const [totalKgRecycled, setTotalKgRecycled] = useState(24.5);
   const [userRank, setUserRank] = useState('Pahlawan Hijau Level 3');
 
@@ -243,37 +243,165 @@ export default function App() {
   const [scannedResult, setScannedResult] = useState(null);
   const [scanSampleItem, setScanSampleItem] = useState('botol_pet');
 
-  // Traceability Lifecycle State (Lacak Jejak Sampah Warga)
-  const [traceabilityData] = useState([
+  // Jejak Tiket & Traceability State (Tinder-Style Swipeable Cards)
+  const [jejakIndex, setJejakIndex] = useState(0);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState(null);
+  const dragStartXRef = useRef(0);
+  const dragCurrentXRef = useRef(0);
+
+  const [jejakTickets, setJejakTickets] = useState([
     {
-      step: 1,
-      title: 'Penyetoran 12 kg Sisa Organik',
-      date: '10 Okt 2026',
-      status: 'completed',
-      desc: 'Diterima oleh Petugas Pak Budi di Bank Sampah Berkah Lestari.'
+      id: 'ticket-1',
+      code: 'PLH-849201',
+      title: 'Penjemputan Kardus & Botol PET',
+      categoryBadge: 'Jemput Rumah • 11 kg',
+      method: 'pickup',
+      pickupTime: 'Hari ini, 10:30 WIB',
+      location: 'Jl. Cemara No. 14, RT 03/RW 05',
+      partner: 'Bank Sampah Berkah Lestari',
+      driver: 'Pak Budi (Motor Tossa #04)',
+      estimatedValue: 22410,
+      fee: 2490,
+      status: 'Kurir Menuju Lokasi (ETA 15 mnt)',
+      statusBadge: 'Dalam Proses',
+      statusType: 'process',
+      steps: [
+        {
+          step: 1,
+          title: 'Permintaan Jemput Diterima',
+          date: 'Hari ini, 09:30 WIB',
+          status: 'completed',
+          desc: 'Bank Sampah menugaskan kurir Tossa jemput ke alamat rumah.'
+        },
+        {
+          step: 2,
+          title: 'Kurir Meluncur ke Alamat Rumah',
+          date: 'Hari ini, 10:05 WIB',
+          status: 'active',
+          desc: 'Pak Budi sedang perjalanan membawa armada Tossa roda tiga (± 15 menit).'
+        },
+        {
+          step: 3,
+          title: 'Penimbangan Digital di Tempat',
+          date: 'Est. 10:25 WIB',
+          status: 'upcoming',
+          desc: 'Kurir menimbang langsung di hadapan Anda dengan timbangan digital terverifikasi.'
+        },
+        {
+          step: 4,
+          title: 'Saldo Mengendap Cair Otomatis',
+          date: 'Est. 10:30 WIB',
+          status: 'upcoming',
+          desc: 'Saldo Rp 22.410 (net setelah ongkir 10%) langsung masuk ke Saldo Mengendap.'
+        }
+      ]
     },
     {
-      step: 2,
-      title: 'Pencacahan & Fermentasi Komposter',
-      date: '12 Okt 2026',
-      status: 'completed',
-      desc: 'Sampah dicampur bio-aktivator EM4 dan diproses di bak komposter komunal.'
-    },
-    {
-      step: 3,
-      title: 'Penyaringan & Pengemasan Pupuk',
-      date: '16 Okt 2026',
-      status: 'completed',
-      desc: 'Telah matang menjadi 4 kg Pupuk Kompos Organik berkualitas premium.'
-    },
-    {
-      step: 4,
-      title: 'Siap Dijual di Toko Sirkular',
-      date: 'Hari ini',
-      status: 'active',
-      desc: 'Produk kini terdaftar di etalase Toko Sirkular dan siap dibeli kembali oleh warga!'
+      id: 'ticket-2',
+      code: 'PLH-772109',
+      title: 'Daur Ulang Sisa Organik Dapur',
+      categoryBadge: 'Drop-off Selesai • 12 kg',
+      method: 'dropoff',
+      pickupTime: '10 Okt 2026',
+      location: 'TPS3R Hijau Makmur (RW 05)',
+      partner: 'TPS3R Hijau Makmur',
+      driver: 'Setor Mandiri oleh Raka',
+      estimatedValue: 9600,
+      fee: 0,
+      status: 'Sedang Difermentasi Jadi Kompos',
+      statusBadge: 'Siklus Sirkular',
+      statusType: 'recycle',
+      steps: [
+        {
+          step: 1,
+          title: 'Penyetoran 12 kg Sisa Organik',
+          date: '10 Okt 2026',
+          status: 'completed',
+          desc: 'Diterima oleh Petugas TPS3R & diverifikasi timbangan digital.'
+        },
+        {
+          step: 2,
+          title: 'Pencacahan & Fermentasi EM4',
+          date: '12 Okt 2026',
+          status: 'completed',
+          desc: 'Sisa organik dicampur aktivator alami EM4 di bak biokomposter komunal.'
+        },
+        {
+          step: 3,
+          title: 'Penyaringan & Pematangan Kompos',
+          date: '16 Okt 2026',
+          status: 'completed',
+          desc: 'Telah matang menjadi 4 kg Pupuk Kompos Organik Super beraroma tanah subur.'
+        },
+        {
+          step: 4,
+          title: 'Siap Didistribusikan di Toko Sirkular',
+          date: 'Hari ini',
+          status: 'active',
+          desc: 'Kini dapat dibeli oleh warga lain melalui menu Toko Sirkular!'
+        }
+      ]
     }
   ]);
+
+  // Tinder Swipe Handlers
+  const handlePrevTicket = () => {
+    setJejakIndex(prev => (prev > 0 ? prev - 1 : jejakTickets.length - 1));
+  };
+
+  const handleNextTicket = () => {
+    setJejakIndex(prev => (prev < jejakTickets.length - 1 ? prev + 1 : 0));
+  };
+
+  const handleDragStart = (clientX) => {
+    setIsDragging(true);
+    dragStartXRef.current = clientX;
+    dragCurrentXRef.current = clientX;
+    setDragOffset({ x: 0, y: 0 });
+    setSwipeDirection(null);
+
+    const onMove = (moveEvent) => {
+      const currentX = moveEvent.touches && moveEvent.touches[0]
+        ? moveEvent.touches[0].clientX
+        : moveEvent.clientX;
+      if (typeof currentX !== 'number') return;
+      dragCurrentXRef.current = currentX;
+      const deltaX = currentX - dragStartXRef.current;
+      setDragOffset({ x: deltaX, y: 0 });
+      if (deltaX > 25) {
+        setSwipeDirection('right');
+      } else if (deltaX < -25) {
+        setSwipeDirection('left');
+      } else {
+        setSwipeDirection(null);
+      }
+    };
+
+    const onEnd = () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onEnd);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onEnd);
+
+      setIsDragging(false);
+      const finalDeltaX = dragCurrentXRef.current - dragStartXRef.current;
+      const threshold = 40;
+      if (finalDeltaX > threshold) {
+        handleNextTicket();
+      } else if (finalDeltaX < -threshold) {
+        handlePrevTicket();
+      }
+      setDragOffset({ x: 0, y: 0 });
+      setSwipeDirection(null);
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onEnd);
+  };
 
   // Partner Admin Portal State (Mitra View)
   const [partnerInputCode, setPartnerInputCode] = useState('');
@@ -347,6 +475,56 @@ export default function App() {
     };
     setSimulatedTicket(ticket);
     setDepositTicketModal(true);
+
+    // Automatically push new ticket into Tinder-style Jejak Card stack
+    const newJejakTicket = {
+      id: 'ticket-' + Date.now(),
+      code: ticket.code,
+      title: `${depositMethod === 'pickup' ? 'Penjemputan' : 'Drop-off'} ${ticket.estimatedKg} kg Sampah`,
+      categoryBadge: `${depositMethod === 'pickup' ? 'Jemput Rumah' : 'Drop-off'} • ${ticket.estimatedKg} kg`,
+      method: depositMethod,
+      pickupTime: 'Hari ini',
+      location: depositMethod === 'pickup' ? pickupAddress : selectedPartner,
+      partner: selectedPartner,
+      driver: depositMethod === 'pickup' ? 'Kurir Ditugaskan' : 'Mandiri (Drop-off)',
+      estimatedValue: total,
+      fee: deliveryFee,
+      status: depositMethod === 'pickup' ? 'Menunggu Penjemputan Kurir' : 'Menunggu Penerimaan di TPS3R',
+      statusBadge: 'Baru Dibuat',
+      statusType: 'process',
+      steps: [
+        {
+          step: 1,
+          title: 'Tiket Berhasil Dibuat',
+          date: 'Baru saja',
+          status: 'completed',
+          desc: `Tiket ${ticket.code} telah diteruskan ke ${selectedPartner}.`
+        },
+        {
+          step: 2,
+          title: depositMethod === 'pickup' ? 'Kurir Bergerak ke Rumah' : 'Warga Menuju Titik Drop-off',
+          date: 'Segera',
+          status: 'active',
+          desc: depositMethod === 'pickup' ? 'Kurir segera meluncur membawa armada Tossa.' : 'Silakan antarkan sampah terpilah ke TPS3R.'
+        },
+        {
+          step: 3,
+          title: 'Penimbangan Digital di Tempat',
+          date: 'Tahap Berikutnya',
+          status: 'upcoming',
+          desc: 'Timbangan digital mencatat berat riil sampah terpilah.'
+        },
+        {
+          step: 4,
+          title: 'Pencairan Saldo ke Dompet',
+          date: 'Tahap Akhir',
+          status: 'upcoming',
+          desc: `Saldo bersih sebesar ${formatRupiah(total)} langsung masuk ke dompet.`
+        }
+      ]
+    };
+    setJejakTickets(prev => [newJejakTicket, ...prev]);
+    setJejakIndex(0);
   };
 
   // Simulate Partner Confirms Weighing (Adds Saldo to Escrow Wallet)
@@ -356,8 +534,20 @@ export default function App() {
     const earnedKg = simulatedTicket.estimatedKg;
 
     setWalletBalance(prev => prev + earnedAmount);
-    setGreenPoints(prev => prev + Math.floor(earnedKg * 10));
     setTotalKgRecycled(prev => prev + earnedKg);
+
+    // Update ticket status in Jejak stack to completed
+    setJejakTickets(prev => prev.map(t => {
+      if (t.code === simulatedTicket.code) {
+        return {
+          ...t,
+          status: 'Timbangan Selesai • Saldo Masuk',
+          statusBadge: 'Selesai',
+          steps: t.steps.map(s => ({ ...s, status: 'completed' }))
+        };
+      }
+      return t;
+    }));
 
     const newTx = {
       id: 'tx-' + Date.now(),
@@ -533,8 +723,8 @@ export default function App() {
               {/* Citizen Header: Eco Badge & Profile Avatar */}
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 rounded-full text-[11px] text-emerald-700 font-bold shadow-2xs">
-                  <Sparkles className="w-3 h-3 text-amber-500" />
-                  <span>{greenPoints} Poin</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span>Warga Terverifikasi</span>
                 </div>
                 <button
                   onClick={() => setShowProfileModal(true)}
@@ -636,8 +826,8 @@ export default function App() {
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-2.5 py-1 rounded-full text-emerald-300 text-[10px] font-bold border border-white/10 shadow-2xs">
-                      <Sparkles className="w-3 h-3 text-amber-300" />
-                      <span>{greenPoints} Poin</span>
+                      <ShieldCheck className="w-3 h-3 text-emerald-400" />
+                      <span>Siap Ditarik</span>
                     </div>
                   </div>
 
@@ -746,45 +936,227 @@ export default function App() {
                   <ChevronRight className="w-5 h-5 text-sky-300 flex-shrink-0" />
                 </div>
 
-                {/* LACAK JEJAK SAMPAH (TRACEABILITY CARD) */}
-                <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3">
-                  <div className="flex items-center justify-between">
+                {/* LACAK JEJAK & TIKET SETOR SIRKULAR (TINDER-STYLE SWIPE CARDS) */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between px-1">
                     <div className="flex items-center gap-1.5">
                       <Compass className="w-4 h-4 text-emerald-600" />
                       <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wide">
-                        Lacak Jejak Daur Ulang Sampahmu
+                        Lacak Jejak & Tiket Sampah
                       </h3>
                     </div>
-                    <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">
-                      Batch Aktif #849
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full">
+                        Tiket {jejakIndex + 1} dari {jejakTickets.length}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Stepper Timeline */}
-                  <div className="space-y-3 pt-1">
-                    {traceabilityData.map((step, idx) => (
-                      <div key={step.step} className="flex items-start gap-3 relative">
-                        {idx !== traceabilityData.length - 1 && (
-                          <div className="absolute left-3.5 top-6 bottom-0 w-0.5 bg-slate-200"></div>
-                        )}
-                        <div
-                          className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 z-10 ${
-                            step.status === 'completed'
-                              ? 'bg-emerald-600 text-white shadow-xs'
-                              : 'bg-emerald-100 text-emerald-800 ring-4 ring-emerald-50'
-                          }`}
-                        >
-                          {step.status === 'completed' ? '✓' : step.step}
-                        </div>
-                        <div className="flex-1 pb-1">
-                          <div className="flex items-center justify-between">
-                            <h4 className="text-xs font-bold text-slate-900">{step.title}</h4>
-                            <span className="text-[10px] text-slate-400">{step.date}</span>
+                  {/* Tinder Stack Container */}
+                  <div className="relative min-h-[390px] pt-1">
+                    {/* Background Stack Card (Preview of next card underneath) */}
+                    {jejakTickets.length > 1 && (
+                      <div
+                        className="absolute inset-x-2 top-3 bottom-0 bg-slate-50/90 rounded-3xl border border-slate-300/80 shadow-xs pointer-events-none transition-transform duration-300"
+                        style={{
+                          transform: 'scale(0.95) translateY(10px)',
+                          opacity: 0.65
+                        }}
+                      >
+                        <div className="p-5 opacity-40">
+                          <div className="flex justify-between items-center pb-2 border-b border-slate-200">
+                            <span className="text-xs font-bold text-slate-600">
+                              {jejakTickets[(jejakIndex + 1) % jejakTickets.length].title}
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-500">
+                              {jejakTickets[(jejakIndex + 1) % jejakTickets.length].code}
+                            </span>
                           </div>
-                          <p className="text-[11px] text-slate-500 mt-0.5">{step.desc}</p>
                         </div>
                       </div>
-                    ))}
+                    )}
+
+                    {/* Active Tinder Swipe Card */}
+                    {(() => {
+                      const currentTicket = jejakTickets[jejakIndex];
+                      return (
+                        <div
+                          onMouseDown={(e) => {
+                            if (e.button === 0) handleDragStart(e.clientX);
+                          }}
+                          onTouchStart={(e) => {
+                            if (e.touches && e.touches[0]) handleDragStart(e.touches[0].clientX);
+                          }}
+                          className="relative z-10 bg-white rounded-3xl p-5 border border-slate-200 shadow-lg shadow-slate-200/60 select-none touch-pan-y cursor-grab active:cursor-grabbing transition-shadow hover:shadow-xl"
+                          style={{
+                            transform: isDragging
+                              ? `translate3d(${dragOffset.x}px, ${Math.abs(dragOffset.x) * 0.05}px, 0) rotate(${dragOffset.x * 0.06}deg)`
+                              : 'none',
+                            transition: isDragging ? 'none' : 'transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2)'
+                          }}
+                        >
+                          {/* Tinder Swipe Stamp Overlays */}
+                          {swipeDirection === 'right' && (
+                            <div className="absolute top-4 right-4 z-30 bg-emerald-600 text-white font-extrabold text-[11px] tracking-wider px-3 py-1 rounded-full shadow-lg border-2 border-white rotate-6 pointer-events-none flex items-center gap-1">
+                              <span>BERIKUTNYA</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </div>
+                          )}
+                          {swipeDirection === 'left' && (
+                            <div className="absolute top-4 left-4 z-30 bg-indigo-600 text-white font-extrabold text-[11px] tracking-wider px-3 py-1 rounded-full shadow-lg border-2 border-white -rotate-6 pointer-events-none flex items-center gap-1">
+                              <ChevronLeft className="w-3.5 h-3.5" />
+                              <span>SEBELUMNYA</span>
+                            </div>
+                          )}
+
+                          {/* Card Header: Method & Status Badge */}
+                          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <div className="flex items-center gap-2">
+                              <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
+                                currentTicket.method === 'pickup'
+                                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                  : 'bg-teal-50 text-teal-700 border border-teal-200'
+                              }`}>
+                                {currentTicket.method === 'pickup' ? (
+                                  <Truck className="w-4 h-4" />
+                                ) : (
+                                  <Recycle className="w-4 h-4" />
+                                )}
+                              </div>
+                              <div>
+                                <span className="text-[10px] font-mono font-bold text-slate-400 block leading-tight">
+                                  {currentTicket.code}
+                                </span>
+                                <span className="text-xs font-bold text-slate-800 leading-tight">
+                                  {currentTicket.categoryBadge}
+                                </span>
+                              </div>
+                            </div>
+                            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
+                              {currentTicket.statusBadge}
+                            </span>
+                          </div>
+
+                          {/* Ticket Meta Details */}
+                          <div className="mt-3 bg-slate-50/80 rounded-2xl p-3 border border-slate-100 space-y-1.5">
+                            <h4 className="text-xs font-extrabold text-slate-900">
+                              {currentTicket.title}
+                            </h4>
+                            <div className="flex items-center justify-between text-[11px] text-slate-600">
+                              <span>Estimasi Nilai:</span>
+                              <span className="font-extrabold text-emerald-700 tabular-nums">
+                                {formatRupiah(currentTicket.estimatedValue)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between text-[11px] text-slate-600">
+                              <span>Lokasi / Petugas:</span>
+                              <span className="font-semibold text-slate-800 text-right truncate max-w-[180px]">
+                                {currentTicket.driver}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Stepper Timeline Lifecycle */}
+                          <div className="mt-3.5 space-y-3 pt-0.5">
+                            {currentTicket.steps.map((step, idx) => (
+                              <div key={step.step} className="flex items-start gap-3 relative">
+                                {idx !== currentTicket.steps.length - 1 && (
+                                  <div className="absolute left-3.5 top-6 bottom-0 w-0.5 bg-slate-200"></div>
+                                )}
+                                <div
+                                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 z-10 ${
+                                    step.status === 'completed'
+                                      ? 'bg-emerald-600 text-white shadow-xs'
+                                      : step.status === 'active'
+                                      ? 'bg-emerald-100 text-emerald-800 ring-4 ring-emerald-50 font-extrabold animate-pulse'
+                                      : 'bg-slate-100 text-slate-400'
+                                  }`}
+                                >
+                                  {step.status === 'completed' ? '✓' : step.step}
+                                </div>
+                                <div className="flex-1 pb-0.5">
+                                  <div className="flex items-center justify-between">
+                                    <h5 className="text-xs font-bold text-slate-900">{step.title}</h5>
+                                    <span className="text-[10px] text-slate-400">{step.date}</span>
+                                  </div>
+                                  <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">{step.desc}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Quick Action in Card */}
+                          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSimulatedTicket({
+                                  code: currentTicket.code,
+                                  date: currentTicket.pickupTime,
+                                  method: currentTicket.method === 'pickup' ? 'Minta Jemput Motor Tossa' : 'Antar Mandiri (Drop-off)',
+                                  partner: currentTicket.partner,
+                                  pickupAddress: currentTicket.location,
+                                  deliveryFee: currentTicket.fee || 0,
+                                  grossTotal: currentTicket.estimatedValue,
+                                  estimatedTotal: currentTicket.estimatedValue,
+                                  estimatedKg: 11,
+                                  items: []
+                                });
+                                setDepositTicketModal(true);
+                              }}
+                              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 active:scale-95 transition cursor-pointer"
+                            >
+                              <FileText className="w-3.5 h-3.5" />
+                              <span>Lihat Detail Tiket</span>
+                            </button>
+                            <span className="text-[10px] font-semibold text-slate-400">
+                              Geser kartu untuk ganti ↔
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Tinder Navigation Controls & Indicators */}
+                  <div className="flex items-center justify-between px-1 pt-1">
+                    <button
+                      type="button"
+                      onClick={handlePrevTicket}
+                      aria-label="Tiket Sebelumnya"
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center gap-1 active:scale-95 transition shadow-2xs cursor-pointer"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                      <span>Sebelumnya</span>
+                    </button>
+
+                    {/* Pagination Dots */}
+                    <div className="flex items-center gap-1.5">
+                      {jejakTickets.map((_, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setJejakIndex(i)}
+                          aria-label={`Pilih tiket ${i + 1}`}
+                          className={`transition-all duration-200 rounded-full cursor-pointer ${
+                            i === jejakIndex
+                              ? 'w-6 h-2 bg-emerald-600 shadow-xs'
+                              : 'w-2 h-2 bg-slate-300 hover:bg-slate-400'
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleNextTicket}
+                      aria-label="Tiket Berikutnya"
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center gap-1 active:scale-95 transition shadow-2xs cursor-pointer"
+                    >
+                      <span>Berikutnya</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
 
@@ -1119,9 +1491,9 @@ export default function App() {
                           {formatRupiah(calculateEstimatedDeposit().total)}
                         </p>
                       </div>
-                      <div className="flex items-center gap-1 bg-emerald-800/70 border border-emerald-600/50 px-2.5 py-1 rounded-full text-amber-300 text-xs font-bold shadow-2xs">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>+{Math.floor(calculateEstimatedDeposit().totalKg * 3.2)} Poin</span>
+                      <div className="flex items-center gap-1 bg-emerald-800/70 border border-emerald-600/50 px-2.5 py-1 rounded-full text-emerald-200 text-xs font-bold shadow-2xs">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
+                        <span>100% Sirkular</span>
                       </div>
                     </div>
 
@@ -2147,24 +2519,18 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Quick Metrics */}
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="bg-slate-50 rounded-xl p-2 border border-slate-100">
-                  <span className="text-[10px] text-slate-500 block">Saldo Aktif</span>
-                  <span className="text-xs font-bold text-emerald-700 truncate block">
+              {/* Quick Metrics (Pure Circular Value: Saldo & Kg Terpilah) */}
+              <div className="grid grid-cols-2 gap-2.5 text-center">
+                <div className="bg-emerald-50/70 rounded-2xl p-3 border border-emerald-100 shadow-2xs">
+                  <span className="text-[10px] font-semibold text-emerald-700 uppercase tracking-wider block">Saldo Daur Ulang</span>
+                  <span className="text-sm font-extrabold text-emerald-800 tabular-nums block mt-0.5">
                     {formatRupiah(walletBalance)}
                   </span>
                 </div>
-                <div className="bg-slate-50 rounded-xl p-2 border border-slate-100">
-                  <span className="text-[10px] text-slate-500 block">Daur Ulang</span>
-                  <span className="text-xs font-bold text-slate-800 block">
+                <div className="bg-slate-50 rounded-2xl p-3 border border-slate-200/80 shadow-2xs">
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">Total Terpilah</span>
+                  <span className="text-sm font-extrabold text-slate-800 tabular-nums block mt-0.5">
                     {totalKgRecycled} kg
-                  </span>
-                </div>
-                <div className="bg-slate-50 rounded-xl p-2 border border-slate-100">
-                  <span className="text-[10px] text-slate-500 block">Poin Hijau</span>
-                  <span className="text-xs font-bold text-amber-600 block">
-                    {greenPoints} Poin
                   </span>
                 </div>
               </div>
