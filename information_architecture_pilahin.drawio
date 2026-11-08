@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" modified="2026-11-01T13:00:00.000Z" agent="Pilahin-IA-Agent" version="21.6.8" type="device">
+  <diagram id="ia-pilahin" name="Information Architecture Pilah.in">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hdr" value="&lt;b&gt;ARSITEKTUR INFORMASI (INFORMATION ARCHITECTURE) — PILAH.IN&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:11px;color:#444444;'&gt;Struktur Hierarki Halaman, Navigasi Menu, dan Pengorganisasian Fitur Sistem&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="400" y="15" width="800" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="root_app" value="&lt;b&gt;PLATFORM PILAH.IN&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#444444;'&gt;Web Application (Mobile-First)&lt;/span&gt;" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="680" y="75" width="240" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_public" value="&lt;b&gt;1. AREA PUBLIK &amp;amp; TAMU&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:9px;color:#444444;'&gt;Landing Page &amp;amp; Autentikasi&lt;/span&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.8;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="110" y="160" width="240" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="e_r_pub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="root_app" target="l1_public" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_citizen" value="&lt;b&gt;2. APLIKASI UTAMA WARGA&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:9px;color:#444444;'&gt;Navigasi 5 Tab Pengguna Penyetor&lt;/span&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.8;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="680" y="160" width="240" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="e_r_cit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="root_app" target="l1_citizen" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_mitra" value="&lt;b&gt;3. PORTAL MITRA PENGELOLA&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:9px;color:#444444;'&gt;Bank Sampah, TPS3R &amp;amp; Unit Daur Ulang&lt;/span&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.8;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="160" width="250" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="e_r_mit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="root_app" target="l1_mitra" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pub_landing" value="Halaman Landing&lt;br&gt;&amp;amp; Visi Sirkular" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pub_reg" value="Formulir Registrasi&lt;br&gt;&amp;amp; Verifikasi OTP" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="390" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pub_login" value="Formulir Login &amp;amp;&lt;br&gt;Lupa Kata Sandi" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="560" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_p1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_public" target="pub_landing" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_p2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_public" target="pub_reg" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_p3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_public" target="pub_login" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_l1" value="• 4 Alur Sirkular (Pilah-Jemput-Uang)&lt;br&gt;• Perbandingan Solusi Nilai Nyata&lt;br&gt;• Daftar Harga Komoditas Sampah&lt;br&gt;• Call-to-Action Daftar Warga" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="295" width="160" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_r1" value="• Pilihan Peran (Warga / Mitra)&lt;br&gt;• Input Nama, WhatsApp, Kata Sandi&lt;br&gt;• Input 6 Digit OTP WhatsApp&lt;br&gt;• Input Alamat &amp;amp; Patokan Rumah&lt;br&gt;• Pembuatan 6 Digit PIN Transaksi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="435" width="160" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_lg1" value="• Input No. WhatsApp / Email&lt;br&gt;• Input Kata Sandi Akun&lt;br&gt;• Fitur Pemulihan Lupa Sandi&lt;br&gt;• Verifikasi OTP Reset Sandi&lt;br&gt;• Input Kata Sandi Baru" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="605" width="160" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_home" value="Tab Beranda&lt;br&gt;(Home Feed)" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="280" y="250" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_tab_home" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_citizen" target="tab_home" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_tab_home" value="• Saldo Mengendap Siap Tarik&lt;br&gt;• Banner Visi Ekonomi Sirkular&lt;br&gt;• Lacak Status Tiket Penjemputan&lt;br&gt;• Kartu Tinder Edukasi Sampah&lt;br&gt;• Info Jadwal Mitra Terdekat" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="280" y="295" width="170" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_ai" value="Tab SnapSort AI&lt;br&gt;(Scanner Kamera)" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="470" y="250" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_tab_ai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_citizen" target="tab_ai" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_tab_ai" value="• Antarmuka Kamera Realtime&lt;br&gt;• Tombol Pindai Sampah&lt;br&gt;• Deteksi Jenis (PET, Kardus, dll)&lt;br&gt;• Peringatan Limbah B3 / Oli&lt;br&gt;• Tombol Auto-Prefill ke Setor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="470" y="295" width="170" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_setor" value="Tab Setor Sampah&lt;br&gt;(Formulir Tiket)" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="660" y="250" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_tab_setor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_citizen" target="tab_setor" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_tab_setor" value="• Katalog Jenis Sampah (PET, Jelantah)&lt;br&gt;• Stepper Berat Realtime (kg)&lt;br&gt;• Pilihan: Jemput Armada (Ongkir 10%)&lt;br&gt;• Pilihan: Drop-off Mandiri (0%)&lt;br&gt;• Pilih Alamat Jemput &amp; Patokan&lt;br&gt;• Penerbitan Tiket QR PLH-XXXXXX" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="660" y="295" width="170" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_toko" value="Tab Toko Sirkular&lt;br&gt;(Produk Upcycle)" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="850" y="250" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_tab_toko" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_citizen" target="tab_toko" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_tab_toko" value="• Katalog Pupuk Kompos Olahan&lt;br&gt;• Produk Upcycle &amp; Daur Ulang&lt;br&gt;• Detail Harga &amp; Stok Kompos&lt;br&gt;• Pembayaran Potong Saldo Dompet&lt;br&gt;• Otorisasi PIN Transaksi 6 Digit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="850" y="295" width="170" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="tab_dompet" value="Tab Dompet&lt;br&gt;(Pencairan Tunai)" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="250" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_tab_dompet" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_citizen" target="tab_dompet" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_tab_dompet" value="• Total Saldo Mengendap (Rupiah)&lt;br&gt;• Pilihan E-Wallet (GoPay / DANA)&lt;br&gt;• Input Nominal Tarik (Min 10k)&lt;br&gt;• Verifikasi PIN Transaksi 6 Digit&lt;br&gt;• 0% Biaya Admin Pencairan&lt;br&gt;• Riwayat Mutasi Kredit &amp; Debit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="295" width="170" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="mit_weigh" value="Portal Penimbangan&lt;br&gt;&amp;amp; Verifikasi Tiket" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="250" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_m1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_mitra" target="mit_weigh" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_m1" value="• Input Nomor Tiket PLH-XXXXXX&lt;br&gt;• Input Bobot Timbangan Riil (kg)&lt;br&gt;• Verifikasi Kesesuaian Sampah&lt;br&gt;• Otomasi Kredit Saldo ke Warga&lt;br&gt;• Pembaruan Status Tiket Selesai" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="295" width="190" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="mit_rekap" value="Dasbor Operasional&lt;br&gt;&amp;amp; Logistik Mitra" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="420" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_m2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;endArrow=classic;endFill=1;" edge="1" source="l1_mitra" target="mit_rekap" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sub_m2" value="• Total Volume Sampah Diterima&lt;br&gt;• Kas Operasional Armada Jemput (10%)&lt;br&gt;• Inventaris Pupuk Kompos Daur Ulang&lt;br&gt;• Rekapitulasi Penyetoran Warga" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1;fontColor=#222222;fontSize=9;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="465" width="190" height="85" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

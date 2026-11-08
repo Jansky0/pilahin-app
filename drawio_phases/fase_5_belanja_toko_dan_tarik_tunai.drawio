@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" modified="2026-10-31T15:00:00.000Z" agent="Pilahin-Monochrome-Agent" version="21.6.8" type="device">
+  <diagram id="p" name="Fase 5: Belanja Toko &amp; Tarik Tunai">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="980" pageHeight="720" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p5_hdr" value="&lt;b style='font-size:15px;'&gt;FASE 5: PEMANFAATAN SALDO LIKUID WARGA&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:11px;color:#333333;'&gt;Pilihan Belanja Produk Hasil Olahan Bank Sampah atau Penarikan Uang Asli ke GoPay/DANA&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="15" width="750" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_start" value="Mulai: Saldo Mengendap di Dompet" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="370" y="75" width="200" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_dec_use" value="Pilihan Pemanfaatan&lt;br&gt;Saldo Mengendap?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="395" y="135" width="150" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_start" target="p5_dec_use" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_open_store" value="&lt;b&gt;Buka Tab 'Toko Sirkular'&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Lihat katalog produk upcycle olahan sampah&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="150" y="215" width="200" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e2" value="Belanja Produk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_use" target="p5_open_store" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_pick_item" value="&lt;b&gt;Pilih Pupuk Kompos (Rp 18.000)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Pilih pupuk olahan organik warga &amp; klik beli&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="150" y="280" width="200" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_open_store" target="p5_pick_item" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_dec_store_bal" value="Saldo Mengendap&lt;br&gt;&gt;= Rp 18.000?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="175" y="345" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_pick_item" target="p5_dec_store_bal" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_err_store_bal" value="&lt;b&gt;Pesan: Saldo Tidak Cukup&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Setorkan sampah lebih banyak untuk menambah saldo&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="10" y="350" width="145" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e5" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_store_bal" target="p5_err_store_bal" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_pin_store" value="&lt;b&gt;Input PIN Transaksi 6 Digit&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Verifikasi keamanan pemotongan saldo belanja&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="150" y="420" width="200" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e6" value="Cukup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_store_bal" target="p5_pin_store" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_store_success" value="&lt;b&gt;Pembelian Selesai (Sirkular)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Saldo terpotong Rp 18.000 &amp; produk kompos diserahkan&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="150" y="485" width="200" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_pin_store" target="p5_store_success" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_open_wallet" value="&lt;b&gt;Buka Tab 'Dompet' (Tarik Tunai)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Akses formulir pencairan dana ke e-wallet&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="590" y="215" width="200" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e8" value="Tarik Tunai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_use" target="p5_open_wallet" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_input_cashout" value="&lt;b&gt;Pilih E-Wallet &amp; Nominal&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Pilih GoPay/DANA, nominal Rp 50.000, &amp; ketik no HP&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="590" y="280" width="200" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_open_wallet" target="p5_input_cashout" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_dec_min" value="Nominal &gt;= 10k &amp;&lt;br&gt;No HP Valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="615" y="345" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_input_cashout" target="p5_dec_min" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_err_min" value="&lt;b&gt;Pesan: Minimal Rp 10.000&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Pastikan nomor HP benar dan nominal minimal terpenuhi&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="810" y="350" width="140" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e11" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_min" target="p5_err_min" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e11_loop" value="Perbaiki" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;dashed=1;" edge="1" source="p5_err_min" target="p5_input_cashout" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_dec_cash_bal" value="Saldo Mengendap&lt;br&gt;&gt;= Rp 50.000?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="615" y="420" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e12" value="Valid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_min" target="p5_dec_cash_bal" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_err_cash_bal" value="&lt;b&gt;Pesan: Saldo Tidak Cukup&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Saldo mengendap lebih kecil dari nominal penarikan&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="810" y="425" width="140" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e13" value="Kurang" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_cash_bal" target="p5_err_cash_bal" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_pin_cash" value="&lt;b&gt;Input PIN Transaksi 6 Digit&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Verifikasi keamanan pencairan dana e-wallet&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="590" y="495" width="200" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e14" value="Cukup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_dec_cash_bal" target="p5_pin_cash" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_cash_success" value="&lt;b&gt;Uang Cair ke E-Wallet Warga&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Saldo terpotong Rp 50.000 (0% biaya admin)&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="590" y="560" width="200" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_pin_cash" target="p5_cash_success" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_end" value="Selesai: Dampak Ekologi &amp; Finansial Nyata" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="355" y="645" width="230" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_store_success" target="p5_end" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5_e17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p5_cash_success" target="p5_end" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

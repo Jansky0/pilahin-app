@@ -43,21 +43,79 @@ import {
   HelpCircle,
   ShieldCheck,
   Eye,
-  Sliders
+  Sliders,
+  BookOpen,
+  LogIn,
+  LogOut,
+  UserPlus,
+  User,
+  Key
 } from 'lucide-react';
+import LandingScreen from './components/LandingScreen';
+import LoginScreen from './components/LoginScreen';
+import RegisterScreen from './components/RegisterScreen';
+import AddressSection from './components/AddressSection';
 
 export default function App() {
-  // Navigation & Viewport State
+  // Navigation & Screen Viewport State
+  const [currentScreen, setCurrentScreen] = useState('app'); // 'app' | 'landing' | 'login' | 'register'
   const [activeTab, setActiveTab] = useState('home'); // home, setor, toko, snapsort, dompet
   const [appRole, setAppRole] = useState('warga'); // 'warga' (penyetor) or 'mitra' (pengelola bank sampah)
   const [notification, setNotification] = useState(null);
   const [showNotificationDrawer, setShowNotificationDrawer] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
 
+  // Auth State
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // default true for immediate demo access
+
   // User & Wallet State
+  const [currentUser, setCurrentUser] = useState({
+    id: 'usr-raka',
+    name: 'Raka Pradipta',
+    email: 'raka@pilahin.id',
+    phone: '0812-3456-7890',
+    role: 'warga',
+    avatar: 'RP',
+    userRank: 'Pahlawan Hijau Level 3'
+  });
   const [walletBalance, setWalletBalance] = useState(148500);
   const [totalKgRecycled, setTotalKgRecycled] = useState(24.5);
   const [userRank, setUserRank] = useState('Pahlawan Hijau Level 3');
+
+  // Saved Addresses State
+  const [savedAddresses, setSavedAddresses] = useState([
+    {
+      id: 'addr-1',
+      label: 'Rumah',
+      recipient: 'Raka Pradipta',
+      phone: '0812-3456-7890',
+      street: 'Jl. Cemara No. 14, RT 03/RW 05',
+      subDistrict: 'Cilandak Barat, Jakarta Selatan',
+      benchmark: 'Pagar hitam depan warung Bu Titin, sampah di teras depan',
+      isDefault: true
+    },
+    {
+      id: 'addr-2',
+      label: 'Kantor',
+      recipient: 'Raka Pradipta',
+      phone: '0812-3456-7890',
+      street: 'Gedung Hijau Lestari Lt. 3, Jl. TB Simatupang No. 88',
+      subDistrict: 'Cilandak, Jakarta Selatan',
+      benchmark: 'Titip di Pos Satpam Pintu Barat',
+      isDefault: false
+    },
+    {
+      id: 'addr-3',
+      label: 'Kos',
+      recipient: 'Raka Pradipta',
+      phone: '0812-3456-7890',
+      street: 'Jl. Madrasah No. 5',
+      subDistrict: 'Cilandak, Jakarta Selatan',
+      benchmark: 'Kamar No. 12 Lantai 1',
+      isDefault: false
+    }
+  ]);
+  const [activeAddress, setActiveAddress] = useState(savedAddresses[0]);
 
   // Transactions Ledger State
   const [transactions, setTransactions] = useState([
@@ -435,6 +493,25 @@ export default function App() {
     showToast('Kembali ke Akun Warga');
   };
 
+  // Auth Handlers
+  const handleLoginSuccess = (user) => {
+    setCurrentUser(user);
+    setIsAuthenticated(true);
+    setAppRole(user.role || 'warga');
+    setCurrentScreen('app');
+    if (user.primaryAddress) {
+      const fullStr = `${user.primaryAddress} (${user.name} - ${user.phone})`;
+      setPickupAddress(fullStr);
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setShowProfileModal(false);
+    setCurrentScreen('landing');
+    showToast('Anda telah keluar dari akun.');
+  };
+
   // Deposit Total Calculation (with 10% delivery fee calculation for pickup)
   const calculateEstimatedDeposit = () => {
     let grossTotal = 0;
@@ -459,12 +536,19 @@ export default function App() {
       showToast('Pilih minimal satu kategori sampah yang akan disetor!');
       return;
     }
+    if (depositMethod === 'pickup' && (!pickupAddress || !pickupAddress.trim())) {
+      showToast('Mohon lengkapi alamat penjemputan sampah terlebih dahulu!');
+      return;
+    }
     const ticket = {
       code: 'PLH-' + Math.floor(100000 + Math.random() * 900000),
       date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
       method: depositMethod === 'pickup' ? 'Minta Jemput Motor Tossa' : 'Antar Mandiri (Drop-off)',
       partner: selectedPartner,
       pickupAddress: depositMethod === 'pickup' ? pickupAddress : selectedPartner,
+      recipientName: currentUser?.name || 'Raka Pradipta',
+      recipientPhone: currentUser?.phone || '0812-3456-7890',
+      benchmark: activeAddress?.benchmark || 'Teras depan rumah',
       deliveryFee,
       grossTotal,
       estimatedTotal: total,
@@ -702,61 +786,7 @@ export default function App() {
   return (
     <div className="bg-slate-100 min-h-dvh flex justify-center selection:bg-emerald-500 selection:text-white font-sans">
       {/* Responsive Mobile Container (360px - 430px max-w-md) */}
-      <div className="w-full max-w-md mx-auto min-h-dvh bg-slate-50 relative flex flex-col shadow-xl overflow-x-hidden pb-24">
-        {/* Top Header: Clean Citizen Header OR Dedicated Partner Header */}
-        <header className="w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 flex items-center justify-between px-4 py-2.5 text-xs">
-          {appRole === 'warga' ? (
-            <>
-              {/* Citizen Header: Clean Logo Brand */}
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-xs shadow-emerald-500/20">
-                  <Recycle className="w-4 h-4" />
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-sm tracking-tight text-slate-900">
-                    Pilah<span className="text-emerald-600">.in</span>
-                  </span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                </div>
-              </div>
-
-              {/* Citizen Header: Eco Badge & Profile Avatar */}
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 rounded-full text-[11px] text-emerald-700 font-bold shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  <span>Warga Terverifikasi</span>
-                </div>
-                <button
-                  onClick={() => setShowProfileModal(true)}
-                  className="w-8 h-8 rounded-full bg-emerald-700 hover:bg-emerald-800 border border-emerald-600 text-white flex items-center justify-center text-xs font-bold transition shadow-xs hover:scale-105 active:scale-95 cursor-pointer"
-                  title="Buka Profil Warga"
-                  aria-label="Profil Warga"
-                >
-                  RP
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              {/* Mitra Header: Prominent Back to Citizen Account */}
-              <button
-                onClick={handleSwitchToCitizen}
-                className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs active:scale-95 group cursor-pointer"
-                aria-label="Kembali ke Akun Warga"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 text-emerald-600 group-hover:-translate-x-0.5 transition" />
-                <span>← Kembali ke Akun Warga</span>
-              </button>
-
-              {/* Mitra Header: Partner Badge */}
-              <div className="flex items-center gap-2 text-amber-700 font-bold text-xs bg-amber-50 border border-amber-200/80 px-2.5 py-1 rounded-full">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                <span>Portal Mitra RW 05</span>
-              </div>
-            </>
-          )}
-        </header>
-
+      <div className={`w-full max-w-md mx-auto min-h-dvh bg-slate-50 relative flex flex-col shadow-xl overflow-x-hidden ${currentScreen === 'app' ? 'pb-24' : ''}`}>
         {/* Global Toast Notification */}
         {notification && (
           <div
@@ -771,23 +801,226 @@ export default function App() {
           </div>
         )}
 
-        {/* Main Content Viewport */}
-        <main className="flex-1 flex flex-col text-slate-900">
+        {/* SCREEN 1: DEDICATED FULL-PAGE OPENING & DESKRIPSI SINGKAT */}
+        {currentScreen === 'landing' && (
+          <LandingScreen
+            onNavigateLogin={() => setCurrentScreen('login')}
+            onNavigateRegister={() => setCurrentScreen('register')}
+            onEnterApp={() => setCurrentScreen('app')}
+            wastePrices={wastePrices}
+            formatRupiah={formatRupiah}
+          />
+        )}
 
-        {/* VIEW 1: MODE WARGA (CONSUMER EXPERIENCE) */}
-        {appRole === 'warga' && (
-          <div className="flex-1 overflow-y-auto pb-24 px-4 pt-1 space-y-4">
-            {/* TAB 1: BERANDA (HOME) */}
-            {activeTab === 'home' && (
-              <div className="space-y-4">
+        {/* SCREEN 2: DEDICATED FULL-PAGE LOGIN SCREEN (NO POPUP) */}
+        {currentScreen === 'login' && (
+          <LoginScreen
+            onLoginSuccess={(user) => {
+              handleLoginSuccess(user);
+            }}
+            onNavigateRegister={() => setCurrentScreen('register')}
+            onNavigateLanding={() => setCurrentScreen('landing')}
+            showToast={showToast}
+          />
+        )}
+
+        {/* SCREEN 3: DEDICATED FULL-PAGE REGISTER SCREEN (NO POPUP) */}
+        {currentScreen === 'register' && (
+          <RegisterScreen
+            onRegisterSuccess={(newUser) => {
+              handleLoginSuccess(newUser);
+            }}
+            onNavigateLogin={() => setCurrentScreen('login')}
+            onNavigateLanding={() => setCurrentScreen('landing')}
+            showToast={showToast}
+          />
+        )}
+
+        {/* SCREEN 4: MAIN APPLICATION DASHBOARD (WARGA & MITRA) */}
+        {currentScreen === 'app' && (
+          <>
+            {/* Top Header: Clean Citizen Header OR Dedicated Partner Header */}
+            <header className="w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 flex items-center justify-between px-4 py-2.5 text-xs">
+              {appRole === 'warga' ? (
+                <>
+                  {/* Citizen Header: Clean Logo Brand */}
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-xs shadow-emerald-500/20">
+                      <Recycle className="w-4 h-4" />
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-extrabold text-sm tracking-tight text-slate-900">
+                        Pilah<span className="text-emerald-600">.in</span>
+                      </span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    </div>
+                  </div>
+
+                  {/* Citizen Header: Eco Badge & Profile Avatar */}
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setCurrentScreen('landing')}
+                      className="flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/80 px-2 py-1 rounded-full text-[11px] font-bold transition cursor-pointer shadow-2xs active:scale-95"
+                      title="Buka Panduan & Deskripsi Singkat Pilah.in"
+                    >
+                      <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Panduan</span>
+                    </button>
+                    <div className="hidden xs:flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 rounded-full text-[11px] text-emerald-700 font-bold shadow-2xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      <span>Warga Terverifikasi</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowProfileModal(true)}
+                      className="w-8 h-8 rounded-full bg-emerald-700 hover:bg-emerald-800 border border-emerald-600 text-white flex items-center justify-center text-xs font-bold transition shadow-xs hover:scale-105 active:scale-95 cursor-pointer"
+                      title="Buka Profil Warga"
+                      aria-label="Profil Warga"
+                    >
+                      {currentUser?.avatar || 'RP'}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Mitra Header: Prominent Back to Citizen Account */}
+                  <button
+                    onClick={handleSwitchToCitizen}
+                    className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs active:scale-95 group cursor-pointer"
+                    aria-label="Kembali ke Akun Warga"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5 text-emerald-600 group-hover:-translate-x-0.5 transition" />
+                    <span>← Kembali ke Akun Warga</span>
+                  </button>
+
+                  {/* Mitra Header: Partner Badge */}
+                  <div className="flex items-center gap-2 text-amber-700 font-bold text-xs bg-amber-50 border border-amber-200/80 px-2.5 py-1 rounded-full">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                    <span>Portal Mitra RW 05</span>
+                  </div>
+                </>
+              )}
+            </header>
+
+            {/* Main Content Viewport */}
+            <main className="flex-1 flex flex-col text-slate-900">
+              {/* VIEW 1: MODE WARGA (CONSUMER EXPERIENCE) */}
+              {appRole === 'warga' && (
+                <div className="flex-1 overflow-y-auto pb-24 px-4 pt-1 space-y-4">
+                  {/* TAB 1: BERANDA (HOME) */}
+                  {activeTab === 'home' && (
+                    <div className="space-y-4">
+                      {/* Welcoming Opening / Panduan Banner */}
+                      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-100/70 border border-emerald-200/90 rounded-2xl p-3 flex items-center justify-between gap-3 shadow-2xs">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                            <BookOpen className="w-4 h-4" />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className="text-xs font-extrabold text-slate-900 truncate">
+                              Panduan &amp; Deskripsi Alur Pilah.in
+                            </h4>
+                            <p className="text-[10px] text-slate-600 truncate">
+                              Pilah di rumah ➔ Jemput motor Tossa ➔ Saldo rupiah likuid
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentScreen('landing')}
+                          className="text-[11px] font-bold text-emerald-800 bg-white hover:bg-emerald-50 px-2.5 py-1.5 rounded-xl border border-emerald-200/80 transition flex-shrink-0 shadow-2xs cursor-pointer flex items-center gap-1 active:scale-95"
+                        >
+                          <span>Panduan</span>
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+
+                      {/* PROMINENT ON-PAGE DESKRIPSI SINGKAT & VISI PILAH.IN CARD */}
+                      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-xs space-y-3">
+                        <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                          <div className="flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                              <Recycle className="w-4 h-4" />
+                            </div>
+                            <div>
+                              <h2 className="text-xs font-extrabold text-slate-900">
+                                Tentang &amp; Deskripsi Singkat Pilah.in
+                              </h2>
+                              <p className="text-[10px] text-slate-500">Platform ekonomi sirkular sampah tertutup</p>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setCurrentScreen('landing')}
+                            className="text-[10px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-0.5 cursor-pointer"
+                          >
+                            <span>Buka Halaman Lengkap</span>
+                            <ChevronRight className="w-3 h-3" />
+                          </button>
+                        </div>
+
+                        <p className="text-xs text-slate-700 leading-relaxed">
+                          <strong>Pilah.in</strong> adalah platform ekonomi sirkular dua sisi (*two-sided circular ecosystem*) yang menghubungkan warga pemilah sampah dengan Bank Sampah RW &amp; TPS3R lokal secara langsung.
+                        </p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                          <div className="bg-rose-50/70 border border-rose-200/70 rounded-2xl p-2.5 space-y-1">
+                            <div className="font-bold text-rose-800 flex items-center gap-1">
+                              <span>❌ Masalah yang Dipecahkan:</span>
+                            </div>
+                            <p className="text-rose-900 leading-snug">
+                              Warga malas memilah karena repot antar &amp; tidak ada nilai tunai nyata. Bank Sampah RW kekurangan pasokan sampah bersih &amp; kesulitan menjual pupuk kompos olahannya.
+                            </p>
+                          </div>
+
+                          <div className="bg-emerald-50/70 border border-emerald-200/70 rounded-2xl p-2.5 space-y-1">
+                            <div className="font-bold text-emerald-800 flex items-center gap-1">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                              <span>✅ Solusi Sirkular Pilah.in:</span>
+                            </div>
+                            <p className="text-emerald-900 leading-snug">
+                              Armada motor Tossa jemput ke teras rumah, timbang digital transparan, dan terima saldo uang tunai Rupiah asli (bukan koin fiktif) yang bisa ditarik tunai atau dibelanjakan produk mitra.
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* 4 Langkah Alur Sirkular Mini Card */}
+                        <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 space-y-2">
+                          <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block">
+                            4 Langkah Alur Sirkular Tertutup
+                          </span>
+                          <div className="grid grid-cols-4 gap-1.5 text-center text-[10px]">
+                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
+                              <div className="font-bold text-slate-900">1. Pilah</div>
+                              <div className="text-slate-500 text-[9px] mt-0.5">Di rumah</div>
+                            </div>
+                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
+                              <div className="font-bold text-slate-900">2. Jemput</div>
+                              <div className="text-slate-500 text-[9px] mt-0.5">Motor Tossa</div>
+                            </div>
+                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
+                              <div className="font-bold text-slate-900">3. Timbang</div>
+                              <div className="text-slate-500 text-[9px] mt-0.5">Saldo tunai</div>
+                            </div>
+                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
+                              <div className="font-bold text-slate-900">4. Belanja</div>
+                              <div className="text-slate-500 text-[9px] mt-0.5">Kompos/Tunai</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                 {/* Header Greeting & Notification */}
-                <div className="flex items-center justify-between pt-1">
+                <div className="flex items-center justify-between pt-0.5">
                   <div>
                     <div className="flex items-center gap-1 text-[11px] text-slate-500 font-semibold">
                       <span>Kelurahan Cilandak Barat</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
-                    <h1 className="text-lg font-extrabold text-slate-900">Halo, Raka Pradipta 👋</h1>
+                    <h1 className="text-lg font-extrabold text-slate-900">
+                      Halo, {currentUser?.name || 'Raka Pradipta'} 👋
+                    </h1>
                   </div>
                   <div className="flex items-center gap-2">
                     <button
@@ -803,7 +1036,7 @@ export default function App() {
                       title="Buka Profil Warga"
                       aria-label="Profil Warga"
                     >
-                      RP
+                      {currentUser?.avatar || 'RP'}
                     </button>
                   </div>
                 </div>
@@ -1532,50 +1765,18 @@ export default function App() {
                 )}
 
                 {/* Dynamic Address / Location Card (Switches between Alamat Jemput and Lokasi Pengepul) */}
-                {depositMethod === 'pickup' ? (
-                  <div className="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div className="flex items-start gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <MapPin className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Alamat Jemput:</p>
-                        <p className="text-xs font-bold text-slate-900 mt-0.5 leading-snug">{pickupAddress}</p>
-                        <p className="text-[10px] text-emerald-700 mt-0.5">Motor Tossa jemput &amp; timbang di alamat ini</p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setTempAddress(pickupAddress);
-                        setShowAddressModal(true);
-                      }}
-                      className="text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-xl border border-emerald-200 transition cursor-pointer active:scale-95 flex-shrink-0"
-                    >
-                      Ubah
-                    </button>
-                  </div>
-                ) : (
-                  <div className="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div className="flex items-start gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Building2 className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Lokasi Pengepul / Drop-off:</p>
-                        <p className="text-xs font-bold text-slate-900 mt-0.5 leading-snug">{selectedPartner}</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">Bawa sampahmu ke pos ini • Ditimbang di timbangan pos mitra</p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setShowPartnerSelectModal(true)}
-                      className="text-xs font-bold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-xl border border-teal-200 transition cursor-pointer active:scale-95 flex-shrink-0"
-                    >
-                      Ganti
-                    </button>
-                  </div>
-                )}
+                <AddressSection
+                  depositMethod={depositMethod}
+                  pickupAddress={pickupAddress}
+                  setPickupAddress={setPickupAddress}
+                  activeAddress={activeAddress}
+                  setActiveAddress={setActiveAddress}
+                  savedAddresses={savedAddresses}
+                  setSavedAddresses={setSavedAddresses}
+                  selectedPartner={selectedPartner}
+                  onOpenPartnerSelect={() => setShowPartnerSelectModal(true)}
+                  showToast={showToast}
+                />
 
                 {/* Primary Action Button (Contains 'Buat Tiket' for test compatibility) */}
                 <button
@@ -2507,11 +2708,15 @@ export default function App() {
               {/* User Identity Card */}
               <div className="flex items-center gap-3.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center text-base font-bold shadow-sm shadow-emerald-600/30">
-                  RP
+                  {currentUser?.avatar || 'RP'}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="text-sm font-extrabold text-slate-900 truncate">Raka Pradipta</h4>
-                  <p className="text-[11px] text-slate-500 truncate">Kelurahan Cilandak Barat • RW 05</p>
+                  <h4 className="text-sm font-extrabold text-slate-900 truncate">
+                    {currentUser?.name || 'Raka Pradipta'}
+                  </h4>
+                  <p className="text-[11px] text-slate-500 truncate">
+                    {currentUser?.email || 'raka@pilahin.id'} • {currentUser?.phone || '0812-3456-7890'}
+                  </p>
                   <div className="inline-flex items-center gap-1 mt-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
                     <ShieldCheck className="w-3 h-3 text-emerald-600" />
                     <span>{userRank}</span>
@@ -2580,6 +2785,87 @@ export default function App() {
                   </div>
                 </div>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
+              </button>
+
+              {/* Panduan & Deskripsi Alur (Landing Screen) */}
+              <button
+                type="button"
+                onClick={() => {
+                  setShowProfileModal(false);
+                  setCurrentScreen('landing');
+                }}
+                className="w-full text-left bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-200 text-emerald-800 flex items-center justify-center font-bold">
+                    <BookOpen className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-emerald-950">Panduan &amp; Deskripsi Alur</div>
+                    <p className="text-[10px] text-emerald-700">Pelajari cara kerja ekonomi sirkular Pilah.in</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-emerald-600" />
+              </button>
+
+              {/* Halaman Masuk (Login) */}
+              <button
+                type="button"
+                onClick={() => {
+                  setShowProfileModal(false);
+                  setCurrentScreen('login');
+                }}
+                className="w-full text-left bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+                    <LogIn className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-slate-800">Halaman Masuk (Login)</div>
+                    <p className="text-[10px] text-slate-500">Beralih akun atau login dengan kredensial lain</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400" />
+              </button>
+
+              {/* Halaman Daftar (Register) */}
+              <button
+                type="button"
+                onClick={() => {
+                  setShowProfileModal(false);
+                  setCurrentScreen('register');
+                }}
+                className="w-full text-left bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+                    <UserPlus className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-slate-800">Halaman Daftar (Register)</div>
+                    <p className="text-[10px] text-slate-500">Daftarkan akun warga atau mitra baru</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400" />
+              </button>
+
+              {/* Keluar / Ganti Akun */}
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="w-full text-left bg-rose-50 hover:bg-rose-100 border border-rose-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs text-rose-800 font-bold cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-rose-200 text-rose-800 flex items-center justify-center">
+                    <LogOut className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <div>Keluar / Ganti Akun</div>
+                    <p className="text-[10px] text-rose-600 font-normal">Beralih ke akun warga lain atau daftar baru</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-rose-400" />
               </button>
             </div>
           </div>
@@ -2769,6 +3055,9 @@ export default function App() {
               </button>
             </div>
           </div>
+        )}
+
+          </>
         )}
       </div>
     </div>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" modified="2026-10-31T14:45:00.000Z" agent="Pilahin-Single-Task-Agent" version="21.6.8" type="device">
+  <diagram id="t9_verifikasi_mitra" name="Tugas 9 - Verifikasi Mitra">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hdr" value="&lt;b&gt;TUGAS 9: VERIFIKASI TIMBANGAN &amp; TIKET OLEH MITRA&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:12px;font-weight:normal;color:#64748b;'&gt;Tugasan Tunggal: Pengurus Bank Sampah RW Memverifikasi Tiket &amp; Input Bobot Timbangan Riil&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;fontColor=#065f46;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="600" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="start" value="MULAI TUGAS" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;strokeWidth=2;fontColor=#ffffff;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="180" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="scr" value="&lt;b&gt;LAYAR:&lt;/b&gt;&lt;br&gt;Portal Mitra Pengelola RW 05" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=2;fontColor=#0f172a;fontSize=11;fontStyle=0;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="210" y="170" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontSize=10;fontColor=#059669;fontStyle=1;endArrow=classic;endFill=1;" edge="1" source="start" target="scr" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="act" value="&lt;b&gt;AKSI PENGGUNA:&lt;/b&gt;&lt;br&gt;1. Buka Portal Mitra RW 05&lt;br&gt;2. Ketik Kode Tiket Warga (PLH-386477)&lt;br&gt;3. Ketik Bobot Riil Timbangan Digital (11 kg)&lt;br&gt;4. Klik 'Verifikasi &amp; Selesaikan Timbangan'" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ffffff;strokeColor=#0284c7;strokeWidth=1.5;fontColor=#0f172a;fontSize=11;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="450" y="155" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontSize=10;fontColor=#059669;fontStyle=1;endArrow=classic;endFill=1;" edge="1" source="scr" target="act" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dec" value="Kode Tiket Valid &amp;&lt;br&gt;Bobot Riil Terisi?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;fontColor=#92400e;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="165" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#059669;strokeWidth=2;fontSize=10;fontColor=#059669;fontStyle=1;endArrow=classic;endFill=1;" edge="1" source="act" target="dec" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hp" value="&lt;b style='color:#14532d;'&gt;✅ HAPPY PATH: Saldo Warga Terkredit&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#166534;'&gt;Saldo tunai masuk ke dompet warga seketika (+Rp 22.410), stok sampah RW bertambah, tiket selesai.&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=2;fontColor=#14532d;fontSize=11;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="970" y="120" width="260" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="e_hp" value="YA / VALID" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#16a34a;strokeWidth=2.5;fontSize=10;fontColor=#16a34a;fontStyle=1;endArrow=classic;endFill=1;" edge="1" source="dec" target="hp" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="end_hp" value="Penyetoran Tuntas 100%" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#16a34a;strokeColor=#15803d;strokeWidth=2;fontColor=#ffffff;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="137" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_hp_end" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#16a34a;strokeWidth=2;fontSize=10;fontColor=#16a34a;fontStyle=1;endArrow=classic;endFill=1;" edge="1" source="hp" target="end_hp" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sp" value="&lt;b style='color:#9f1239;'&gt;❌ SAD PATH: Kode Tiket Tidak Ditemukan&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#881337;'&gt;Pesan 'Tiket tidak ditemukan / Kode tidak valid'. Mitra diminta memeriksa ejaan kode tiket warga.&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ffe4e6;strokeColor=#e11d48;strokeWidth=2;fontColor=#9f1239;fontSize=11;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="705" y="300" width="260" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sp" value="TIDAK / GAGAL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#e11d48;strokeWidth=2;fontSize=10;fontColor=#e11d48;fontStyle=1;endArrow=classic;endFill=1;" edge="1" source="dec" target="sp" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="end_sp" value="Koreksi Kode Tiket" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffe4e6;strokeColor=#e11d48;strokeWidth=2;fontColor=#9f1239;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="317" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sp_end" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#e11d48;strokeWidth=1.5;fontSize=10;fontColor=#e11d48;fontStyle=1;endArrow=classic;endFill=1;dashed=1;" edge="1" source="sp" target="end_sp" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sp_loop" value="Perbaiki" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#e11d48;strokeWidth=1.5;fontSize=10;fontColor=#e11d48;fontStyle=1;endArrow=classic;endFill=1;dashed=1;" edge="1" source="end_sp" target="act" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

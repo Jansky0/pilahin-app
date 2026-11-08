@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Information Architecture Pilah.in</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 760" width="1560" height="760" style="background:#ffffff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="780" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#000000">ARSITEKTUR INFORMASI (INFORMATION ARCHITECTURE) — PLATFORM PILAH.IN</text>
+  <text x="780" y="52" text-anchor="middle" font-size="11" fill="#444444">Struktur Hierarki Halaman, Pengorganisasian Fitur, dan Navigasi Menu — Format Monochrome</text>
+
+  <!-- Level 0: Root -->
+  <rect x="650" y="70" width="260" height="42" rx="21" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <text x="780" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#000000">PLATFORM PILAH.IN</text>
+  <text x="780" y="102" text-anchor="middle" font-size="10" fill="#444444">Web Application (Mobile-First)</text>
+
+  <!-- Connector from Root to 3 Pillars -->
+  <path d="M 780 112 L 780 135 L 200 135 L 200 158" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="780" y1="112" x2="780" y2="158" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 780 112 L 780 135 L 1360 135 L 1360 158" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- ================= PILLAR 1: PUBLIC ================= -->
+  <rect x="90" y="160" width="220" height="42" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.8"/>
+  <text x="200" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">1. AREA PUBLIK &amp; TAMU</text>
+  <text x="200" y="192" text-anchor="middle" font-size="9" fill="#444444">Landing Page &amp; Autentikasi</text>
+
+  <!-- Public items -->
+  <line x1="200" y1="202" x2="200" y2="238" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="90" y="240" width="220" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="200" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Halaman Landing &amp; Visi</text>
+  <rect x="90" y="275" width="220" height="70" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="100" y="292" font-size="9" fill="#222222">• 4 Alur Sirkular (Pilah-Jemput-Uang)</text>
+  <text x="100" y="307" font-size="9" fill="#222222">• Perbandingan Solusi Nilai Nyata</text>
+  <text x="100" y="322" font-size="9" fill="#222222">• Daftar Harga Komoditas Terkini</text>
+  <text x="100" y="337" font-size="9" fill="#222222">• Call-to-Action Daftar Warga</text>
+
+  <rect x="90" y="365" width="220" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="200" y="385" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Formulir Registrasi &amp; OTP</text>
+  <rect x="90" y="400" width="220" height="85" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="100" y="417" font-size="9" fill="#222222">• Pilih Peran (Warga / Mitra)</text>
+  <text x="100" y="432" font-size="9" fill="#222222">• Input Nama, WhatsApp, Kata Sandi</text>
+  <text x="100" y="447" font-size="9" fill="#222222">• Verifikasi 6 Digit OTP WhatsApp</text>
+  <text x="100" y="462" font-size="9" fill="#222222">• Input Alamat &amp; Patokan Rumah</text>
+  <text x="100" y="477" font-size="9" fill="#222222">• Pembuatan 6 Digit PIN Transaksi</text>
+
+  <rect x="90" y="505" width="220" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="200" y="525" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Formulir Login &amp; Lupa Sandi</text>
+  <rect x="90" y="540" width="220" height="85" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="100" y="557" font-size="9" fill="#222222">• Input No WhatsApp / Email</text>
+  <text x="100" y="572" font-size="9" fill="#222222">• Input Kata Sandi Akun</text>
+  <text x="100" y="587" font-size="9" fill="#222222">• Fitur Pemulihan Lupa Kata Sandi</text>
+  <text x="100" y="602" font-size="9" fill="#222222">• Verifikasi OTP Reset Sandi</text>
+  <text x="100" y="617" font-size="9" fill="#222222">• Pembaruan Kata Sandi Baru</text>
+
+
+  <!-- ================= PILLAR 2: CITIZEN APP ================= -->
+  <rect x="660" y="160" width="240" height="42" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.8"/>
+  <text x="780" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">2. APLIKASI UTAMA WARGA</text>
+  <text x="780" y="192" text-anchor="middle" font-size="9" fill="#444444">Navigasi 5 Tab Pengguna Penyetor</text>
+
+  <!-- Connectors to 5 Tabs -->
+  <path d="M 780 202 L 780 220 L 410 220 L 410 238" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 780 202 L 780 220 L 595 220 L 595 238" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="780" y1="202" x2="780" y2="238" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 780 202 L 780 220 L 965 220 L 965 238" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 780 202 L 780 220 L 1150 220 L 1150 238" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Tab 1: Beranda -->
+  <rect x="330" y="240" width="160" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="410" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Tab Beranda</text>
+  <rect x="330" y="275" width="160" height="85" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="338" y="292" font-size="8.5" fill="#222222">• Saldo Mengendap Siap Tarik</text>
+  <text x="338" y="307" font-size="8.5" fill="#222222">• Banner Visi Ekonomi Sirkular</text>
+  <text x="338" y="322" font-size="8.5" fill="#222222">• Lacak Status Tiket Penjemputan</text>
+  <text x="338" y="337" font-size="8.5" fill="#222222">• Kartu Swipe Edukasi Sampah</text>
+  <text x="338" y="352" font-size="8.5" fill="#222222">• Info Jam Buka Mitra Terdekat</text>
+
+  <!-- Tab 2: SnapSort AI -->
+  <rect x="515" y="240" width="160" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="595" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Tab SnapSort AI</text>
+  <rect x="515" y="275" width="160" height="85" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="523" y="292" font-size="8.5" fill="#222222">• Viewfinder Kamera Realtime</text>
+  <text x="523" y="307" font-size="8.5" fill="#222222">• Tombol Pindai Sampah</text>
+  <text x="523" y="322" font-size="8.5" fill="#222222">• Deteksi Objek &amp; Akurasi</text>
+  <text x="523" y="337" font-size="8.5" fill="#222222">• Peringatan Bahaya B3 / Oli</text>
+  <text x="523" y="352" font-size="8.5" fill="#222222">• Tombol Auto-Prefill ke Setor</text>
+
+  <!-- Tab 3: Setor Sampah -->
+  <rect x="700" y="240" width="160" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="780" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Tab Setor Sampah</text>
+  <rect x="700" y="275" width="160" height="100" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="708" y="292" font-size="8.5" fill="#222222">• Pilihan Kardus, PET, Jelantah</text>
+  <text x="708" y="307" font-size="8.5" fill="#222222">• Stepper Berat Realtime (kg)</text>
+  <text x="708" y="322" font-size="8.5" fill="#222222">• Jemput Armada (Ongkir 10%)</text>
+  <text x="708" y="337" font-size="8.5" fill="#222222">• Drop-off Mandiri (0% Ongkir)</text>
+  <text x="708" y="352" font-size="8.5" fill="#222222">• Pilih Alamat &amp; Patokan Rumah</text>
+  <text x="708" y="367" font-size="8.5" fill="#222222">• Terbitkan Tiket QR PLH-XXXX</text>
+
+  <!-- Tab 4: Toko Sirkular -->
+  <rect x="885" y="240" width="160" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="965" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Tab Toko Sirkular</text>
+  <rect x="885" y="275" width="160" height="85" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="893" y="292" font-size="8.5" fill="#222222">• Katalog Pupuk Kompos Olahan</text>
+  <text x="893" y="307" font-size="8.5" fill="#222222">• Kerajinan Upcycle Mitra</text>
+  <text x="893" y="322" font-size="8.5" fill="#222222">• Detail Harga &amp; Stok Produk</text>
+  <text x="893" y="337" font-size="8.5" fill="#222222">• Checkout Potong Saldo</text>
+  <text x="893" y="352" font-size="8.5" fill="#222222">• Otorisasi PIN Transaksi</text>
+
+  <!-- Tab 5: Dompet -->
+  <rect x="1070" y="240" width="160" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="1150" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Tab Dompet</text>
+  <rect x="1070" y="275" width="160" height="100" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="1078" y="292" font-size="8.5" fill="#222222">• Total Saldo Mengendap</text>
+  <text x="1078" y="307" font-size="8.5" fill="#222222">• Pilihan GoPay / DANA</text>
+  <text x="1078" y="322" font-size="8.5" fill="#222222">• Input Nominal (Min 10k)</text>
+  <text x="1078" y="337" font-size="8.5" fill="#222222">• Validasi PIN Transaksi</text>
+  <text x="1078" y="352" font-size="8.5" fill="#222222">• 0% Admin Fee Pencairan</text>
+  <text x="1078" y="367" font-size="8.5" fill="#222222">• Mutasi Riwayat Kredit/Debit</text>
+
+
+  <!-- ================= PILLAR 3: PARTNER PORTAL (GENERAL MITRA) ================= -->
+  <rect x="1260" y="160" width="210" height="42" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.8"/>
+  <text x="1365" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">3. PORTAL MITRA PENGELOLA</text>
+  <text x="1365" y="192" text-anchor="middle" font-size="9" fill="#444444">Bank Sampah, TPS3R &amp; Daur Ulang</text>
+
+  <line x1="1365" y1="202" x2="1365" y2="238" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="1260" y="240" width="210" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="1365" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Portal Verifikasi Tiket</text>
+  <rect x="1260" y="275" width="210" height="85" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="1270" y="292" font-size="8.5" fill="#222222">• Input ID Tiket PLH-XXXXXX</text>
+  <text x="1270" y="307" font-size="8.5" fill="#222222">• Input Bobot Timbangan Riil (kg)</text>
+  <text x="1270" y="322" font-size="8.5" fill="#222222">• Verifikasi Kesesuaian Fisik</text>
+  <text x="1270" y="337" font-size="8.5" fill="#222222">• Kredit Saldo Instan ke Warga</text>
+  <text x="1270" y="352" font-size="8.5" fill="#222222">• Pembaruan Status Tiket Selesai</text>
+
+  <rect x="1260" y="380" width="210" height="32" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="1365" y="400" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Dasbor Operasional &amp; Kas</text>
+  <rect x="1260" y="415" width="210" height="85" fill="#ffffff" stroke="#444444" stroke-width="0.8"/>
+  <text x="1270" y="432" font-size="8.5" fill="#222222">• Total Tonase Sampah Diterima</text>
+  <text x="1270" y="447" font-size="8.5" fill="#222222">• Kas Biaya Armada Jemput (10%)</text>
+  <text x="1270" y="462" font-size="8.5" fill="#222222">• Inventaris Pupuk Kompos Siap Jual</text>
+  <text x="1270" y="477" font-size="8.5" fill="#222222">• Rekapitulasi Penyetoran Warga</text>
+  <text x="1270" y="492" font-size="8.5" fill="#222222">• Ekspor Laporan Bulanan Mitra</text>
+</svg>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilah.in — Userflow & Information Architecture Viewer (Monochrome)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      padding: 24px;
+    }
+    .header {
+      max-width: 1200px;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #000000;
+      margin-bottom: 6px;
+    }
+    .header p {
+      font-size: 13px;
+      color: #475569;
+    }
+    .tabs-container {
+      max-width: 1200px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tab-btn {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1.5px solid #000000;
+      background: #ffffff;
+      color: #000000;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover {
+      background: #f1f5f9;
+    }
+    .tab-btn.active {
+      background: #000000;
+      color: #ffffff;
+    }
+    .tab-btn.highlight {
+      border: 2px dashed #000000;
+    }
+    .card-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1.5px solid #000000;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .card-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    .card-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000000;
+    }
+    .card-info p {
+      font-size: 12px;
+      color: #64748b;
+    }
+    .btn-download {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #ffffff;
+      color: #000000;
+      border: 1.5px solid #000000;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-download:hover {
+      background: #000000;
+      color: #ffffff;
+    }
+    .diagram-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    .diagram-img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background: #ffffff;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Pilah.in — Userflow &amp; Information Architecture Viewer</h1>
+    <p>Desain Bersih &amp; Monochrome (Black &amp; White) — Siap Di-Screenshot untuk Proposal &amp; Dokumentasi</p>
+  </div>
+
+  <div class="tabs-container">
+    <button class="tab-btn active" onclick="switchTab(0)">Fase 1: Registrasi, OTP &amp; Login</button>
+    <button class="tab-btn" onclick="switchTab(1)">Fase 2: Beranda &amp; SnapSort AI</button>
+    <button class="tab-btn" onclick="switchTab(2)">Fase 3: Pengajuan Setor Sampah</button>
+    <button class="tab-btn" onclick="switchTab(3)">Fase 4: Timbang Lapangan &amp; Mitra</button>
+    <button class="tab-btn" onclick="switchTab(4)">Fase 5: Belanja Toko &amp; Tarik Tunai</button>
+    <button class="tab-btn highlight" onclick="switchTab(5)">🏛️ Information Architecture (IA)</button>
+  </div>
+
+  <div class="card-container">
+    <!-- Fase 1 -->
+    <div class="tab-content active" id="tab-0">
+      <div class="card-info">
+        <div>
+          <h2>Fase 1: Registrasi, Verifikasi OTP &amp; Login</h2>
+          <p>Alur granular pendaftaran akun, OTP WhatsApp, pembuatan PIN 6 digit, dan login normal / pemulihan kata sandi.</p>
+        </div>
+        <a class="btn-download" href="/flow_screenshots/fase_1_registrasi_dan_login.png" download>Unduh Gambar PNG</a>
+      </div>
+      <div class="diagram-frame">
+        <img class="diagram-img" src="/flow_screenshots/fase_1_registrasi_dan_login.png" alt="Fase 1 Diagram" />
+      </div>
+    </div>
+
+    <!-- Fase 2 -->
+    <div class="tab-content" id="tab-1">
+      <div class="card-info">
+        <div>
+          <h2>Fase 2: Beranda Warga &amp; Deteksi Sampah (SnapSort AI)</h2>
+          <p>Pemantauan saldo mengendap, deteksi kamera AI material layak vs limbah B3, dan auto-prefill ke tab setor.</p>
+        </div>
+        <a class="btn-download" href="/flow_screenshots/fase_2_beranda_dan_snapsort_ai.png" download>Unduh Gambar PNG</a>
+      </div>
+      <div class="diagram-frame">
+        <img class="diagram-img" src="/flow_screenshots/fase_2_beranda_dan_snapsort_ai.png" alt="Fase 2 Diagram" />
+      </div>
+    </div>
+
+    <!-- Fase 3 -->
+    <div class="tab-content" id="tab-2">
+      <div class="card-info">
+        <div>
+          <h2>Fase 3: Pengajuan Penyetoran Sampah</h2>
+          <p>Pemilihan kategori &amp; berat, kalkulasi ongkir jemput Tossa 10% vs drop-off mandiri 0%, serta tiket QR PLH-XXXXXX.</p>
+        </div>
+        <a class="btn-download" href="/flow_screenshots/fase_3_pengajuan_setor_sampah.png" download>Unduh Gambar PNG</a>
+      </div>
+      <div class="diagram-frame">
+        <img class="diagram-img" src="/flow_screenshots/fase_3_pengajuan_setor_sampah.png" alt="Fase 3 Diagram" />
+      </div>
+    </div>
+
+    <!-- Fase 4 -->
+    <div class="tab-content" id="tab-3">
+      <div class="card-info">
+        <div>
+          <h2>Fase 4: Operasional Timbang Lapangan &amp; Verifikasi Mitra</h2>
+          <p>Armada Tossa tiba / warga ke pos RW, timbang digital bersama, dan penginputan data di Portal Mitra RW 05.</p>
+        </div>
+        <a class="btn-download" href="/flow_screenshots/fase_4_timbang_lapangan_dan_mitra.png" download>Unduh Gambar PNG</a>
+      </div>
+      <div class="diagram-frame">
+        <img class="diagram-img" src="/flow_screenshots/fase_4_timbang_lapangan_dan_mitra.png" alt="Fase 4 Diagram" />
+      </div>
+    </div>
+
+    <!-- Fase 5 -->
+    <div class="tab-content" id="tab-4">
+      <div class="card-info">
+        <div>
+          <h2>Fase 5: Pemanfaatan Saldo Likuid Warga</h2>
+          <p>Belanja produk olahan pupuk kompos (loop sirkular) atau tarik tunai rupiah utuh ke GoPay/DANA (0% admin fee).</p>
+        </div>
+        <a class="btn-download" href="/flow_screenshots/fase_5_belanja_toko_dan_tarik_tunai.png" download>Unduh Gambar PNG</a>
+      </div>
+      <div class="diagram-frame">
+        <img class="diagram-img" src="/flow_screenshots/fase_5_belanja_toko_dan_tarik_tunai.png" alt="Fase 5 Diagram" />
+      </div>
+    </div>
+
+    <!-- Information Architecture -->
+    <div class="tab-content" id="tab-5">
+      <div class="card-info">
+        <div>
+          <h2>Arsitektur Informasi (Information Architecture)</h2>
+          <p>Pohon hierarki navigasi: Area Publik, 5 Tab Aplikasi Utama Warga, dan Portal Mitra Bank Sampah RW 05.</p>
+        </div>
+        <a class="btn-download" href="/flow_screenshots/information_architecture_pilahin.png" download>Unduh Gambar PNG</a>
+      </div>
+      <div class="diagram-frame">
+        <img class="diagram-img" src="/flow_screenshots/information_architecture_pilahin.png" alt="Information Architecture Diagram" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(idx) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach((t, i) => {
+        if (i === idx) t.classList.add('active');
+        else t.classList.remove('active');
+      });
+      contents.forEach((c, i) => {
+        if (i === idx) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+    }
+  </script>
+</body>
+</html>
