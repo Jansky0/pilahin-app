@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 920" width="1000" height="920" style="background:#ffffff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#000000">FASE 1: REGISTRASI, VERIFIKASI OTP &amp; LOGIN</text>
+  <text x="500" y="52" text-anchor="middle" font-size="11" fill="#444444">Alur Granular 1 Proses per Kotak — Penanganan Sad Path Validasi &amp; OTP — Monokrom</text>
+
+  <!-- Start -->
+  <rect x="410" y="70" width="180" height="34" rx="17" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="500" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">Mulai: Buka Pilah.in</text>
+
+  <!-- Connector -->
+  <line x1="500" y1="104" x2="500" y2="128" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Landing -->
+  <rect x="380" y="130" width="240" height="42" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="500" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Buka Halaman Utama (Landing)</text>
+  <text x="500" y="162" text-anchor="middle" font-size="9" fill="#444444">Pelajari sistem sirkular &amp; harga sampah</text>
+
+  <!-- Connector -->
+  <line x1="500" y1="172" x2="500" y2="198" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Decision: Has Account -->
+  <polygon points="500,200 580,230 500,260 420,230" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="500" y="227" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Sudah Punya</text>
+  <text x="500" y="239" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Akun?</text>
+
+  <!-- Left: Register -->
+  <path d="M 420 230 L 230 230 L 230 278" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="315" y="222" text-anchor="middle" font-size="10" fill="#000000">Belum (Daftar)</text>
+
+  <!-- Right: Login -->
+  <path d="M 580 230 L 760 230 L 760 278" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="680" y="222" text-anchor="middle" font-size="10" fill="#000000">Sudah (Masuk)</text>
+
+  <!-- REGISTER -->
+  <rect x="130" y="280" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Peran Akun</text>
+  <text x="230" y="311" text-anchor="middle" font-size="9" fill="#444444">Warga Penyetor atau Mitra Bank Sampah</text>
+
+  <line x1="230" y1="320" x2="230" y2="343" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="130" y="345" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="362" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Input Data Diri &amp; Akun</text>
+  <text x="230" y="376" text-anchor="middle" font-size="9" fill="#444444">Nama, No WhatsApp, Kata Sandi</text>
+
+  <line x1="230" y1="385" x2="230" y2="408" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="230,410 295,435 230,460 165,435" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="432" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Format Data</text>
+  <text x="230" y="444" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Valid?</text>
+
+  <!-- Sad Path 1: Format Error -->
+  <path d="M 165 435 L 90 435" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="125" y="428" text-anchor="middle" font-size="9" fill="#000000">Tidak</text>
+  <rect x="10" y="415" width="80" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="50" y="430" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="50" y="443" text-anchor="middle" font-size="7" fill="#444444">Format Salah (Sad Path)</text>
+  <path d="M 50 415 L 50 365 L 128 365" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <!-- Valid OTP -->
+  <line x1="230" y1="460" x2="230" y2="488" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="245" y="475" font-size="9" fill="#000000">Ya</text>
+
+  <rect x="130" y="490" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="507" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Kirim Kode OTP ke WhatsApp</text>
+  <text x="230" y="521" text-anchor="middle" font-size="9" fill="#444444">Sistem kirim 6 digit verifikasi resmi</text>
+
+  <line x1="230" y1="530" x2="230" y2="553" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="130" y="555" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="572" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Input Kode OTP 6 Digit</text>
+  <text x="230" y="586" text-anchor="middle" font-size="9" fill="#444444">Ketik kode yang diterima di WhatsApp</text>
+
+  <line x1="230" y1="595" x2="230" y2="618" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="230,620 295,645 230,670 165,645" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="642" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Kode OTP</text>
+  <text x="230" y="654" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Cocok?</text>
+
+  <!-- Sad Path 2: OTP Salah -->
+  <path d="M 165 645 L 90 645" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="125" y="638" text-anchor="middle" font-size="9" fill="#000000">Salah</text>
+  <rect x="10" y="625" width="80" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="50" y="640" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="50" y="653" text-anchor="middle" font-size="7" fill="#444444">OTP Salah (Sad Path)</text>
+  <path d="M 50 625 L 50 510 L 128 510" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <line x1="230" y1="670" x2="230" y2="698" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="245" y="685" font-size="9" fill="#000000">Cocok</text>
+
+  <rect x="130" y="700" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="717" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Input Alamat &amp; Titik Jemput</text>
+  <text x="230" y="731" text-anchor="middle" font-size="9" fill="#444444">Jalan, RT/RW &amp; patokan teras warga</text>
+
+  <line x1="230" y1="740" x2="230" y2="768" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="130" y="770" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="787" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Buat 6 Digit PIN Transaksi</text>
+  <text x="230" y="801" text-anchor="middle" font-size="9" fill="#444444">Keamanan belanja sirkular &amp; kas tunai</text>
+
+  <line x1="230" y1="810" x2="230" y2="838" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="130" y="840" width="200" height="35" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="230" y="862" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Registrasi Berhasil</text>
+
+  <!-- LOGIN -->
+  <rect x="660" y="280" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="760" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Input No. WhatsApp / Email</text>
+  <text x="760" y="311" text-anchor="middle" font-size="9" fill="#444444">Ketik nomor akun terdaftar di Pilah.in</text>
+
+  <line x1="760" y1="320" x2="760" y2="348" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="760,350 825,375 760,400 695,375" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="760" y="372" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Lupa Kata</text>
+  <text x="760" y="384" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Sandi?</text>
+
+  <!-- Lupa Sandi Branch -->
+  <path d="M 825 375 L 890 375 L 890 418" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="855" y="367" text-anchor="middle" font-size="9" fill="#000000">Ya</text>
+
+  <rect x="835" y="420" width="130" height="38" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="900" y="437" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Klik 'Lupa Password'</text>
+  <text x="900" y="449" text-anchor="middle" font-size="8" fill="#444444">Kirim OTP reset via WA</text>
+
+  <line x1="900" y1="458" x2="900" y2="483" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="835" y="485" width="130" height="38" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="900" y="502" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Input OTP Reset WA</text>
+  <text x="900" y="514" text-anchor="middle" font-size="8" fill="#444444">Verifikasi identitas nomor</text>
+
+  <line x1="900" y1="523" x2="900" y2="548" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="835" y="550" width="130" height="38" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="900" y="567" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Input Kata Sandi Baru</text>
+  <text x="900" y="579" text-anchor="middle" font-size="8" fill="#444444">Simpan sandi pengganti</text>
+  <path d="M 900 588 L 900 610 L 820 610 L 820 445 L 820 300 L 862 300" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <!-- Normal Login -->
+  <line x1="760" y1="400" x2="760" y2="428" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="775" y="415" font-size="9" fill="#000000">Ingat</text>
+
+  <rect x="680" y="430" width="160" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="760" y="447" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Input Kata Sandi Akun</text>
+  <text x="760" y="461" text-anchor="middle" font-size="9" fill="#444444">Ketik kata sandi akun terdaftar</text>
+
+  <line x1="760" y1="470" x2="760" y2="498" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="760,500 825,525 760,550 695,525" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="760" y="522" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Kredensial</text>
+  <text x="760" y="534" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Cocok?</text>
+
+  <!-- Sad Path 3: Kredensial Salah -->
+  <path d="M 695 525 L 630 525" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="660" y="517" text-anchor="middle" font-size="9" fill="#000000">Salah</text>
+  <rect x="530" y="505" width="100" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="580" y="520" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="580" y="533" text-anchor="middle" font-size="7" fill="#444444">Sandi Salah (Sad Path)</text>
+  <path d="M 580 505 L 580 450 L 678 450" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <line x1="760" y1="550" x2="760" y2="578" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="775" y="565" font-size="9" fill="#000000">Cocok</text>
+
+  <rect x="670" y="580" width="180" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="760" y="597" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Login Berhasil</text>
+  <text x="760" y="611" text-anchor="middle" font-size="9" fill="#444444">Sesi masuk aktif &amp; token terbit</text>
+
+  <!-- END CONVERGENCE -->
+  <path d="M 230 875 L 230 895 L 398 895" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 760 620 L 760 895 L 602 895" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="400" y="878" width="200" height="34" rx="17" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="500" y="900" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Selesai: Masuk Beranda</text>
+</svg>

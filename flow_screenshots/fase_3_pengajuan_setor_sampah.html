@@ -19,115 +19,121 @@
   </style>
 </head>
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 740" width="950" height="740" style="background:#ffffff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 840" width="1000" height="840" style="background:#ffffff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <defs>
     <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000" />
     </marker>
   </defs>
 
-  <text x="475" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#000000">FASE 3: PENGAJUAN PENYETORAN SAMPAH</text>
-  <text x="475" y="52" text-anchor="middle" font-size="11" fill="#444444">Kalkulasi Ongkir Jemput Tossa 10% vs Drop-off 0% Mandiri — Monochrome</text>
+  <text x="500" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#000000">FASE 3: PENGAJUAN PENYETORAN SAMPAH</text>
+  <text x="500" y="52" text-anchor="middle" font-size="11" fill="#444444">Kalkulasi Jemput 10% vs Drop-off 0% &amp; Sad Path Sistem Menolak (Di Luar Radius > 3 km) — Monokrom</text>
 
-  <rect x="375" y="70" width="200" height="34" rx="17" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
-  <text x="475" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">Mulai: Tab Setor Sampah</text>
+  <rect x="400" y="70" width="200" height="34" rx="17" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="500" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">Mulai: Tab Setor Sampah</text>
 
-  <line x1="475" y1="104" x2="475" y2="128" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="500" y1="104" x2="500" y2="128" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <rect x="360" y="130" width="230" height="42" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="475" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Kategori &amp; Atur Berat (kg)</text>
-  <text x="475" y="162" text-anchor="middle" font-size="9" fill="#444444">Centang sampah &amp; sesuaikan stepper kg</text>
+  <rect x="385" y="130" width="230" height="42" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="500" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Kategori &amp; Atur Berat (kg)</text>
+  <text x="500" y="162" text-anchor="middle" font-size="9" fill="#444444">Centang sampah &amp; sesuaikan stepper kg</text>
 
-  <line x1="475" y1="172" x2="475" y2="198" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="500" y1="172" x2="500" y2="198" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <polygon points="475,200 555,225 475,250 395,225" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="475" y="222" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Kategori &amp; Berat</text>
-  <text x="475" y="234" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Valid?</text>
+  <polygon points="500,200 580,225 500,250 420,225" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="500" y="222" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Kategori &amp; Berat</text>
+  <text x="500" y="234" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Valid?</text>
 
-  <!-- Sad: Empty -->
-  <path d="M 395 225 L 300 225" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
-  <text x="350" y="217" text-anchor="middle" font-size="9" fill="#000000">Tidak</text>
-  <rect x="150" y="205" width="150" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="225" y="222" text-anchor="middle" font-size="9" font-weight="bold" fill="#000000">Pesan: Pilih Sampah</text>
-  <text x="225" y="235" text-anchor="middle" font-size="8" fill="#444444">Tentukan berat minimal</text>
-  <path d="M 225 205 L 225 151 L 358 151" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <!-- Sad Path: Belum pilih item -->
+  <path d="M 420 225 L 320 225" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="370" y="217" text-anchor="middle" font-size="9" fill="#000000">Tidak</text>
+  <rect x="170" y="205" width="150" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="245" y="222" text-anchor="middle" font-size="9" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="245" y="235" text-anchor="middle" font-size="8" fill="#444444">Pilih min. 1 jenis sampah</text>
+  <path d="M 245 205 L 245 151 L 383 151" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
 
   <!-- Decision: Method -->
-  <line x1="475" y1="250" x2="475" y2="278" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
-  <text x="490" y="268" font-size="9" fill="#000000">Ya</text>
+  <line x1="500" y1="250" x2="500" y2="278" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="515" y="268" font-size="9" fill="#000000">Ya</text>
 
-  <polygon points="475,280 555,310 475,340 395,310" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="475" y="307" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Pilih Metode</text>
-  <text x="475" y="319" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Setor?</text>
+  <polygon points="500,280 580,310 500,340 420,310" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="500" y="307" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Pilih Metode</text>
+  <text x="500" y="319" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Setor?</text>
 
-  <!-- ================= LEFT: JEMPUT TOSSA ================= -->
-  <path d="M 395 310 L 240 310 L 240 358" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
-  <text x="310" y="302" text-anchor="middle" font-size="10" fill="#000000">Jemput Armada Tossa</text>
+  <!-- JEMPUT TOSSA -->
+  <path d="M 420 310 L 250 310 L 250 358" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="320" y="302" text-anchor="middle" font-size="10" fill="#000000">Jemput Armada Tossa</text>
 
-  <rect x="140" y="360" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="240" y="377" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Kalkulasi Ongkir Jemput 10%</text>
-  <text x="240" y="391" text-anchor="middle" font-size="9" fill="#444444">Gross total - 10% operasional armada</text>
+  <rect x="150" y="360" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="377" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Kalkulasi Ongkir Jemput 10%</text>
+  <text x="250" y="391" text-anchor="middle" font-size="9" fill="#444444">Gross total - 10% operasional armada</text>
 
-  <line x1="240" y1="400" x2="240" y2="428" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="250" y1="400" x2="250" y2="428" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <rect x="140" y="430" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="240" y="447" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Alamat &amp; Cek Patokan</text>
-  <text x="240" y="461" text-anchor="middle" font-size="9" fill="#444444">Pastikan akses teras dapat dilalui motor</text>
+  <rect x="150" y="430" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="447" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Alamat Jemput</text>
+  <text x="250" y="461" text-anchor="middle" font-size="9" fill="#444444">Alamat tersimpan &amp; patokan teras</text>
 
-  <line x1="240" y1="470" x2="240" y2="498" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="250" y1="470" x2="250" y2="498" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <polygon points="240,500 305,525 240,550 175,525" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="240" y="522" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Alamat</text>
-  <text x="240" y="534" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Lengkap?</text>
+  <!-- Decision: Radius Check (SAD PATH) -->
+  <polygon points="250,500 320,525 250,550 180,525" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="522" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Radius</text>
+  <text x="250" y="534" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">&lt;= 3 km?</text>
 
-  <!-- Edit address -->
-  <path d="M 175 525 L 90 525" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
-  <text x="130" y="517" text-anchor="middle" font-size="9" fill="#000000">Kurang</text>
-  <rect x="10" y="505" width="80" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="50" y="522" text-anchor="middle" font-size="9" font-weight="bold" fill="#000000">Ubah Alamat</text>
-  <text x="50" y="535" text-anchor="middle" font-size="8" fill="#444444">Ketik patokan</text>
-  <path d="M 50 505 L 50 450 L 138 450" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <!-- Sad Path: Luar Radius -->
+  <path d="M 180 525 L 120 525" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="150" y="517" text-anchor="middle" font-size="9" fill="#000000">&gt; 3 km</text>
+  <rect x="10" y="505" width="110" height="42" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="65" y="522" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="65" y="535" text-anchor="middle" font-size="7" fill="#444444">Di Luar Radius (Sad Path)</text>
+  <path d="M 65 547 L 65 590 L 148 590" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <!-- Submit Tossa -->
-  <line x1="240" y1="550" x2="240" y2="578" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
-  <text x="255" y="568" font-size="9" fill="#000000">Lengkap</text>
+  <rect x="150" y="570" width="170" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="235" y="587" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Arahkan ke Drop-off</text>
+  <text x="235" y="599" text-anchor="middle" font-size="8" fill="#444444">Beralih ke pos mitra terdekat</text>
+  <path d="M 320 590 L 730 590 L 730 402" fill="none" stroke="#000000" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
 
-  <rect x="140" y="580" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="240" y="597" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Klik 'Ajukan Penjemputan'</text>
-  <text x="240" y="611" text-anchor="middle" font-size="9" fill="#444444">Kirim jadwal jemputan ke kurir</text>
+  <!-- Happy Radius -->
+  <line x1="250" y1="550" x2="250" y2="638" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="265" y="575" font-size="9" fill="#000000">&lt;= 3 km</text>
 
-  <!-- ================= RIGHT: DROP-OFF ================= -->
-  <path d="M 555 310 L 710 310 L 710 358" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
-  <text x="640" y="302" text-anchor="middle" font-size="10" fill="#000000">Antar Sendiri (Drop-off)</text>
+  <rect x="150" y="640" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="657" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Klik 'Ajukan Penjemputan Tossa'</text>
+  <text x="250" y="671" text-anchor="middle" font-size="9" fill="#444444">Armada roda 3 RW dijadwalkan</text>
 
-  <rect x="610" y="360" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="710" y="377" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Kalkulasi Drop-off (0% Ongkir)</text>
-  <text x="710" y="391" text-anchor="middle" font-size="9" fill="#444444">Ongkos kirim Rp 0 (100% saldo utuh)</text>
+  <!-- DROP-OFF MANDIRI -->
+  <path d="M 580 310 L 730 310 L 730 358" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="660" y="302" text-anchor="middle" font-size="10" fill="#000000">Antar Sendiri (0% Ongkir)</text>
 
-  <line x1="710" y1="400" x2="710" y2="448" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <rect x="630" y="360" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="730" y="377" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Kalkulasi Drop-off (0% Ongkir)</text>
+  <text x="730" y="391" text-anchor="middle" font-size="9" fill="#444444">Ongkos kirim Rp 0, saldo 100% utuh</text>
 
-  <rect x="610" y="450" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="710" y="467" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Pos / Drop Point Mitra</text>
-  <text x="710" y="481" text-anchor="middle" font-size="9" fill="#444444">Bank Sampah / TPS3R terdekat</text>
+  <line x1="730" y1="400" x2="730" y2="428" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <line x1="710" y1="490" x2="710" y2="578" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <rect x="630" y="430" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="730" y="447" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Pos / Drop Point Mitra</text>
+  <text x="730" y="461" text-anchor="middle" font-size="9" fill="#444444">TPS3R RW 05 / Bank Sampah terdekat</text>
 
-  <rect x="610" y="580" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="710" y="597" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Klik 'Buat Tiket Mandiri'</text>
-  <text x="710" y="611" text-anchor="middle" font-size="9" fill="#444444">Penerbitan tiket drop-off ke pos</text>
+  <line x1="730" y1="470" x2="730" y2="498" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <!-- ================= MERGE: TIKET TERBIT ================= -->
-  <path d="M 240 620 L 240 655 L 368 655" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
-  <path d="M 710 620 L 710 655 L 582 655" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <rect x="630" y="500" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="730" y="517" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Klik 'Buat Tiket Mandiri'</text>
+  <text x="730" y="531" text-anchor="middle" font-size="9" fill="#444444">Terbitkan tiket drop-off ke pos mitra</text>
 
-  <rect x="370" y="635" width="210" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
-  <text x="475" y="652" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Tiket Digital QR Terbit</text>
-  <text x="475" y="666" text-anchor="middle" font-size="9" fill="#444444">ID: PLH-XXXXXX, Status: Menunggu</text>
+  <!-- MERGE: TIKET TERBIT -->
+  <path d="M 250 680 L 250 715 L 398 715" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 730 540 L 730 715 L 602 715" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <line x1="475" y1="675" x2="475" y2="703" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <rect x="400" y="695" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="500" y="712" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Tiket Digital QR Terbit</text>
+  <text x="500" y="726" text-anchor="middle" font-size="9" fill="#444444">ID: PLH-XXXXXX, Siap Ditimbang</text>
 
-  <rect x="365" y="705" width="220" height="30" rx="15" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
-  <text x="475" y="725" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Selesai: Siap Ditimbang</text>
+  <line x1="500" y1="735" x2="500" y2="763" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="390" y="765" width="220" height="34" rx="17" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="500" y="787" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Selesai: Menunggu Timbangan</text>
 </svg>
 </body>
 </html>

@@ -49,7 +49,11 @@ import {
   LogOut,
   UserPlus,
   User,
-  Key
+  Key,
+  AlertOctagon,
+  XCircle,
+  Ban,
+  ShieldAlert
 } from 'lucide-react';
 import LandingScreen from './components/LandingScreen';
 import LoginScreen from './components/LoginScreen';
@@ -64,6 +68,15 @@ export default function App() {
   const [notification, setNotification] = useState(null);
   const [showNotificationDrawer, setShowNotificationDrawer] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+
+  // Sad Path & Rejection State
+  const [showMitraRejectionModal, setShowMitraRejectionModal] = useState(false);
+  const [mitraRejectionReason, setMitraRejectionReason] = useState('kontaminasi_cairan');
+  const [mitraRejectionNotes, setMitraRejectionNotes] = useState('');
+  const [pinAttempts, setPinAttempts] = useState(0);
+  const [isAccountLocked, setIsAccountLocked] = useState(false);
+  const [showInsufficientBalanceModal, setShowInsufficientBalanceModal] = useState(false);
+  const [insufficientBalanceDetails, setInsufficientBalanceDetails] = useState({ required: 0, current: 0, item: '' });
 
   // Auth State
   const [isAuthenticated, setIsAuthenticated] = useState(true); // default true for immediate demo access
@@ -113,6 +126,17 @@ export default function App() {
       subDistrict: 'Cilandak, Jakarta Selatan',
       benchmark: 'Kamar No. 12 Lantai 1',
       isDefault: false
+    },
+    {
+      id: 'addr-4',
+      label: 'Depok (Luar Radius Tossa)',
+      recipient: 'Raka Pradipta',
+      phone: '0812-3456-7890',
+      street: 'Jl. Margonda Raya No. 120, Beji',
+      subDistrict: 'Depok, Jawa Barat',
+      benchmark: 'Pagar cokelat (Jarak 14 km dari RW 05)',
+      isDefault: false,
+      isOutOfRadius: true
     }
   ]);
   const [activeAddress, setActiveAddress] = useState(savedAddresses[0]);
@@ -401,6 +425,54 @@ export default function App() {
           desc: 'Kini dapat dibeli oleh warga lain melalui menu Toko Sirkular!'
         }
       ]
+    },
+    {
+      id: 'ticket-3',
+      code: 'PLH-992104',
+      title: 'Penjemputan Kardus Box & Botol PET',
+      categoryBadge: 'Kurasi Ditolak • 8 kg',
+      method: 'pickup',
+      pickupTime: 'Kemarin, 14:15 WIB',
+      location: 'Jl. Cemara No. 14, RT 03/RW 05',
+      partner: 'Bank Sampah Berkah Lestari',
+      driver: 'Pak Budi (Motor Tossa #04)',
+      estimatedValue: 0,
+      fee: 0,
+      status: 'DITOLAK: Kontaminasi Basah & Tercampur',
+      statusBadge: 'Kurasi Ditolak',
+      statusType: 'rejected',
+      rejectionReason: 'Kardus basah kuyup terkena air hujan semalam dan botol PET tercampur sisa kuah minyak santan. Pabrik daur ulang menolak material basah & kotor.',
+      educationTip: 'Keringkan kardus di teras sebelum disetor dan pisahkan minyak jelantah dalam botol tertutup terpisah agar dapat diolah jadi biodiesel.',
+      steps: [
+        {
+          step: 1,
+          title: 'Permintaan Jemput Diterima',
+          date: 'Kemarin, 13:30 WIB',
+          status: 'completed',
+          desc: 'Bank Sampah menugaskan kurir Tossa jemput ke alamat rumah.'
+        },
+        {
+          step: 2,
+          title: 'Kurir Tiba di Alamat Rumah',
+          date: 'Kemarin, 14:05 WIB',
+          status: 'completed',
+          desc: 'Pak Budi tiba membawa armada Tossa roda tiga.'
+        },
+        {
+          step: 3,
+          title: 'Inspeksi & Kurasi Fisik Lapangan',
+          date: 'Kemarin, 14:15 WIB',
+          status: 'rejected',
+          desc: '❌ KURASI GAGAL: Kardus basah kuyup & botol terkontaminasi minyak makanan.'
+        },
+        {
+          step: 4,
+          title: 'Sistem Menolak Tiket (Saldo Rp 0)',
+          date: 'Kemarin, 14:16 WIB',
+          status: 'rejected',
+          desc: 'Saldo dibatalkan otomatis demi menjaga standar cacahan daur ulang TPS3R.'
+        }
+      ]
     }
   ]);
 
@@ -538,6 +610,10 @@ export default function App() {
     }
     if (depositMethod === 'pickup' && (!pickupAddress || !pickupAddress.trim())) {
       showToast('Mohon lengkapi alamat penjemputan sampah terlebih dahulu!');
+      return;
+    }
+    if (depositMethod === 'pickup' && activeAddress?.isOutOfRadius) {
+      showToast('SISTEM MENOLAK: Alamat di luar radius armada Tossa (Maks 3 km). Pilih Drop-off mandiri!');
       return;
     }
     const ticket = {
@@ -779,6 +855,34 @@ export default function App() {
             'Silakan buang ke tong sampah residu biasa menuju TPA.'
           ]
         });
+      } else if (sampleKey === 'baterai') {
+        setScannedResult({
+          title: 'Baterai Bekas / Limbah Elektronik (E-Waste)',
+          category: 'Limbah B3 Berbahaya (DITOLAK SISTEM)',
+          confidence: '99.1%',
+          value: 'Rp 0 (Sistem Menolak Daur Ulang)',
+          accepted: false,
+          isB3Hazard: true,
+          instructions: [
+            '⚠️ BAHAYA: Baterai mengandung timbal, asam korosif, dan merkuri yang memicu percikan api/ledakan pada mesin pres Bank Sampah.',
+            'Sistem Pilah.in MENOLAK penjemputan maupun penerimaan limbah B3.',
+            'Silakan kumpulkan limbah ini secara khusus dan serahkan ke Drop-box B3 Dinas Lingkungan Hidup / Puskesmas terdekat.'
+          ]
+        });
+      } else if (sampleKey === 'buram') {
+        setScannedResult({
+          title: 'Objek Tidak Teridentifikasi (Gagal Pindai)',
+          category: 'Kamera Buram / Kurang Pencahayaan',
+          confidence: '31.4%',
+          value: '-',
+          accepted: false,
+          isBlurError: true,
+          instructions: [
+            '⚠️ SISTEM GAGAL MENDETEKSI: Objek terlalu buram atau pencahayaan kurang memadai.',
+            'Arahkan kamera dengan jarak 20–30 cm langsung ke kemasan sampah.',
+            'Pastikan lensa kamera bersih dan logo daur ulang / label kemasan terlihat jelas.'
+          ]
+        });
       }
     }, 1200);
   };
@@ -911,108 +1015,8 @@ export default function App() {
                   {/* TAB 1: BERANDA (HOME) */}
                   {activeTab === 'home' && (
                     <div className="space-y-4">
-                      {/* Welcoming Opening / Panduan Banner */}
-                      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-100/70 border border-emerald-200/90 rounded-2xl p-3 flex items-center justify-between gap-3 shadow-2xs">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
-                            <BookOpen className="w-4 h-4" />
-                          </div>
-                          <div className="min-w-0">
-                            <h4 className="text-xs font-extrabold text-slate-900 truncate">
-                              Panduan &amp; Deskripsi Alur Pilah.in
-                            </h4>
-                            <p className="text-[10px] text-slate-600 truncate">
-                              Pilah di rumah ➔ Jemput motor Tossa ➔ Saldo rupiah likuid
-                            </p>
-                          </div>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setCurrentScreen('landing')}
-                          className="text-[11px] font-bold text-emerald-800 bg-white hover:bg-emerald-50 px-2.5 py-1.5 rounded-xl border border-emerald-200/80 transition flex-shrink-0 shadow-2xs cursor-pointer flex items-center gap-1 active:scale-95"
-                        >
-                          <span>Panduan</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-
-                      {/* PROMINENT ON-PAGE DESKRIPSI SINGKAT & VISI PILAH.IN CARD */}
-                      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-xs space-y-3">
-                        <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                          <div className="flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
-                              <Recycle className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <h2 className="text-xs font-extrabold text-slate-900">
-                                Tentang &amp; Deskripsi Singkat Pilah.in
-                              </h2>
-                              <p className="text-[10px] text-slate-500">Platform ekonomi sirkular sampah tertutup</p>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => setCurrentScreen('landing')}
-                            className="text-[10px] font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-0.5 cursor-pointer"
-                          >
-                            <span>Buka Halaman Lengkap</span>
-                            <ChevronRight className="w-3 h-3" />
-                          </button>
-                        </div>
-
-                        <p className="text-xs text-slate-700 leading-relaxed">
-                          <strong>Pilah.in</strong> adalah platform ekonomi sirkular dua sisi (*two-sided circular ecosystem*) yang menghubungkan warga pemilah sampah dengan Bank Sampah RW &amp; TPS3R lokal secara langsung.
-                        </p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
-                          <div className="bg-rose-50/70 border border-rose-200/70 rounded-2xl p-2.5 space-y-1">
-                            <div className="font-bold text-rose-800 flex items-center gap-1">
-                              <span>❌ Masalah yang Dipecahkan:</span>
-                            </div>
-                            <p className="text-rose-900 leading-snug">
-                              Warga malas memilah karena repot antar &amp; tidak ada nilai tunai nyata. Bank Sampah RW kekurangan pasokan sampah bersih &amp; kesulitan menjual pupuk kompos olahannya.
-                            </p>
-                          </div>
-
-                          <div className="bg-emerald-50/70 border border-emerald-200/70 rounded-2xl p-2.5 space-y-1">
-                            <div className="font-bold text-emerald-800 flex items-center gap-1">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                              <span>✅ Solusi Sirkular Pilah.in:</span>
-                            </div>
-                            <p className="text-emerald-900 leading-snug">
-                              Armada motor Tossa jemput ke teras rumah, timbang digital transparan, dan terima saldo uang tunai Rupiah asli (bukan koin fiktif) yang bisa ditarik tunai atau dibelanjakan produk mitra.
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* 4 Langkah Alur Sirkular Mini Card */}
-                        <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 space-y-2">
-                          <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block">
-                            4 Langkah Alur Sirkular Tertutup
-                          </span>
-                          <div className="grid grid-cols-4 gap-1.5 text-center text-[10px]">
-                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
-                              <div className="font-bold text-slate-900">1. Pilah</div>
-                              <div className="text-slate-500 text-[9px] mt-0.5">Di rumah</div>
-                            </div>
-                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
-                              <div className="font-bold text-slate-900">2. Jemput</div>
-                              <div className="text-slate-500 text-[9px] mt-0.5">Motor Tossa</div>
-                            </div>
-                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
-                              <div className="font-bold text-slate-900">3. Timbang</div>
-                              <div className="text-slate-500 text-[9px] mt-0.5">Saldo tunai</div>
-                            </div>
-                            <div className="bg-white p-2 rounded-xl border border-slate-200/60 shadow-2xs">
-                              <div className="font-bold text-slate-900">4. Belanja</div>
-                              <div className="text-slate-500 text-[9px] mt-0.5">Kompos/Tunai</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                {/* Header Greeting & Notification */}
-                <div className="flex items-center justify-between pt-0.5">
+                      {/* Header Greeting & Notification */}
+                      <div className="flex items-center justify-between pt-0.5">
                   <div>
                     <div className="flex items-center gap-1 text-[11px] text-slate-500 font-semibold">
                       <span>Kelurahan Cilandak Barat</span>
@@ -1246,11 +1250,15 @@ export default function App() {
                           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                             <div className="flex items-center gap-2">
                               <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
-                                currentTicket.method === 'pickup'
+                                currentTicket.statusType === 'rejected'
+                                  ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                                  : currentTicket.method === 'pickup'
                                   ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                                   : 'bg-teal-50 text-teal-700 border border-teal-200'
                               }`}>
-                                {currentTicket.method === 'pickup' ? (
+                                {currentTicket.statusType === 'rejected' ? (
+                                  <AlertOctagon className="w-4 h-4 text-rose-600" />
+                                ) : currentTicket.method === 'pickup' ? (
                                   <Truck className="w-4 h-4" />
                                 ) : (
                                   <Recycle className="w-4 h-4" />
@@ -1265,19 +1273,48 @@ export default function App() {
                                 </span>
                               </div>
                             </div>
-                            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
+                            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full shadow-2xs ${
+                              currentTicket.statusType === 'rejected'
+                                ? 'bg-rose-100 text-rose-800 border border-rose-300 font-extrabold'
+                                : currentTicket.statusType === 'recycle'
+                                ? 'bg-teal-50 text-teal-800 border border-teal-200'
+                                : 'bg-emerald-50 text-emerald-700 border border-emerald-200/80'
+                            }`}>
                               {currentTicket.statusBadge}
                             </span>
                           </div>
 
+                          {/* Sad Path Banner (When Ticket is Rejected by Kurir / Mitra) */}
+                          {currentTicket.statusType === 'rejected' && (
+                            <div className="mt-3 bg-rose-50/90 border border-rose-200 rounded-2xl p-3 text-xs space-y-1.5 shadow-2xs">
+                              <div className="flex items-center gap-1.5 font-bold text-rose-900">
+                                <AlertOctagon className="w-4 h-4 text-rose-600 flex-shrink-0" />
+                                <span>SISTEM MENOLAK: Kurasi Lapangan Gagal</span>
+                              </div>
+                              <p className="text-[11px] text-rose-900 leading-snug">
+                                <strong>Alasan Penolakan Petugas:</strong> {currentTicket.rejectionReason}
+                              </p>
+                              <div className="pt-1.5 border-t border-rose-200/70 text-[10px] text-rose-800 flex items-start gap-1">
+                                <span className="font-bold flex-shrink-0">💡 Solusi:</span>
+                                <span className="leading-tight">{currentTicket.educationTip}</span>
+                              </div>
+                            </div>
+                          )}
+
                           {/* Ticket Meta Details */}
-                          <div className="mt-3 bg-slate-50/80 rounded-2xl p-3 border border-slate-100 space-y-1.5">
+                          <div className={`mt-3 rounded-2xl p-3 border space-y-1.5 ${
+                            currentTicket.statusType === 'rejected'
+                              ? 'bg-rose-50/40 border-rose-100 text-rose-950'
+                              : 'bg-slate-50/80 border-slate-100 text-slate-900'
+                          }`}>
                             <h4 className="text-xs font-extrabold text-slate-900">
                               {currentTicket.title}
                             </h4>
                             <div className="flex items-center justify-between text-[11px] text-slate-600">
                               <span>Estimasi Nilai:</span>
-                              <span className="font-extrabold text-emerald-700 tabular-nums">
+                              <span className={`font-extrabold tabular-nums ${
+                                currentTicket.statusType === 'rejected' ? 'text-rose-600 line-through' : 'text-emerald-700'
+                              }`}>
                                 {formatRupiah(currentTicket.estimatedValue)}
                               </span>
                             </div>
@@ -1298,18 +1335,22 @@ export default function App() {
                                 )}
                                 <div
                                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 z-10 ${
-                                    step.status === 'completed'
+                                    step.status === 'rejected'
+                                      ? 'bg-rose-600 text-white font-extrabold shadow-xs'
+                                      : step.status === 'completed'
                                       ? 'bg-emerald-600 text-white shadow-xs'
                                       : step.status === 'active'
                                       ? 'bg-emerald-100 text-emerald-800 ring-4 ring-emerald-50 font-extrabold animate-pulse'
                                       : 'bg-slate-100 text-slate-400'
                                   }`}
                                 >
-                                  {step.status === 'completed' ? '✓' : step.step}
+                                  {step.status === 'rejected' ? '✕' : step.status === 'completed' ? '✓' : step.step}
                                 </div>
                                 <div className="flex-1 pb-0.5">
                                   <div className="flex items-center justify-between">
-                                    <h5 className="text-xs font-bold text-slate-900">{step.title}</h5>
+                                    <h5 className={`text-xs font-bold ${
+                                      step.status === 'rejected' ? 'text-rose-900' : 'text-slate-900'
+                                    }`}>{step.title}</h5>
                                     <span className="text-[10px] text-slate-400">{step.date}</span>
                                   </div>
                                   <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">{step.desc}</p>
@@ -1320,29 +1361,43 @@ export default function App() {
 
                           {/* Quick Action in Card */}
                           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setSimulatedTicket({
-                                  code: currentTicket.code,
-                                  date: currentTicket.pickupTime,
-                                  method: currentTicket.method === 'pickup' ? 'Minta Jemput Motor Tossa' : 'Antar Mandiri (Drop-off)',
-                                  partner: currentTicket.partner,
-                                  pickupAddress: currentTicket.location,
-                                  deliveryFee: currentTicket.fee || 0,
-                                  grossTotal: currentTicket.estimatedValue,
-                                  estimatedTotal: currentTicket.estimatedValue,
-                                  estimatedKg: 11,
-                                  items: []
-                                });
-                                setDepositTicketModal(true);
-                              }}
-                              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 active:scale-95 transition cursor-pointer"
-                            >
-                              <FileText className="w-3.5 h-3.5" />
-                              <span>Lihat Detail Tiket</span>
-                            </button>
+                            {currentTicket.statusType === 'rejected' ? (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setActiveTab('setor');
+                                  showToast('Form setor ulang disiapkan. Pastikan sampah bersih & kering!');
+                                }}
+                                className="text-xs font-bold text-rose-700 hover:text-rose-800 flex items-center gap-1 active:scale-95 transition cursor-pointer"
+                              >
+                                <RefreshCw className="w-3.5 h-3.5" />
+                                <span>Ajukan Setor Ulang</span>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSimulatedTicket({
+                                    code: currentTicket.code,
+                                    date: currentTicket.pickupTime,
+                                    method: currentTicket.method === 'pickup' ? 'Minta Jemput Motor Tossa' : 'Antar Mandiri (Drop-off)',
+                                    partner: currentTicket.partner,
+                                    pickupAddress: currentTicket.location,
+                                    deliveryFee: currentTicket.fee || 0,
+                                    grossTotal: currentTicket.estimatedValue,
+                                    estimatedTotal: currentTicket.estimatedValue,
+                                    estimatedKg: 11,
+                                    items: []
+                                  });
+                                  setDepositTicketModal(true);
+                                }}
+                                className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 active:scale-95 transition cursor-pointer"
+                              >
+                                <FileText className="w-3.5 h-3.5" />
+                                <span>Lihat Detail Tiket</span>
+                              </button>
+                            )}
                             <span className="text-[10px] font-semibold text-slate-400">
                               Geser kartu untuk ganti ↔
                             </span>
@@ -1778,14 +1833,37 @@ export default function App() {
                   showToast={showToast}
                 />
 
+                {/* Sad Path Banner (Out of radius check) */}
+                {depositMethod === 'pickup' && activeAddress?.isOutOfRadius && (
+                  <div className="bg-rose-50 border border-rose-300 rounded-2xl p-3.5 flex items-start gap-2.5 text-xs text-rose-900 shadow-2xs">
+                    <AlertOctagon className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                    <div className="space-y-0.5 text-[11px] leading-tight">
+                      <p className="font-bold text-rose-950">SISTEM MENOLAK PENJEMPUTAN (SAD PATH: DI LUAR RADIUS)</p>
+                      <p className="text-rose-800">
+                        Alamat ini berjarak &gt; 3 km dari TPS3R RW 05. Armada Motor Tossa hanya melayani penjemputan lokal. Silakan pilih <strong>Antar Sendiri (Drop-off)</strong> atau ganti alamat rumah di area layanan.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Primary Action Button (Contains 'Buat Tiket' for test compatibility) */}
                 <button
                   type="button"
                   onClick={handleCreateDepositTicket}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-98 transition text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-700/20 cursor-pointer"
+                  className={`w-full transition text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg cursor-pointer ${
+                    depositMethod === 'pickup' && activeAddress?.isOutOfRadius
+                      ? 'bg-rose-600 hover:bg-rose-700 shadow-rose-700/20 active:scale-98'
+                      : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-700/20 active:scale-98'
+                  }`}
                 >
                   <QrCode className="w-4 h-4" />
-                  <span>{depositMethod === 'pickup' ? 'Ajukan Penjemputan & Buat Tiket' : 'Buat Tiket Antar Mandiri'}</span>
+                  <span>
+                    {depositMethod === 'pickup' && activeAddress?.isOutOfRadius
+                      ? 'Penjemputan Ditolak: Di Luar Radius Tossa'
+                      : depositMethod === 'pickup'
+                      ? 'Ajukan Penjemputan & Buat Tiket'
+                      : 'Buat Tiket Antar Mandiri'}
+                  </span>
                 </button>
               </div>
             )}
@@ -1947,7 +2025,7 @@ export default function App() {
                   <span className="text-xs font-bold text-slate-800 block">
                     Pilih Contoh Objek Sampah untuk Diuji:
                   </span>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                     <button
                       onClick={() => {
                         setScanSampleItem('botol_pet');
@@ -1955,12 +2033,12 @@ export default function App() {
                       }}
                       className={`p-2 rounded-xl border text-xs font-bold transition flex flex-col items-center gap-1 ${
                         scanSampleItem === 'botol_pet'
-                          ? 'bg-emerald-50 border-emerald-500 text-emerald-900'
-                          : 'bg-slate-50 border-slate-200 text-slate-700'
+                          ? 'bg-emerald-50 border-emerald-500 text-emerald-900 ring-1 ring-emerald-400'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       <span className="text-lg">🧴</span>
-                      <span>Botol Aqua</span>
+                      <span>Botol PET</span>
                     </button>
                     <button
                       onClick={() => {
@@ -1969,8 +2047,8 @@ export default function App() {
                       }}
                       className={`p-2 rounded-xl border text-xs font-bold transition flex flex-col items-center gap-1 ${
                         scanSampleItem === 'kardus'
-                          ? 'bg-emerald-50 border-emerald-500 text-emerald-900'
-                          : 'bg-slate-50 border-slate-200 text-slate-700'
+                          ? 'bg-emerald-50 border-emerald-500 text-emerald-900 ring-1 ring-emerald-400'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       <span className="text-lg">📦</span>
@@ -1983,12 +2061,40 @@ export default function App() {
                       }}
                       className={`p-2 rounded-xl border text-xs font-bold transition flex flex-col items-center gap-1 ${
                         scanSampleItem === 'kresek_minyak'
-                          ? 'bg-rose-50 border-rose-500 text-rose-900'
-                          : 'bg-slate-50 border-slate-200 text-slate-700'
+                          ? 'bg-rose-50 border-rose-500 text-rose-900 ring-1 ring-rose-400'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       <span className="text-lg">🥡</span>
                       <span>Kresek Kotor</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setScanSampleItem('baterai');
+                        handleTriggerSnapSort('baterai');
+                      }}
+                      className={`p-2 rounded-xl border text-xs font-bold transition flex flex-col items-center gap-1 ${
+                        scanSampleItem === 'baterai'
+                          ? 'bg-rose-50 border-rose-500 text-rose-900 ring-1 ring-rose-400'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span className="text-lg">🔋</span>
+                      <span>Baterai (B3)</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setScanSampleItem('buram');
+                        handleTriggerSnapSort('buram');
+                      }}
+                      className={`p-2 rounded-xl border text-xs font-bold transition flex flex-col items-center gap-1 col-span-2 sm:col-span-1 ${
+                        scanSampleItem === 'buram'
+                          ? 'bg-amber-50 border-amber-500 text-amber-900 ring-1 ring-amber-400'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span className="text-lg">🌫️</span>
+                      <span>Foto Buram</span>
                     </button>
                   </div>
                 </div>
@@ -2031,6 +2137,22 @@ export default function App() {
                         </p>
                       ))}
                     </div>
+
+                    {!scannedResult.accepted && (
+                      <div className="bg-rose-100/90 border border-rose-300 rounded-xl p-3 flex items-start gap-2 text-rose-900 text-xs shadow-2xs">
+                        <AlertOctagon className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-bold">SISTEM MENOLAK (SAD PATH)</p>
+                          <p className="text-[11px] text-rose-800 mt-0.5">
+                            {scannedResult.isB3Hazard
+                              ? 'Limbah B3 membahayakan armada dan fasilitas bank sampah. Ditolak oleh sistem kurasi otomatis.'
+                              : scannedResult.isBlurError
+                              ? 'Citra tidak memenuhi ambang batas kejelasan AI. Harap foto ulang dari jarak lebih dekat.'
+                              : 'Material ini merupakan residu yang tidak memiliki nilai ekonomi sirkular.'}
+                          </p>
+                        </div>
+                      </div>
+                    )}
 
                     {scannedResult.accepted && (
                       <button
@@ -2259,37 +2381,48 @@ export default function App() {
                 </div>
               </div>
 
-              <button
-                onClick={() => {
-                  const weight = parseFloat(partnerActualWeight) || 10;
-                  const calculated = weight * 2300;
-                  setWalletBalance(prev => prev + calculated);
-                  setTotalKgRecycled(prev => prev + weight);
-                  const ticketCode = partnerInputCode.trim() || 'PLH-849201';
-                  setTransactions(prev => [
-                    {
-                      id: `tx-${Date.now()}`,
-                      title: `Verifikasi Mitra: ${weight} kg Sampah`,
-                      subtitle: `Tiket ${ticketCode} • Bank Sampah Berkah`,
-                      amount: calculated,
-                      type: 'credit',
-                      date: 'Hari ini',
-                      channel: 'Timbangan Mitra',
-                      icon: 'recycle',
-                      status: 'completed',
-                      category: 'deposit',
-                      referenceId: ticketCode
-                    },
-                    ...prev
-                  ]);
-                  showToast(`Tiket ${ticketCode} diverifikasi! Saldo ${formatRupiah(calculated)} berhasil dikreditkan ke warga.`);
-                  setPartnerInputCode('');
-                }}
-                className="w-full bg-amber-600 hover:bg-amber-700 active:scale-95 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-xs cursor-pointer"
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Konfirmasi Timbangan & Transfer Saldo</span>
-              </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                <button
+                  onClick={() => {
+                    const weight = parseFloat(partnerActualWeight) || 10;
+                    const calculated = weight * 2300;
+                    setWalletBalance(prev => prev + calculated);
+                    setTotalKgRecycled(prev => prev + weight);
+                    const ticketCode = partnerInputCode.trim() || 'PLH-849201';
+                    setTransactions(prev => [
+                      {
+                        id: `tx-${Date.now()}`,
+                        title: `Verifikasi Mitra: ${weight} kg Sampah`,
+                        subtitle: `Tiket ${ticketCode} • Bank Sampah Berkah`,
+                        amount: calculated,
+                        type: 'credit',
+                        date: 'Hari ini',
+                        channel: 'Timbangan Mitra',
+                        icon: 'recycle',
+                        status: 'completed',
+                        category: 'deposit',
+                        referenceId: ticketCode
+                      },
+                      ...prev
+                    ]);
+                    showToast(`Tiket ${ticketCode} diverifikasi! Saldo ${formatRupiah(calculated)} berhasil dikreditkan ke warga.`);
+                    setPartnerInputCode('');
+                  }}
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Konfirmasi Timbangan & Transfer Saldo</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowMitraRejectionModal(true)}
+                  className="w-full bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <XCircle className="w-4 h-4" />
+                  <span>Tolak Sampah (Kurasi Gagal)</span>
+                </button>
+              </div>
             </div>
 
             {/* UPDATE HARGA KOMODITAS SAMPAH */}
@@ -2740,115 +2873,89 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Special Access Section: Masuk ke Portal Mitra Pengelola */}
-              <div className="space-y-2 pt-1">
-                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase block">
-                  Akses Khusus Pengelola
-                </span>
+              {/* Clean Profile Settings Menu */}
+              <div className="space-y-2 pt-1 text-xs">
+                {/* Alamat & Titik Jemput */}
                 <button
-                  onClick={handleSwitchToPartner}
-                  className="w-full text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 border border-amber-200/90 rounded-2xl p-3.5 transition group active:scale-98 flex items-center justify-between shadow-2xs cursor-pointer"
+                  type="button"
+                  onClick={() => {
+                    setShowProfileModal(false);
+                    setActiveTab('setor');
+                  }}
+                  className="w-full text-left bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl p-3 transition flex items-center justify-between cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-xs">
-                      <Building2 className="w-4 h-4" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold">
+                      <MapPin className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-xs font-extrabold text-slate-900 group-hover:text-amber-900 transition flex items-center gap-1.5">
-                        <span>Masuk ke Portal Mitra Pengelola</span>
-                        <span className="text-[9px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded">RW 05</span>
-                      </div>
-                      <p className="text-[10px] text-slate-500 leading-tight mt-0.5">
-                        Akses dasbor timbangan, verifikasi tiket, & toko mitra
+                      <div className="font-bold text-slate-800">Alamat &amp; Titik Jemput</div>
+                      <p className="text-[10px] text-slate-500 truncate max-w-[200px]">
+                        {activeAddress?.street || 'Jl. Cemara No. 14'}
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-amber-600 group-hover:translate-x-0.5 transition flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </button>
+
+                {/* PIN Transaksi & Keamanan */}
+                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold">
+                      <Key className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-800">PIN Transaksi 6-Digit</div>
+                      <p className="text-[10px] text-emerald-600 font-semibold">● Aktif &amp; Terproteksi</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-mono font-bold">
+                    ••••••
+                  </span>
+                </div>
+
+                {/* Sertifikat Dampak Daur Ulang */}
+                <button
+                  onClick={() => {
+                    setShowProfileModal(false);
+                    setShowCertificateModal(true);
+                  }}
+                  className="w-full text-left bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl p-3 transition flex items-center justify-between cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-800">Sertifikat Dampak Daur Ulang</div>
+                      <p className="text-[10px] text-slate-500">Lihat pencapaian pohon &amp; reduksi CO₂</p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </button>
+
+                {/* Beralih ke Portal Mitra Pengelola */}
+                <button
+                  onClick={handleSwitchToPartner}
+                  className="w-full text-left bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 border border-amber-200/90 rounded-2xl p-3 transition group flex items-center justify-between shadow-2xs cursor-pointer active:scale-98"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-xs">
+                      <Building2 className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900 group-hover:text-amber-900 transition flex items-center gap-1.5">
+                        <span>Masuk ke Portal Mitra Pengelola</span>
+                        <span className="text-[9px] bg-amber-200 text-amber-900 font-bold px-1.5 py-0.5 rounded">RW 05</span>
+                      </div>
+                      <p className="text-[10px] text-slate-500 mt-0.5">
+                        Beralih ke dasbor timbangan &amp; kurasi fisik
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-amber-600 group-hover:translate-x-0.5 transition" />
                 </button>
               </div>
-
-              {/* Certificate Option */}
-              <button
-                onClick={() => {
-                  setShowProfileModal(false);
-                  setShowCertificateModal(true);
-                }}
-                className="w-full text-left bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
-                    <FileText className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-800">Sertifikat Dampak Daur Ulang</div>
-                    <p className="text-[10px] text-slate-500">Lihat pencapaian pohon & reduksi CO₂</p>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
-
-              {/* Panduan & Deskripsi Alur (Landing Screen) */}
-              <button
-                type="button"
-                onClick={() => {
-                  setShowProfileModal(false);
-                  setCurrentScreen('landing');
-                }}
-                className="w-full text-left bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-200 text-emerald-800 flex items-center justify-center font-bold">
-                    <BookOpen className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-emerald-950">Panduan &amp; Deskripsi Alur</div>
-                    <p className="text-[10px] text-emerald-700">Pelajari cara kerja ekonomi sirkular Pilah.in</p>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-emerald-600" />
-              </button>
-
-              {/* Halaman Masuk (Login) */}
-              <button
-                type="button"
-                onClick={() => {
-                  setShowProfileModal(false);
-                  setCurrentScreen('login');
-                }}
-                className="w-full text-left bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-                    <LogIn className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-800">Halaman Masuk (Login)</div>
-                    <p className="text-[10px] text-slate-500">Beralih akun atau login dengan kredensial lain</p>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
-
-              {/* Halaman Daftar (Register) */}
-              <button
-                type="button"
-                onClick={() => {
-                  setShowProfileModal(false);
-                  setCurrentScreen('register');
-                }}
-                className="w-full text-left bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl p-3 transition flex items-center justify-between text-xs cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-                    <UserPlus className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-800">Halaman Daftar (Register)</div>
-                    <p className="text-[10px] text-slate-500">Daftarkan akun warga atau mitra baru</p>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
 
               {/* Keluar / Ganti Akun */}
               <button
@@ -3053,6 +3160,133 @@ export default function App() {
               >
                 Saya Mengerti
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* MODAL: TOLAK SAMPAH OLEH MITRA (SISTEM MENOLAK / SAD PATH) */}
+        {showMitraRejectionModal && (
+          <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="w-full max-w-sm bg-white rounded-3xl p-5 shadow-2xl border border-slate-200 text-slate-900 space-y-4 animate-in fade-in zoom-in-95 duration-200">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold">
+                    <AlertOctagon className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900">Tolak Sampah (Kurasi Gagal)</h3>
+                    <p className="text-[10px] text-slate-500">Sistem Menolak Tiket Setor Warga</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowMitraRejectionModal(false)}
+                  className="text-slate-400 hover:text-slate-700 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-700 block">
+                  Pilih Alasan Penolakan:
+                </label>
+                {[
+                  { id: 'kontaminasi_cairan', label: 'Sampah basah kuyup / terkena air hujan (kadar air > 20%)' },
+                  { id: 'kontaminasi_minyak', label: 'Botol/kemasan tercampur sisa minyak jelantah & berbau busuk' },
+                  { id: 'limbah_b3', label: 'Tercampur limbah berbahaya (baterai, kaca beling, atau medis)' },
+                  { id: 'bobot_kurang', label: 'Berat riil di bawah ambang minimum (< 1 kg)' },
+                  { id: 'tidak_ada_di_rumah', label: 'Warga tidak ada di rumah saat kurir Tossa tiba' }
+                ].map((r) => (
+                  <label
+                    key={r.id}
+                    onClick={() => setMitraRejectionReason(r.id)}
+                    className={`p-2.5 rounded-xl border text-xs font-medium cursor-pointer flex items-center gap-2 transition ${
+                      mitraRejectionReason === r.id
+                        ? 'border-rose-500 bg-rose-50 text-rose-950 font-bold'
+                        : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="rejectionReason"
+                      checked={mitraRejectionReason === r.id}
+                      onChange={() => setMitraRejectionReason(r.id)}
+                      className="accent-rose-600"
+                    />
+                    <span className="leading-tight text-[11px]">{r.label}</span>
+                  </label>
+                ))}
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const ticketCode = partnerInputCode.trim() || 'PLH-849201';
+                    const reasonsMap = {
+                      kontaminasi_cairan: 'Kardus basah kuyup terkena air hujan (kadar air > 20%). Mesin cacah tidak dapat memproses.',
+                      kontaminasi_minyak: 'Kemasan plastik tercampur minyak sisa makanan berbau pekat. Merusak kualitas cacahan bijih plastik.',
+                      limbah_b3: 'Tercampur limbah berbahaya (baterai/medis). Berisiko kebakaran mesin pres bank sampah.',
+                      bobot_kurang: 'Berat riil hanya 0.5 kg (di bawah batas minimum 1 kg).',
+                      tidak_ada_di_rumah: 'Warga tidak dapat ditemui di lokasi penjemputan.'
+                    };
+                    const selectedText = reasonsMap[mitraRejectionReason] || 'Tidak memenuhi standar kurasi.';
+                    
+                    setTransactions(prev => [
+                      {
+                        id: `tx-${Date.now()}`,
+                        title: `Kurasi Ditolak: Tiket ${ticketCode}`,
+                        subtitle: `Alasan: ${selectedText}`,
+                        amount: 0,
+                        type: 'debit',
+                        date: 'Hari ini',
+                        channel: 'Kurasi Lapangan',
+                        icon: 'x',
+                        status: 'rejected',
+                        category: 'deposit',
+                        referenceId: ticketCode
+                      },
+                      ...prev
+                    ]);
+
+                    setJejakTickets(prev => [
+                      {
+                        id: 'ticket-' + Date.now(),
+                        code: ticketCode,
+                        title: `Penyetoran Sampah Ditolak (${ticketCode})`,
+                        categoryBadge: 'Kurasi Ditolak • 0 kg',
+                        method: 'pickup',
+                        pickupTime: 'Hari ini',
+                        location: 'Jl. Cemara No. 14, RT 03/RW 05',
+                        partner: 'Bank Sampah Berkah Lestari',
+                        driver: 'Pak Budi (Motor Tossa #04)',
+                        estimatedValue: 0,
+                        fee: 0,
+                        status: 'DITOLAK: Kurasi Lapangan Gagal',
+                        statusBadge: 'Kurasi Ditolak',
+                        statusType: 'rejected',
+                        rejectionReason: selectedText,
+                        educationTip: 'Pisahkan sampah kering dari cairan/minyak di rumah sebelum memesan penjemputan berikutnya.',
+                        steps: [
+                          { step: 1, title: 'Permintaan Diterima', date: 'Hari ini', status: 'completed', desc: 'Permintaan tercatat di sistem.' },
+                          { step: 2, title: 'Kurir Tiba di Alamat', date: 'Hari ini', status: 'completed', desc: 'Armada tiba di titik lokasi.' },
+                          { step: 3, title: 'Inspeksi Fisik Lapangan', date: 'Hari ini', status: 'rejected', desc: `❌ DITOLAK: ${selectedText}` },
+                          { step: 4, title: 'Saldo Dibatalkan (Rp 0)', date: 'Hari ini', status: 'rejected', desc: 'Sistem membatalkan pencairan saldo.' }
+                        ]
+                      },
+                      ...prev
+                    ]);
+                    setJejakIndex(0);
+                    setShowMitraRejectionModal(false);
+                    setPartnerInputCode('');
+                    showToast(`Tiket ${ticketCode} DITOLAK! Laporan edukasi berhasil dikirim ke warga.`);
+                  }}
+                  className="w-full bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs py-3 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                >
+                  <XCircle className="w-4 h-4" />
+                  <span>Konfirmasi Penolakan Tiket (Sistem Menolak)</span>
+                </button>
+              </div>
             </div>
           </div>
         )}

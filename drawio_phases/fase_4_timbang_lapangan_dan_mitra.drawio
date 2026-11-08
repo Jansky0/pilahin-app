@@ -1,72 +1,72 @@
 <?xml version='1.0' encoding='utf-8'?>
-<mxfile host="app.diagrams.net" modified="2026-10-31T15:00:00.000Z" agent="Pilahin-Monochrome-Agent" version="21.6.8" type="device">
+<mxfile host="app.diagrams.net" modified="2026-11-08T14:00:00.000Z" agent="Pilahin-Monochrome-Agent" version="21.6.8" type="device">
   <diagram id="p" name="Fase 4: Operasional Timbang Lapangan">
-    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="760" math="0" shadow="0">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="p4_hdr" value="&lt;b style='font-size:15px;'&gt;FASE 4: OPERASIONAL TIMBANG LAPANGAN &amp; VERIFIKASI MITRA&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:11px;color:#333333;'&gt;Alur Penimbangan Digital di Teras / Pos Mitra dan Validasi Tiket di Portal Mitra Pengelola&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="100" y="15" width="750" height="45" as="geometry" />
+        <mxCell id="p4_hdr" value="&lt;b style='font-size:15px;'&gt;FASE 4: OPERASIONAL TIMBANG LAPANGAN &amp; VERIFIKASI MITRA&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:11px;color:#333333;'&gt;Alur Timbang Digital, Validasi Tiket Mitra, dan Sad Path Sistem Menolak Kurasi Gagal&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="15" width="850" height="45" as="geometry" />
         </mxCell>
         <mxCell id="p4_start" value="Mulai: Tiket Digital Aktif" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="380" y="75" width="180" height="35" as="geometry" />
+          <mxGeometry x="420" y="75" width="180" height="35" as="geometry" />
         </mxCell>
         <mxCell id="p4_dec_type" value="Jenis Penyetoran&lt;br&gt;Lapangan?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="395" y="135" width="150" height="55" as="geometry" />
+          <mxGeometry x="435" y="135" width="150" height="55" as="geometry" />
         </mxCell>
         <mxCell id="p4_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_start" target="p4_dec_type" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="p4_tossa_arrive" value="&lt;b&gt;Armada Tossa Tiba di Alamat Warga&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Kurir cek patokan rumah &amp; hubungi WhatsApp warga&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="140" y="215" width="210" height="42" as="geometry" />
+          <mxGeometry x="180" y="215" width="210" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e2" value="Jemput Tossa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_type" target="p4_tossa_arrive" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="p4_dec_citizen" value="Warga Ada&lt;br&gt;di Rumah?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="170" y="280" width="150" height="50" as="geometry" />
+          <mxGeometry x="210" y="280" width="150" height="50" as="geometry" />
         </mxCell>
         <mxCell id="p4_e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_tossa_arrive" target="p4_dec_citizen" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_sad_not_home" value="&lt;b&gt;Jadwalkan Ulang Jemputan&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Warga tidak ada di lokasi. Tiket tetap aktif&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="10" y="285" width="140" height="42" as="geometry" />
+        <mxCell id="p4_sad_not_home" value="&lt;b&gt;Jadwalkan Ulang Jemputan&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Warga tidak ada di lokasi. Tiket tetap aktif&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=10;align=center;spacing=3;strokePattern=dashed;" vertex="1" parent="1">
+          <mxGeometry x="20" y="285" width="150" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e4" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_citizen" target="p4_sad_not_home" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_tossa_weigh" value="&lt;b&gt;Timbang Digital di Teras Rumah&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Karung digantung di timbangan kurir &amp; dicatat&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="140" y="355" width="210" height="42" as="geometry" />
+        <mxCell id="p4_tossa_weigh" value="&lt;b&gt;Timbang Digital di Teras Rumah&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Karung digantung di timbangan kurir &amp; disaksikan&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="180" y="355" width="210" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e5" value="Ada" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_citizen" target="p4_tossa_weigh" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_dropoff_arrive" value="&lt;b&gt;Warga Bawa Sampah ke Pos Mitra&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Tiba di lokasi Bank Sampah / TPS3R Mitra&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="590" y="215" width="210" height="42" as="geometry" />
+        <mxCell id="p4_dropoff_arrive" value="&lt;b&gt;Warga Bawa Sampah ke Pos Mitra&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Tiba di lokasi Bank Sampah / TPS3R RW 05&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="640" y="215" width="210" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e6" value="Antar Sendiri" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_type" target="p4_dropoff_arrive" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="p4_dec_pos_open" value="Pos Sedang Buka?&lt;br&gt;(13.00 - 16.00 WIB)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="620" y="280" width="150" height="50" as="geometry" />
+          <mxGeometry x="670" y="280" width="150" height="50" as="geometry" />
         </mxCell>
         <mxCell id="p4_e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dropoff_arrive" target="p4_dec_pos_open" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_sad_closed" value="&lt;b&gt;Pos Tutup (Di Luar Jam Buka)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Tiket aman tersimpan, warga kembali esok hari&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="790" y="285" width="140" height="42" as="geometry" />
+        <mxCell id="p4_sad_closed" value="&lt;b&gt;Pos Tutup (Di Luar Jam Buka)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Tiket aman tersimpan, warga datang kembali esok&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=10;align=center;spacing=3;strokePattern=dashed;" vertex="1" parent="1">
+          <mxGeometry x="850" y="285" width="150" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e8" value="Tutup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_pos_open" target="p4_sad_closed" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="p4_pos_weigh" value="&lt;b&gt;Petugas Timbang di Pos Mitra&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Sampah ditimbang menggunakan timbangan pos&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="590" y="355" width="210" height="42" as="geometry" />
+          <mxGeometry x="640" y="355" width="210" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e9" value="Buka" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_pos_open" target="p4_pos_weigh" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_open_mitra" value="&lt;b&gt;Buka Portal Mitra Pengelola&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Petugas masuk ke antarmuka pengelola mitra&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="365" y="430" width="210" height="42" as="geometry" />
+        <mxCell id="p4_open_mitra" value="&lt;b&gt;Buka Portal Mitra Pengelola&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Petugas masuk ke dasbor operasional timbangan&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="405" y="430" width="210" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_tossa_weigh" target="p4_open_mitra" parent="1">
           <mxGeometry relative="1" as="geometry" />
@@ -74,26 +74,50 @@
         <mxCell id="p4_e11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_pos_weigh" target="p4_open_mitra" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_input_weight" value="&lt;b&gt;Input Nomor Tiket &amp; Bobot Riil&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Ketik PLH-XXXXXX dan angka timbangan nyata&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="365" y="495" width="210" height="42" as="geometry" />
+        <mxCell id="p4_input_weight" value="&lt;b&gt;Input Nomor Tiket &amp; Bobot Riil&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Ketik ID tiket PLH-XXXXXX &amp; angka timbangan nyata&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="405" y="495" width="210" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p4_e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_open_mitra" target="p4_input_weight" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_verify_ticket" value="&lt;b&gt;Verifikasi Data Penimbangan&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Sistem menghitung total nilai rupiah bersih&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="365" y="560" width="210" height="42" as="geometry" />
+        <mxCell id="p4_dec_kurasi" value="Kurasi Fisik Lolos&lt;br&gt;Standar Pilah?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="435" y="560" width="150" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="p4_e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_input_weight" target="p4_verify_ticket" parent="1">
+        <mxCell id="p4_e13_k" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_input_weight" target="p4_dec_kurasi" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p4_balance_credit" value="&lt;b&gt;Saldo Tunai Masuk ke Dompet Warga&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Saldo mengendap bertambah detik itu juga &amp; tiket selesai&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="355" y="625" width="230" height="45" as="geometry" />
+        <mxCell id="p4_err_kurasi" value="&lt;b&gt;SISTEM MENOLAK (SAD PATH)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Sampah Basah Kuyup / Tercemar Minyak / B3&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=10;align=center;spacing=3;strokePattern=dashed;" vertex="1" parent="1">
+          <mxGeometry x="120" y="565" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_e_kurasi_no" value="Tolak (Gagal)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_kurasi" target="p4_err_kurasi" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_reject_action" value="&lt;b&gt;Tiket Ditolak &amp; Saldo Rp 0&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Petugas klik 'Tolak Sampah', catatan audit tersimpan&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="120" y="635" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_e_rej_act" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_err_kurasi" target="p4_reject_action" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_warga_edu" value="&lt;b&gt;Kirim Tips Edukasi ke Warga&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Banner merah di aplikasi warga &amp; opsi setor ulang&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="120" y="705" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_e_edu" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_reject_action" target="p4_warga_edu" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_verify_ticket" value="&lt;b&gt;Verifikasi Data Penimbangan&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Sistem kalkulasi total rupiah bersih sesuai bobot&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="560" y="635" width="210" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_e13" value="Lolos (Bersih)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_dec_kurasi" target="p4_verify_ticket" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_balance_credit" value="&lt;b&gt;Saldo Tunai Masuk ke Dompet Warga&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Kredit rupiah cair instan &amp; status tiket selesai&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="550" y="705" width="230" height="45" as="geometry" />
         </mxCell>
         <mxCell id="p4_e14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_verify_ticket" target="p4_balance_credit" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="p4_end" value="Selesai: Saldo Siap Dibelanjakan / Ditarik" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="360" y="695" width="220" height="35" as="geometry" />
+          <mxGeometry x="555" y="780" width="220" height="35" as="geometry" />
         </mxCell>
         <mxCell id="p4_e15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p4_balance_credit" target="p4_end" parent="1">
           <mxGeometry relative="1" as="geometry" />

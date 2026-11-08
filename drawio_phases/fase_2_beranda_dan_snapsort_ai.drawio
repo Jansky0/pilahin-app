@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
-<mxfile host="app.diagrams.net" modified="2026-10-31T15:00:00.000Z" agent="Pilahin-Monochrome-Agent" version="21.6.8" type="device">
+<mxfile host="app.diagrams.net" modified="2026-11-08T14:00:00.000Z" agent="Pilahin-Monochrome-Agent" version="21.6.8" type="device">
   <diagram id="p" name="Fase 2: Beranda &amp; SnapSort AI">
-    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="700" math="0" shadow="0">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="980" pageHeight="720" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="p2_hdr" value="&lt;b style='font-size:15px;'&gt;FASE 2: BERANDA WARGA &amp; DETEKSI SAMPAH (SNAPSORT AI)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:11px;color:#333333;'&gt;Alur Pengecekan Saldo Mengendap dan Klasifikasi Material Sampah via Kamera AI&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="100" y="15" width="750" height="45" as="geometry" />
+        <mxCell id="p2_hdr" value="&lt;b style='font-size:15px;'&gt;FASE 2: BERANDA WARGA &amp; DETEKSI SAMPAH (SNAPSORT AI)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:11px;color:#333333;'&gt;Alur Pengecekan Saldo Mengendap, Deteksi Kamera AI, dan Penolakan Limbah B3&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="15" width="800" height="45" as="geometry" />
         </mxCell>
         <mxCell id="p2_start" value="Mulai: Beranda Warga" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
           <mxGeometry x="380" y="75" width="180" height="35" as="geometry" />
         </mxCell>
-        <mxCell id="p2_view_home" value="&lt;b&gt;Cek Saldo Mengendap &amp; Riwayat&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Pantau saldo rupiah siap tarik &amp; panduan pilah&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="p2_view_home" value="&lt;b&gt;Pantau Saldo Mengendap &amp; Riwayat&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Cek rupiah nyata siap cair &amp; tiket penjemputan&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="360" y="130" width="220" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p2_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_start" target="p2_view_home" parent="1">
@@ -23,38 +23,38 @@
         <mxCell id="p2_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_view_home" target="p2_dec_ai" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_goto_manual" value="&lt;b&gt;Buka Tab 'Setor Sampah'&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Lanjut pemilihan sampah secara manual&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="p2_goto_manual" value="&lt;b&gt;Buka Tab 'Setor Sampah'&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Lanjut pemilihan jenis sampah manual&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="150" y="280" width="200" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p2_e3" value="Tidak (Manual)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_dec_ai" target="p2_goto_manual" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_open_ai" value="&lt;b&gt;Buka Tab 'SnapSort AI'&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Akses antarmuka kamera pemindai sampah&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="p2_open_ai" value="&lt;b&gt;Buka Tab 'SnapSort AI'&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Akses antarmuka kamera pengenal jenis sampah&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="590" y="280" width="200" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p2_e4" value="Ya (Buka AI)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_dec_ai" target="p2_open_ai" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_snap_cam" value="&lt;b&gt;Arahkan Kamera &amp; Ambil Foto&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Posisikan sampah di tengah frame &amp; klik tombol pindai&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="p2_snap_cam" value="&lt;b&gt;Arahkan Kamera &amp; Ambil Foto&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Posisikan sampah di frame &amp; tekan tombol pindai&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="590" y="345" width="200" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p2_e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_open_ai" target="p2_snap_cam" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_dec_material" value="Hasil Analisis&lt;br&gt;Material Kamera?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
+        <mxCell id="p2_dec_material" value="Hasil Analisis&lt;br&gt;Material AI?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=10;fontStyle=1;align=center;" vertex="1" parent="1">
           <mxGeometry x="615" y="410" width="150" height="55" as="geometry" />
         </mxCell>
         <mxCell id="p2_e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_snap_cam" target="p2_dec_material" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_err_b3" value="&lt;b&gt;Peringatan: Limbah B3 / Tercemar&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Material ditolak. Arahkan warga membuang ke TPS B3&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="780" y="480" width="150" height="48" as="geometry" />
+        <mxCell id="p2_err_b3" value="&lt;b&gt;SISTEM MENOLAK (SAD PATH)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Limbah B3 (Baterai/Medis). Dilarang masuk sirkular!&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=10;align=center;spacing=3;strokePattern=dashed;" vertex="1" parent="1">
+          <mxGeometry x="780" y="480" width="160" height="48" as="geometry" />
         </mxCell>
         <mxCell id="p2_e7" value="Tercemar / B3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_dec_material" target="p2_err_b3" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_err_blur" value="&lt;b&gt;Pesan: Objek Tidak Terdeteksi&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Pencahayaan kurang / buram. Instruksi foto ulang&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="420" y="480" width="150" height="48" as="geometry" />
+        <mxCell id="p2_err_blur" value="&lt;b&gt;SISTEM MENOLAK (SAD PATH)&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Objek Buram / Gelap. Sistem minta ambil ulang foto&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;fontColor=#000000;fontSize=10;align=center;spacing=3;strokePattern=dashed;" vertex="1" parent="1">
+          <mxGeometry x="410" y="480" width="160" height="48" as="geometry" />
         </mxCell>
         <mxCell id="p2_e8" value="Buram / Jauh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_dec_material" target="p2_err_blur" parent="1">
           <mxGeometry relative="1" as="geometry" />
@@ -62,20 +62,20 @@
         <mxCell id="p2_e8_loop" value="Foto Ulang" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;dashed=1;" edge="1" source="p2_err_blur" target="p2_snap_cam" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_ai_valid" value="&lt;b&gt;Deteksi Material Valid&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Contoh: Botol PET 96%, estimasi Rp 3.500/kg&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="p2_ai_valid" value="&lt;b&gt;Deteksi Material Valid&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Botol PET 96%, estimasi Rp 3.500/kg (Lolos Kurasi)&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="600" y="485" width="180" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p2_e9" value="Bersih &amp; Layak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_dec_material" target="p2_ai_valid" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_ai_prefill" value="&lt;b&gt;Klik 'Langsung Setor'&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Sistem otomatis mencentang kategori di Tab Setor&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="590" y="550" width="200" height="42" as="geometry" />
+        <mxCell id="p2_ai_prefill" value="&lt;b&gt;Klik 'Langsung Setor'&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:10px;color:#333333;'&gt;Sistem otomatis memilih kategori di Tab Setor&lt;/span&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.2;fontColor=#000000;fontSize=11;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="590" y="555" width="200" height="42" as="geometry" />
         </mxCell>
         <mxCell id="p2_e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_ai_valid" target="p2_ai_prefill" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="p2_end" value="Selesai: Menuju Halaman Setor Sampah" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="365" y="630" width="220" height="35" as="geometry" />
+          <mxGeometry x="365" y="635" width="220" height="35" as="geometry" />
         </mxCell>
         <mxCell id="p2_e11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.2;fontSize=10;fontColor=#000000;endArrow=classic;endFill=1;" edge="1" source="p2_goto_manual" target="p2_end" parent="1">
           <mxGeometry relative="1" as="geometry" />

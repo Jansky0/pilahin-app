@@ -1,12 +1,14 @@
-# Userflow Pilah.in per Fase (Clean Monochrome)
+# Userflow Pilah.in per Fase (Lengkap: Happy Path & Sad Path "Sistem Menolak")
 
-Dokumen ini menyajikan **Userflow Pilah.in per Fase** dengan format **Monochrome (Hitam & Putih / Tanpa Warna)** agar sangat mudah di-screenshot per fasenya. 
+Dokumen ini menyajikan **Userflow Lengkap Pilah.in per Fase** dengan penegasan eksplisit antara **Happy Path (Jalur Sukses)** dan **Sad Path (Sistem Menolak / Penanganan Kegagalan)** sesuai standar arsitektur sistem operasional persampahan sirkular.
 
-### Karakteristik Desain:
+---
+
+### Karakteristik & Standar Diagram:
 - ⚪ **Clean Monochrome:** Seluruh diagram menggunakan warna dasar putih, garis batas hitam, dan teks hitam bersih (*zero color clutter*).
-- 📦 **1 Kotak = 1 Proses Granular:** Setiap kotak persegi panjang hanya merepresentasikan satu tindakan nyata pengguna atau sistem.
-- 🚫 **Tanpa "Fast Demo":** Alur login murni melalui proses autentikasi standar (Input WhatsApp/Email $\rightarrow$ Sandi / Penanganan Lupa Sandi).
-- 🔄 **Alur Alternatif / Validasi Netral:** Tidak menggunakan label atau istilah berlebihan seperti "Sad Path"; menggunakan penamaan standar *flowchart* (misal: *Format Data Valid?*, *Pesan Eror Validasi*, *Kode OTP Cocok?*, *Kirim Ulang OTP*, *Lupa Kata Sandi?*).
+- 📦 **1 Kotak = 1 Proses Granular:** Setiap kotak hanya merepresentasikan satu tindakan nyata pengguna atau sistem.
+- 🚫 **Tanpa "Fast Demo":** Alur login dan registrasi murni melalui proses autentikasi standar (Input WhatsApp/Email $\rightarrow$ Kata Sandi / OTP / Penanganan Lupa Sandi).
+- ⚠️ **Eksplisit Sad Path & Sistem Menolak:** Setiap fase memiliki *decision diamond* dan cabang *Sad Path* yang memperlihatkan respons sistem ketika syarat tidak terpenuhi (validasi gagal, limbah B3, di luar radius 3 km, kurasi fisik gagal/basah, saldo kurang, dan PIN salah 3x terkunci).
 - 📸 **Sangat Mudah Di-Screenshot:** Setiap fase dipisahkan ke dalam kanvas berukuran proporsional yang pas di layar.
 
 ---
@@ -29,14 +31,19 @@ Dokumen ini menyajikan **Userflow Pilah.in per Fase** dengan format **Monochrome
 
 ## Rincian & Diagram Mermaid per Fase
 
-### Fase 1: Registrasi, Verifikasi OTP & Login (Tanpa Fast Demo)
-- **Tujuan:** Pendaftaran akun baru secara bertahap (Data $\rightarrow$ OTP $\rightarrow$ Alamat $\rightarrow$ PIN) dan masuk akun terdaftar dengan penanganan lupa kata sandi.
+### Fase 1: Registrasi, Verifikasi OTP & Login (dengan Sad Path Validasi & OTP)
+- **Happy Path:** Pendaftaran akun baru bertahap (Data $\rightarrow$ OTP $\rightarrow$ Alamat $\rightarrow$ PIN) dan login normal berhasil menuju Beranda Warga.
+- **Sad Path (Sistem Menolak):**
+  1. *Format Data Tidak Valid:* Nomor WhatsApp kurang dari 10 digit atau sandi kurang dari 6 karakter $\rightarrow$ **Sistem Menolak** & minta perbaikan.
+  2. *OTP Salah / Kedaluwarsa:* Kode verifikasi 6-digit tidak cocok $\rightarrow$ **Sistem Menolak** & wajib kirim ulang OTP.
+  3. *Kredensial Login Salah:* Nomor HP atau kata sandi tidak cocok dengan database $\rightarrow$ **Sistem Menolak** & beri notifikasi peringatan.
 
 ```mermaid
 flowchart TD
     classDef default fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
-    classDef startEnd fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000,stroke-dasharray: 0
+    classDef startEnd fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000
     classDef decision fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
+    classDef sad fill:#ffffff,stroke:#000000,stroke-width:1.8px,stroke-dasharray: 4 4,color:#000000
 
     Start([Mulai: Buka Pilah.in]):::startEnd --> Landing[Buka Halaman Utama / Landing Page]
     Landing --> DecAcc{Sudah Punya<br/>Akun?}:::decision
@@ -46,17 +53,19 @@ flowchart TD
     RegRole --> RegData[Input Data Diri: Nama, WA, Sandi]
     RegData --> DecValid{Format Data<br/>Valid?}:::decision
     
-    DecValid -- "Tidak" --> ErrData[Pesan Eror: Lengkapi Data]
-    ErrData -.->|Perbaiki| RegData
+    %% Sad Path 1
+    DecValid -- "Tidak" --> ErrData[SISTEM MENOLAK (SAD PATH):<br/>Format Salah, Wajib Min 10 Digit]:::sad
+    ErrData -.->|Perbaiki Data| RegData
     
-    DecValid -- "Ya" --> SendOTP[Kirim Kode OTP ke WhatsApp]
+    DecValid -- "Ya (Valid)" --> SendOTP[Kirim Kode OTP ke WhatsApp]
     SendOTP --> InpOTP[Input Kode OTP 6 Digit]
     InpOTP --> DecOTP{Kode OTP<br/>Cocok?}:::decision
     
-    DecOTP -- "Salah" --> ErrOTP[Pesan Eror: OTP Salah]
-    ErrOTP -.->|Kirim Ulang| SendOTP
+    %% Sad Path 2
+    DecOTP -- "Salah" --> ErrOTP[SISTEM MENOLAK (SAD PATH):<br/>OTP Salah / Kedaluwarsa]:::sad
+    ErrOTP -.->|Kirim Ulang Kode| SendOTP
     
-    DecOTP -- "Cocok" --> RegAddr[Input Alamat & Patokan Rumah]
+    DecOTP -- "Cocok" --> RegAddr[Input Alamat & Titik Jemput Teras]
     RegAddr --> RegPIN[Buat 6 Digit PIN Transaksi]
     RegPIN --> RegDone[Registrasi Berhasil]
 
@@ -65,8 +74,8 @@ flowchart TD
     InpID --> DecForgot{Lupa Kata<br/>Sandi?}:::decision
 
     %% Lupa Password
-    DecForgot -- "Ya (Lupa)" --> ReqReset[Klik Lupa Password & Minta OTP]
-    ReqReset --> InpResetOTP[Input OTP Reset dari WA]
+    DecForgot -- "Ya (Lupa)" --> ReqReset[Klik Lupa Password & Minta Token WA]
+    ReqReset --> InpResetOTP[Input OTP Reset dari WhatsApp]
     InpResetOTP --> InpNewPass[Input Kata Sandi Baru]
     InpNewPass -.->|Login Sandi Baru| InpID
 
@@ -74,10 +83,11 @@ flowchart TD
     DecForgot -- "Ingat" --> InpPass[Input Kata Sandi Akun]
     InpPass --> DecAuth{Kredensial<br/>Cocok?}:::decision
     
-    DecAuth -- "Salah" --> ErrAuth[Pesan Eror: Kredensial Salah]
-    ErrAuth -.->|Ulangi| InpPass
+    %% Sad Path 3
+    DecAuth -- "Salah" --> ErrAuth[SISTEM MENOLAK (SAD PATH):<br/>Kredensial Salah / Tidak Terdaftar]:::sad
+    ErrAuth -.->|Ulangi Masuk| InpPass
     
-    DecAuth -- "Cocok" --> LoginDone[Login Berhasil]
+    DecAuth -- "Cocok" --> LoginDone[Login Berhasil & Sesi Terbit]
 
     %% End
     RegDone --> Home([Masuk ke Beranda Warga]):::startEnd
@@ -87,29 +97,35 @@ flowchart TD
 ---
 
 ### Fase 2: Beranda Warga & Deteksi Sampah (SnapSort AI)
-- **Tujuan:** Memantau saldo mengendap dan memindai sampah menggunakan model AI atau langsung memilih kategori sampah manual.
+- **Happy Path:** Pantau saldo mengendap, ambil foto sampah botol PET, lolos klasifikasi AI, dan otomatis diarahkan ke formulir setor (*prefill*).
+- **Sad Path (Sistem Menolak):**
+  1. *Limbah B3 / Tercemar:* Terdeteksi baterai, aki, limbah medis, atau zat berbahaya $\rightarrow$ **SISTEM MENOLAK KERAS (Sad Path)**, material dilarang masuk sirkular RW & diarahkan ke TPS B3 DLH.
+  2. *Objek Buram / Gelap:* Kamera AI tidak mampu mengenali material $\rightarrow$ **SISTEM MENOLAK ANALISIS (Sad Path)**, instruksikan warga untuk mengambil foto ulang dengan pencahayaan memadai.
 
 ```mermaid
 flowchart TD
     classDef default fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
     classDef startEnd fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000
     classDef decision fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
+    classDef sad fill:#ffffff,stroke:#000000,stroke-width:1.8px,stroke-dasharray: 4 4,color:#000000
 
-    Start([Mulai: Beranda Warga]):::startEnd --> ViewHome[Cek Saldo Mengendap & Riwayat]
-    ViewHome --> DecAI{Gunakan SnapSort<br/>AI Scanner?}:::decision
+    Start([Mulai: Beranda Warga]):::startEnd --> ViewHome[Pantau Saldo Mengendap & Riwayat]
+    ViewHome --> DecAI{Gunakan Pindai<br/>SnapSort AI?}:::decision
 
-    DecAI -- "Tidak (Manual)" --> GoManual[Buka Tab Setor Sampah]
+    DecAI -- "Tidak (Manual)" --> GoManual[Buka Tab Setor Sampah Manual]
 
-    DecAI -- "Ya (AI Scanner)" --> OpenAI[Buka Tab SnapSort AI]
+    DecAI -- "Ya (Buka AI)" --> OpenAI[Buka Tab SnapSort AI]
     OpenAI --> SnapCam[Arahkan Kamera & Ambil Foto Sampah]
-    SnapCam --> DecMat{Hasil Analisis<br/>Material?}:::decision
+    SnapCam --> DecMat{Hasil Analisis<br/>Material AI?}:::decision
 
-    DecMat -- "Tercemar / B3" --> WarnB3[Peringatan: Limbah B3 Ditolak]
-    DecMat -- "Buram / Gelap" --> WarnBlur[Pesan: Objek Tidak Terbaca]
-    WarnBlur -.->|Foto Ulang| SnapCam
+    %% Sad Paths
+    DecMat -- "Tercemar / B3" --> WarnB3[SISTEM MENOLAK (SAD PATH):<br/>Limbah B3 Dilarang Masuk Sirkular!]:::sad
+    DecMat -- "Buram / Gelap" --> WarnBlur[SISTEM MENOLAK (SAD PATH):<br/>Objek Tidak Terbaca, Foto Ulang]:::sad
+    WarnBlur -.->|Ambil Foto Ulang| SnapCam
 
-    DecMat -- "Bersih & Layak" --> AIValid[Deteksi Valid: PET 96%, Rp 3.500/kg]
-    AIValid --> PrefillSetor[Klik Langsung Setor / Auto-Prefill]
+    %% Happy Path
+    DecMat -- "Bersih & Layak" --> AIValid[Deteksi Material Valid: PET 96%, Rp 3.500/kg]
+    AIValid --> PrefillSetor[Klik Langsung Setor / Auto-Prefill Tab Setor]
 
     GoManual --> EndSetor([Menuju Halaman Setor Sampah]):::startEnd
     PrefillSetor --> EndSetor
@@ -117,36 +133,43 @@ flowchart TD
 
 ---
 
-### Fase 3: Pengajuan Penyetoran Sampah (Jemput Tossa vs Drop-off Mandiri)
-- **Tujuan:** Menentukan kategori & berat sampah, memilih metode penyetoran, dan menerbitkan tiket QR digital.
+### Fase 3: Pengajuan Penyetoran Sampah (Jemput vs Drop-off & Sad Path Di Luar Radius)
+- **Happy Path:** Warga memilih kategori & berat sampah, memilih metode jemputan Tossa (ongkir 10%) atau drop-off pos mitra (ongkir 0%), dan menerbitkan tiket digital QR resmi.
+- **Sad Path (Sistem Menolak):**
+  1. *Sampah Kosong (0 kg):* Warga menekan submit tanpa memilih kategori $\rightarrow$ **Sistem Menolak** & wajib pilih minimal 1 sampah.
+  2. *Di Luar Radius Layanan Tossa (> 3 km):* Alamat penjemputan berada di luar jangkauan motor Tossa RW $\rightarrow$ **SISTEM MENOLAK PENJEMPUTAN (Sad Path)**, opsi jemputan dikunci dan sistem secara otomatis merekomendasikan opsi Drop-off Mandiri ke Pos Mitra terdekat.
 
 ```mermaid
 flowchart TD
     classDef default fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
     classDef startEnd fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000
     classDef decision fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
+    classDef sad fill:#ffffff,stroke:#000000,stroke-width:1.8px,stroke-dasharray: 4 4,color:#000000
 
     Start([Mulai: Tab Setor Sampah]):::startEnd --> PickWaste[Pilih Kategori & Atur Berat kg]
     PickWaste --> DecWasteValid{Kategori Terpilih &<br/>Berat > 0 kg?}:::decision
 
-    DecWasteValid -- "Tidak" --> ErrEmpty[Pesan: Pilih Minimal 1 Jenis Sampah]
+    %% Sad Path Kosong
+    DecWasteValid -- "Tidak" --> ErrEmpty[SISTEM MENOLAK (SAD PATH):<br/>Pilih Minimal 1 Jenis Sampah]:::sad
     ErrEmpty -.->|Pilih Sampah| PickWaste
 
     DecWasteValid -- "Ya" --> DecMethod{Pilih Metode<br/>Penyetoran?}:::decision
 
     %% Jemput Tossa
     DecMethod -- "Jemput Armada Tossa" --> CalcTossa[Kalkulasi Ongkir Jemput 10%]
-    CalcTossa --> PickAddr[Pilih Alamat Jemput & Cek Patokan]
-    PickAddr --> DecAddrValid{Alamat & Patokan<br/>Lengkap?}:::decision
-    
-    DecAddrValid -- "Kurang / Ubah" --> EditAddr[Input / Perbarui Alamat & Patokan]
-    EditAddr -.->|Simpan| PickAddr
-    
-    DecAddrValid -- "Lengkap" --> SubmitTossa[Klik Ajukan Penjemputan Tossa]
+    CalcTossa --> PickAddr[Pilih Alamat Jemput & Patokan]
+    PickAddr --> DecRadius{Alamat Dalam<br/>Radius <= 3 km?}:::decision
+
+    %% Sad Path Radius
+    DecRadius -- "> 3 km" --> ErrRadius[SISTEM MENOLAK (SAD PATH):<br/>Di Luar Radius Operasional Tossa]:::sad
+    ErrRadius --> RecDropoff[Tampilkan Rekomendasi Drop-off Mandiri]
+    RecDropoff -.->|Beralih Opsi| CalcDropoff
+
+    DecRadius -- "<= 3 km" --> SubmitTossa[Klik Ajukan Penjemputan Tossa]
 
     %% Drop-off
-    DecMethod -- "Antar Sendiri (Drop-off)" --> CalcDropoff[Kalkulasi Ongkir Rp 0 (100% Saldo)]
-    CalcDropoff --> PickPos[Pilih Pos / Drop Point Mitra Terdekat]
+    DecMethod -- "Antar Sendiri (Drop-off)" --> CalcDropoff[Kalkulasi Drop-off 0% Ongkir (Saldo Utuh)]
+    CalcDropoff --> PickPos[Pilih Drop Point / Pos Mitra RW]
     PickPos --> SubmitDropoff[Klik Buat Tiket Mandiri]
 
     SubmitTossa --> TicketQR[Tiket Digital QR Terbit: PLH-XXXXXX]
@@ -157,29 +180,34 @@ flowchart TD
 
 ---
 
-### Fase 4: Operasional Timbang Lapangan & Verifikasi Mitra
-- **Tujuan:** Proses penimbangan digital di teras atau pos mitra dan penginputan data tiket oleh petugas mitra di Portal Mitra Pengelola.
+### Fase 4: Operasional Timbang Lapangan & Sad Path Penolakan Kurasi Fisik
+- **Happy Path:** Petugas menimbang sampah di teras/pos mitra, menginput ke Portal Mitra Pengelola, kurasi fisik lolos bersih $\rightarrow$ Saldo Rupiah cair detik itu juga ke Dompet Warga.
+- **Sad Path (Sistem Menolak):**
+  1. *Warga Tidak Ada di Lokasi:* Kurir Tossa tiba namun warga tidak ada $\rightarrow$ Jadwalkan ulang jemputan (tiket tetap aktif).
+  2. *Pos Mitra Tutup:* Warga datang di luar jam operasional (13.00 - 16.00 WIB) $\rightarrow$ Pos tutup, tiket tetap berlaku untuk esok hari.
+  3. *KURASI FISIK GAGAL (SISTEM MENOLAK):* Sampah kardus basah kuyup terkena hujan atau botol plastik bercampur minyak santan/B3 $\rightarrow$ Petugas mengklik tombol **"Tolak Sampah (Kurasi Gagal)"** di portal mitra $\rightarrow$ **SISTEM MENOLAK TIKET (Sad Path)**, saldo ditahan Rp 0, dan sistem mengirimkan kartu edukasi penolakan beserta tombol *"Ajukan Setor Ulang"* ke aplikasi warga.
 
 ```mermaid
 flowchart TD
     classDef default fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
     classDef startEnd fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000
     classDef decision fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
+    classDef sad fill:#ffffff,stroke:#000000,stroke-width:1.8px,stroke-dasharray: 4 4,color:#000000
 
     Start([Mulai: Tiket Digital Aktif]):::startEnd --> DecFieldType{Metode Penyetoran<br/>Lapangan?}:::decision
 
     %% Jemput
     DecFieldType -- "Jemput Tossa" --> TossaArrive[Armada Tossa Tiba di Alamat Warga]
-    TossaArrive --> DecCitizen{Warga Ada di<br/>Lokasi?}:::decision
+    TossaArrive --> DecCitizen{Warga Ada di<br/>Rumah?}:::decision
     
-    DecCitizen -- "Tidak" --> Reschedule[Jadwalkan Ulang Penjemputan]
+    DecCitizen -- "Tidak" --> Reschedule[SAD PATH: Warga Tidak di Lokasi<br/>Jadwalkan Ulang Jemputan]:::sad
     DecCitizen -- "Ada" --> WeighTossa[Timbang Digital Bersama di Teras]
 
     %% Drop-off
     DecFieldType -- "Antar Sendiri" --> DropoffArrive[Warga Bawa Sampah ke Pos Mitra]
     DropoffArrive --> DecPosOpen{Pos Sedang Buka?<br/>13.00 - 16.00 WIB}:::decision
     
-    DecPosOpen -- "Tutup" --> PosClosed[Pos Tutup: Kembali Esok Hari]
+    DecPosOpen -- "Tutup" --> PosClosed[SAD PATH: Pos Tutup<br/>Warga Datang Kembali Besok]:::sad
     DecPosOpen -- "Buka" --> WeighPos[Petugas Timbang Digital di Pos Mitra]
 
     %% Portal Mitra
@@ -187,22 +215,34 @@ flowchart TD
     WeighPos --> OpenMitra
 
     OpenMitra --> InpWeight[Input Nomor Tiket & Bobot Riil Timbangan]
-    InpWeight --> VerifyData[Verifikasi Data Penimbangan]
-    VerifyData --> CreditBalance[Saldo Tunai Masuk ke Dompet Warga]
+    InpWeight --> DecKurasi{Kurasi Fisik Lolos<br/>Standar Pilah Bersih?}:::decision
+
+    %% SAD PATH UTAMA: KURASI FISIK GAGAL (SISTEM MENOLAK)
+    DecKurasi -- "Tolak (Gagal)" --> ErrKurasi[SISTEM MENOLAK (SAD PATH):<br/>Sampah Basah / Tercemar Minyak / B3]:::sad
+    ErrKurasi --> RejTicket[Tiket Berstatus Ditolak & Saldo Rp 0]
+    RejTicket --> EduWarga[Kirim Kartu Edukasi Penolakan & Opsi Setor Ulang ke Warga]
+
+    %% HAPPY PATH
+    DecKurasi -- "Lolos (Bersih)" --> VerifyData[Verifikasi Data Penimbangan & Kalkulasi Saldo]
+    VerifyData --> CreditBalance[Saldo Tunai Masuk Instan ke Dompet Warga]
 
     CreditBalance --> EndField([Selesai: Saldo Siap Digunakan]):::startEnd
 ```
 
 ---
 
-### Fase 5: Pemanfaatan Saldo Likuid Warga
-- **Tujuan:** Warga menggunakan saldo mengendap untuk berbelanja produk daur ulang (pupuk kompos) atau mencairkannya ke dompet digital (GoPay/DANA).
+### Fase 5: Pemanfaatan Saldo Likuid Warga & Sad Paths (PIN Salah & Saldo Kurang)
+- **Happy Path:** Warga membelanjakan saldo untuk pupuk kompos olahan mitra (Rp 18.000) atau mencairkan uang tunai ke GoPay/DANA (Rp 50.000) dengan PIN valid.
+- **Sad Path (Sistem Menolak):**
+  1. *Saldo Tidak Mencukupi:* Nominal belanja atau pencairan melebihi saldo aktif $\rightarrow$ **SISTEM MENOLAK TRANSAKSI (Sad Path)**, transaksi dibatalkan dan sistem meminta warga menyetorkan sampah lebih banyak.
+  2. *PIN Transaksi Salah 3 Kali:* Pengguna salah memasukkan PIN transaksi sebanyak 3 kali berturut-turut $\rightarrow$ **SISTEM MENOLAK & KUNCI AKUN SEMENTARA (Sad Path)**, akun dibekukan selama 15 menit demi keamanan saldo, dan sistem mengirimkan tautan reset PIN melalui WhatsApp OTP.
 
 ```mermaid
 flowchart TD
     classDef default fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
     classDef startEnd fill:#ffffff,stroke:#000000,stroke-width:2px,color:#000000
     classDef decision fill:#ffffff,stroke:#000000,stroke-width:1.2px,color:#000000
+    classDef sad fill:#ffffff,stroke:#000000,stroke-width:1.8px,stroke-dasharray: 4 4,color:#000000
 
     Start([Mulai: Saldo Mengendap di Dompet]):::startEnd --> DecUse{Pilihan Pemanfaatan<br/>Saldo?}:::decision
 
@@ -211,23 +251,37 @@ flowchart TD
     OpenStore --> PickProduct[Pilih Pupuk Kompos Super 5kg: Rp 18.000]
     PickProduct --> DecBalStore{Saldo Cukup<br/>>= Rp 18.000?}:::decision
     
-    DecBalStore -- "Tidak" --> ErrBalStore[Pesan: Saldo Tidak Mencukupi]
+    %% Sad Path Saldo Belanja
+    DecBalStore -- "Tidak" --> ErrBalStore[SISTEM MENOLAK (SAD PATH):<br/>Saldo Kurang, Transaksi Batal]:::sad
+
     DecBalStore -- "Cukup" --> PINStore[Input PIN Transaksi 6 Digit]
-    PINStore --> StoreDone[Pembelian Kompos Selesai / Loop Tertutup]
+    PINStore --> DecPINStore{PIN Transaksi<br/>Valid?}:::decision
+
+    %% Sad Path PIN Belanja
+    DecPINStore -- "Salah 3x" --> ErrPINStore[SISTEM MENOLAK (SAD PATH):<br/>Akun Dikunci Sementara 15 Menit]:::sad
+
+    DecPINStore -- "Benar" --> StoreDone[Pembelian Kompos Selesai / Loop Tertutup]
 
     %% Tarik Tunai
     DecUse -- "Tarik Tunai E-Wallet" --> OpenWallet[Buka Tab Dompet Rupiah]
     OpenWallet --> InpCashout[Pilih GoPay/DANA, Nominal Rp 50.000, & No HP]
     InpCashout --> DecMin{Nominal >= 10k &<br/>No HP Valid?}:::decision
     
-    DecMin -- "Tidak" --> ErrMin[Pesan: Minimal Penarikan Rp 10.000]
+    DecMin -- "Tidak" --> ErrMin[SISTEM MENOLAK:<br/>Minimal Tarik Rp 10.000]:::sad
     ErrMin -.->|Perbaiki| InpCashout
     
     DecMin -- "Valid" --> DecBalCash{Saldo Cukup<br/>>= Rp 50.000?}:::decision
     
-    DecBalCash -- "Kurang" --> ErrBalCash[Pesan: Saldo Mengendap Kurang]
+    %% Sad Path Saldo Tarik
+    DecBalCash -- "Kurang" --> ErrBalCash[SISTEM MENOLAK (SAD PATH):<br/>Saldo Mengendap Tidak Cukup]:::sad
+
     DecBalCash -- "Cukup" --> PINCash[Input PIN Transaksi 6 Digit]
-    PINCash --> CashDone[Uang Tunai Cair ke E-Wallet (0% Admin Fee)]
+    PINCash --> DecPINCash{PIN Transaksi<br/>Valid?}:::decision
+
+    %% Sad Path PIN Tarik
+    DecPINCash -- "Salah 3x" --> ErrPINCash[SISTEM MENOLAK (SAD PATH):<br/>Akun Dikunci Sementara 15 Menit]:::sad
+
+    DecPINCash -- "Benar" --> CashDone[Uang Tunai Cair ke E-Wallet (0% Admin Fee)]
 
     StoreDone --> EndUse([Selesai: Nilai Ekonomi & Lingkungan Nyata]):::startEnd
     CashDone --> EndUse

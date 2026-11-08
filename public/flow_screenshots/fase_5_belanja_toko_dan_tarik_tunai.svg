@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 860" width="1000" height="860" style="background:#ffffff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000" />
+    </marker>
+  </defs>
+
+  <text x="500" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#000000">FASE 5: PEMANFAATAN SALDO LIKUID WARGA</text>
+  <text x="500" y="52" text-anchor="middle" font-size="11" fill="#444444">Belanja Upcycle Kompos vs E-Wallet &amp; SAD PATH: PIN Salah 3x / Saldo Kurang — Monokrom</text>
+
+  <rect x="400" y="70" width="200" height="34" rx="17" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="500" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">Mulai: Saldo di Dompet</text>
+
+  <line x1="500" y1="104" x2="500" y2="128" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="500,130 580,160 500,190 420,160" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="500" y="157" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Pemanfaatan</text>
+  <text x="500" y="169" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Saldo?</text>
+
+  <!-- Left: Belanja Produk -->
+  <path d="M 420 160 L 250 160 L 250 208" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="325" y="152" text-anchor="middle" font-size="10" fill="#000000">Belanja Upcycle</text>
+
+  <rect x="150" y="210" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="227" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Buka Tab 'Toko Sirkular'</text>
+  <text x="250" y="241" text-anchor="middle" font-size="9" fill="#444444">Katalog pupuk kompos mitra RW</text>
+
+  <line x1="250" y1="250" x2="250" y2="278" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="150" y="280" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih Pupuk Kompos (Rp 18k)</text>
+  <text x="250" y="311" text-anchor="middle" font-size="9" fill="#444444">Klik tombol 'Beli Produk'</text>
+
+  <line x1="250" y1="320" x2="250" y2="348" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="250,350 320,375 250,400 180,375" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="372" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Saldo &gt;=</text>
+  <text x="250" y="384" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Rp 18.000?</text>
+
+  <!-- Sad Path: Saldo Kurang Belanja -->
+  <path d="M 180 375 L 100 375" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="140" y="367" text-anchor="middle" font-size="9" fill="#000000">Kurang</text>
+  <rect x="10" y="355" width="90" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="55" y="370" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="55" y="383" text-anchor="middle" font-size="7" fill="#444444">Saldo Kurang (Sad)</text>
+
+  <line x1="250" y1="400" x2="250" y2="428" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="265" y="415" font-size="9" fill="#000000">Cukup</text>
+
+  <rect x="150" y="430" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="447" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Input PIN Transaksi 6 Digit</text>
+  <text x="250" y="461" text-anchor="middle" font-size="9" fill="#444444">Otorisasi pemotongan saldo belanja</text>
+
+  <line x1="250" y1="470" x2="250" y2="498" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="250,500 320,525 250,550 180,525" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="522" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">PIN 6-Digit</text>
+  <text x="250" y="534" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Valid?</text>
+
+  <!-- Sad Path PIN Belanja Salah 3x -->
+  <path d="M 180 525 L 100 525" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="140" y="517" text-anchor="middle" font-size="9" fill="#000000">Salah 3x</text>
+  <rect x="10" y="505" width="90" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="55" y="520" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="55" y="533" text-anchor="middle" font-size="7" fill="#444444">Akun Kunci 15 mnt</text>
+
+  <line x1="250" y1="550" x2="250" y2="578" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="265" y="565" font-size="9" fill="#000000">Benar</text>
+
+  <rect x="150" y="580" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="250" y="597" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pembelian Kompos Selesai</text>
+  <text x="250" y="611" text-anchor="middle" font-size="9" fill="#444444">Saldo terpotong Rp 18.000 bersih</text>
+
+  <!-- Right: Tarik Tunai E-Wallet -->
+  <path d="M 580 160 L 750 160 L 750 208" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="665" y="152" text-anchor="middle" font-size="10" fill="#000000">Tarik Tunai E-Wallet</text>
+
+  <rect x="650" y="210" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="750" y="227" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Buka Tab 'Dompet'</text>
+  <text x="750" y="241" text-anchor="middle" font-size="9" fill="#444444">Formulir penarikan saldo ke e-wallet</text>
+
+  <line x1="750" y1="250" x2="750" y2="278" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="650" y="280" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="750" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Pilih E-Wallet &amp; Nominal</text>
+  <text x="750" y="311" text-anchor="middle" font-size="9" fill="#444444">GoPay/DANA &amp; nominal Rp 50.000</text>
+
+  <line x1="750" y1="320" x2="750" y2="348" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="750,350 820,375 750,400 680,375" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="750" y="372" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Saldo &gt;=</text>
+  <text x="750" y="384" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Nominal?</text>
+
+  <!-- Sad Path: Saldo Kurang Tarik -->
+  <path d="M 820 375 L 890 375" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="855" y="367" text-anchor="middle" font-size="9" fill="#000000">Kurang</text>
+  <rect x="890" y="355" width="100" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="940" y="370" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="940" y="383" text-anchor="middle" font-size="7" fill="#444444">Saldo Tidak Cukup</text>
+
+  <line x1="750" y1="400" x2="750" y2="428" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="765" y="415" font-size="9" fill="#000000">Cukup</text>
+
+  <rect x="650" y="430" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="750" y="447" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Input PIN Transaksi 6 Digit</text>
+  <text x="750" y="461" text-anchor="middle" font-size="9" fill="#444444">Otorisasi pencairan dana e-wallet</text>
+
+  <line x1="750" y1="470" x2="750" y2="498" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <polygon points="750,500 820,525 750,550 680,525" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="750" y="522" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">PIN 6-Digit</text>
+  <text x="750" y="534" text-anchor="middle" font-size="10" font-weight="bold" fill="#000000">Valid?</text>
+
+  <!-- Sad Path PIN Tarik Salah 3x -->
+  <path d="M 820 525 L 890 525" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="855" y="517" text-anchor="middle" font-size="9" fill="#000000">Salah 3x</text>
+  <rect x="890" y="505" width="100" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="940" y="520" text-anchor="middle" font-size="8" font-weight="bold" fill="#000000">SISTEM MENOLAK</text>
+  <text x="940" y="533" text-anchor="middle" font-size="7" fill="#444444">Akun Kunci 15 mnt</text>
+
+  <line x1="750" y1="550" x2="750" y2="578" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="765" y="565" font-size="9" fill="#000000">Benar</text>
+
+  <rect x="650" y="580" width="200" height="40" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <text x="750" y="597" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Uang Cair ke E-Wallet</text>
+  <text x="750" y="611" text-anchor="middle" font-size="9" fill="#444444">Saldo terpotong Rp 50k (0% admin)</text>
+
+  <!-- MERGE CONVERGENCE -->
+  <path d="M 250 620 L 250 715 L 398 715" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+  <path d="M 750 620 L 750 715 L 602 715" fill="none" stroke="#000000" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <rect x="400" y="698" width="200" height="34" rx="17" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="500" y="720" text-anchor="middle" font-size="11" font-weight="bold" fill="#000000">Selesai: Dampak Nyata</text>
+</svg>
