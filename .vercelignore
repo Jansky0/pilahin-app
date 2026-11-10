@@ -1,0 +1,9 @@
+# Ignore heavy local assets and media files from Vercel deployment
+broll_raw/
+pitching_footages/
+public/broll_footages/
+flow_screenshots/
+drawio_phases/
+drawio_tasks/
+e2e_tests/
+docs/
