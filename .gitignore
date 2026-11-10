@@ -27,3 +27,10 @@ dist-ssr
 # Teamwork working directories
 .agents
 .vercel
+
+# Heavy raw media working directories
+broll_raw/
+public/broll_footages/broll_latar_belakang_master_music.mp4
+public/broll_footages/broll_latar_belakang_master_silent.mp4
+public/broll_footages/broll_latar_belakang_master_suara.mp4
+public/broll_footages/05_pemilahan_botol_plastik_pet.mp4

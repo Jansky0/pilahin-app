@@ -1,0 +1,533 @@
+﻿Pilah.in
+Disusun Oleh Tim NamaYangNormalAjaPliss :
+Ahmad Haris Dawaa’ul Qulub - Telkom University
+Amrin Rasyida Utami - Telkom University
+Andika Ramadhan Yusuf -Telkom University
+
+
+
+
+
+
+DAFTAR ISI
+
+
+DAFTAR ISI        2
+KATA PENGANTAR        3
+BAB I
+PENDAHULUAN        4
+1.1 Latar Belakang        4
+1.2 Tujuan        4
+1.3 Manfaat        5
+BAB II
+RANCANGAN SISTEM        6
+2.1 Tema        6
+2.2 Alat dan Bahan        6
+2.3 Alur Pembuatan        8
+BAB III
+HASIL DAN PEMBAHASAN        10
+3.1 Analisis Desain Karya        10
+3.2 User Flow dan Information Architecture        15
+3.2.1 User Flow (Alur Pengguna)        15
+3.2.2 Information Architecture (Arsitektur Informasi)        20
+3.3 Wireframe        21
+BAB IV
+PENUTUP        29
+4.1 Kesimpulan        29
+4.2 Saran (Bersifat Opsional)        29
+LAMPIRAN        30
+DAFTAR PUSTAKA        31
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+KATA PENGANTAR
+
+
+Puji syukur kami panjatkan kepada Tuhan Yang Maha Esa karena atas rahmat dan karunia-Nya, tim dapat menyusun proposal karya UI/UX berjudul “Pilah.in” untuk kompetisi UI/UX In Action (UIA) MIA 2026. Karya ini disusun sebagai respons terhadap tantangan pengelolaan sampah rumah tangga, khususnya hambatan ketika warga ingin memilah dan menyetorkan sampah yang masih memiliki nilai guna.
+Pilah.in dirancang untuk memudahkan warga menghubungkan sampah terpilah dengan mitra pengelola melalui alur penyetoran yang fleksibel, penimbangan transparan, tiket digital, dan pencatatan nilai setoran. Dalam penyusunannya, tim menggunakan studi literatur, wawancara kebutuhan pengguna, perancangan alur dan antarmuka, serta usability testing terhadap prototipe.
+Kami mengucapkan terima kasih kepada para narasumber yang telah berbagi pengalaman, panitia dan mentor UIA MIA 2026 atas evaluasi yang diberikan, serta semua pihak yang mendukung proses perancangan. Masukan tersebut menjadi dasar untuk memperjelas ruang lingkup, meningkatkan konsistensi pengalaman pengguna, dan memperkuat kelayakan konsep Pilah.in.
+Kami menyadari proposal ini masih memiliki keterbatasan, terutama pada jumlah wawancara yang terbatas, validasi dengan pihak mitra, dan data hasil usability testing yang perlu didokumentasikan lebih lengkap. Oleh karena itu, masukan dan pengembangan lebih lanjut sangat kami harapkan agar Pilah.in dapat menjadi rancangan solusi yang lebih tepat guna.
+
+
+
+
+Bandung, 11 November 2026
+  
+
+Ahmad Haris Dawaa’ul Qulub
+
+
+
+
+BAB I
+PENDAHULUAN
+1.1 Latar Belakang
+Pengelolaan sampah di Indonesia masih menghadapi kendala serius, di mana data Sistem Informasi Pengelolaan Sampah Nasional (SIPSN) Kementerian Lingkungan Hidup mencatat 75% dari 144.157 ton sampah harian belum terkelola. Walaupun rumah tangga menyumbang 51,45% timbulan sampah nasional menurut Portal Indikatif SIPSN, laporan GoodStats & Badan Pusat Statistik (BPS) menunjukkan 83% rumah tangga belum memilah sampah. Hal ini dipicu oleh ketidaktahuan cara membersihkan sampah bernilai jual, kewajiban memiliki timbangan sendiri di rumah pada aplikasi konvensional, ketidakpastian ongkos jemput, serta sistem "poin" yang sulit dicairkan. Masalah ini harus segera dipecahkan agar beban Tempat Pemrosesan Akhir (TPA) tidak terus melampaui kapasitas dan nilai ekonomi sampah rumah tangga tidak terbuang percuma.
+Menjawab masalah tersebut, karya ini mengusung tema utama UIA MIA 2026: "Designing Digital Futures" dan subtema "Sustainable Environment". Tema ini menuntut hadirnya solusi UI/UX yang tidak hanya fungsional dan menarik, tetapi juga relevan menyelesaikan masalah masyarakat serta berdampak positif bagi lingkungan. Melalui subtema "Sustainable Environment", krisis sampah diatasi lewat desain antarmuka yang mendorong perubahan perilaku memilah sampah dari rumah dan pemanfaatan sumber daya limbah secara bertanggung jawab.
+Sebagai solusinya, tim kami merancang Pilah.in, aplikasi pengelolaan sampah sirkular yang menghubungkan warga dengan bank sampah dan pengepul lokal. Pilah.in menghadirkan pemindai SnapSort Al Detector, Indeks Harga Real-Time, serta alur "Panggil Dulu, Timbang di Tempat" berbasis takaran visual tanpa perlu timbangan di rumah, didukung mode Pickup kurir Tossa (ongkir 10% transparan) dan Drop-off TPS3R (ongkir 0%) berkode tiket unik (PLH-XXXXXX ). Sistem poin dihapus dan diganti dengan Dompet Saldo Daur Ulang berwujud Rupiah nyata yang terhubung ke Portal Verifikasi Mitra, pencairan GoPay/DANA, serta belanja daur ulang di Toko Sirkular.
+
+
+1.2 Tujuan
+Penyusunan karya UI/UX Pilah.in bertujuan menghasilkan prototipe aplikasi interaktif (high-fidelity playable prototype) dengan capaian berikut:
+1. Merancang sistem penyetoran adaptif (Pickup & Drop-off): Menyediakan layanan jemput kurir berbasis validasi alamat rumah dan pencarian pos bank sampah/TPS3R terdekat untuk antar mandiri.
+2. Membangun alur "Panggil Dulu, Timbang di Tempat": Menghadirkan kalkulator takaran visual tanpa mewajibkan pengguna memiliki timbangan di rumah.
+3. Menyediakan transparansi biaya dan pelacakan multi-tiket: Menampilkan rincian potongan ongkir 10% (Pickup) atau 0% (Drop-off) di muka, disertai pelacakan tiket unik (PLH-XXXXXX ).
+4. Menghadirkan transaksi berbasis saldo Rupiah nyata: Menggantikan sistem poin dengan Dompet Saldo Daur Ulang yang dapat dicairkan ke GoPay/DANA atau dibelanjakan  di Toko Sirkular.
+5. Mengintegrasikan edukasi Al, indeks harga, dan verifikasi mitra: Menyediakan fitur SnapSort Al Detector, pantauan harga komoditas real-time, serta Portal Verifikasi Mitra untuk input berat riil dan auto-kredit saldo.
+1.3 Manfaat
+Hasil perancangan prototipe UI/UX Pilah.in memberikan manfaat nyata bagi tiga pihak utama:
+1. Bagi Masyarakat dan Rumah Tangga (Pengguna Utama): Memudahkan warga mengenali dan menyiapkan sampah bernilai jual lewat SnapSort Al, menyetor sampah tanpa kendala ketiadaan timbangan di rumah melalui opsi Pickup atau Drop-off, serta memperoleh insentif saldo Rupiah nyata yang langsung cair ke GoPay/DANA atau dibelanjakan di Toko Sirkular.
+2. Bagi Mitra Kurir, Pengepul Lokal, dan Bank Sampah / TPS3R: Memperoleh pasokan sampah terpilah berkualitas baik, mendapat kepastian biaya operasional kurir lewat skema ongkir 10%, mempercepat verifikasi timbangan dan pengkreditan saldo via kode tiket di Portal Mitra, serta memiliki etalase penjualan produk olahan daur ulang.
+3. Bagi Pemerintah dan Keberlanjutan Lingkungan (Sustainable Environment): Menekan volume timbulan sampah rumah tangga yang berakhir di TPA sejak dari sumbernya sekaligus mengakselerasi perputaran ekonomi sirkular di tingkat komunitas.
+BAB II
+RANCANGAN SISTEM
+2.1 Tema
+Karya desain UI/UX Pilah.in memilih subtema "Sustainable Environment", yaitu inovasi digital untuk mendukung keberlanjutan lingkungan, perubahan perilaku, dan pemanfaatan sumber daya secara bertanggung jawab. Pemilihan subtema ini berangkat langsung dari permasalahan nyata pada latar belakang, di mana 75% timbulan sampah nasional belum terkelola menurut data Sistem Informasi Pengelolaan Sampah Nasional (SIPSN) Kementerian Lingkungan Hidup dan 51,45% diantaranya berasal dari rumah tangga menurut Portal Indikatif SIPSN, namun 83% rumah tangga belum melakukan pemilahan sampah menurut laporan GoodStats & Badan Pusat Statistik (BPS) akibat kendala ketiadaan timbangan di rumah, kurangnya literasi dekontaminasi, serta sistem poin aplikasi daur ulang yang tidak likuid. Menjawab keterkaitan masalah tersebut dengan subtema "Sustainable Environment", Pilah.in dirancang untuk membentuk perubahan perilaku masyarakat dari hulu melalui edukasi
+kamera SnapSort AI Detector dan kemudahan alur "Panggil Dulu, Timbang di Tempat" (Zero-Scale Barrier) berbasis takaran visual, mendukung keberlanjutan lingkungan dengan menghubungkan rumah tangga ke bank sampah/TPS3R melalui mode penyetoran adaptif (Pickup kurir Tossa dengan transparansi ongkir 10% dan Drop-off mandiri bebas ongkir 0%) serta Portal Verifikasi Mitra, sekaligus mewujudkan pemanfaatan sumber daya yang bertanggung jawab melalui konversi hasil setoran menjadi saldo Rupiah nyata di Dompet Saldo Daur Ulang (dapat dicairkan ke GoPay/DANA) dan perputaran kembali produk olahan limbah warga di Toko Sirkular.
+
+
+2.2 Alat dan Bahan
+Proses perancangan dan pengembangan prototipe UI/UX Pilah.in menggunakan perangkat keras, perangkat lunak, serta bahan riset dan aset desain yang dirinci pada tabel berikut:
+No
+	Kategori
+	Nama Alat / Bahan
+	Jenis / Spesifikasi
+	Fungsi dan Kegunaan dalam Pembuatan Karya
+	1
+	Alat (Hardware)
+	Laptop
+	Perangkat komputasi utama
+	Melakukan riset literatur, perancangan diagram, pembuatan wireframe, desain UI high-fidelity, pengujian prototipe, dan penyusunan proposal.
+	2
+	Alat (Software)
+	Figma
+	Aplikasi desain UI/UX berbasis cloud
+	Merancang design system (tipografi, warna, komponen), low-fidelity wireframe, high-fidelity UI, serta menyusun interactive playable prototype.
+	3
+	Alat (Software)
+	draw.io (diagrams.net)
+	Aplikasi pembuat diagram alur berbasis web
+	Menyusun flowchart alur pembuatan/pengembangan karya, diagram User Flow (5 Fase), serta struktur Information Architecture (IA).
+	4
+	Alat (Software)
+	Canva
+	Platform desain grafis visual
+	Merancang tata letak visual kartu profil User Persona dan tabel matriks Analisis SWOT.
+	5
+	Alat (Software)
+	Maze & Google Forms
+	Platform usability testing & kuesioner evaluasi
+	Menguji skenario penyelesaian tugas (task completion) dan mengumpulkan umpan balik Usability Testing kepada 5 partisipan pengguna.
+	6
+	Alat (Software)
+	Google Docs & MS Word
+	Perangkat pengolah kata
+	Mencatat transkrip wawancara mendalam (In-Depth Interview), menyusun skenario pengujian, serta menulis laporan proposal kompetisi.
+	7
+	Alat (Software)
+	Google Meet / Discord
+	Platform komunikasi daring
+	Memfasilitasi koordinasi tim, diskusi perancangan, serta sesi pendampingan pengujian desain bersama partisipan.
+	8
+	Bahan (Data Riset Primer)
+	Transkrip In-Depth Interview
+	Wawancara tatap muka dengan 2 representasi pengguna (Ibu Rumah Tangga & Pekerja Muda Mandiri)
+	Menggali pain points ketiadaan timbangan di rumah, memvalidasi alur Panggil Dulu Timbang di Tempat, potongan ongkir 10%, multi-tiket swipe, dan preferensi saldo Rupiah.
+	9
+	Bahan (Data Riset Sekunder)
+	Data Statistik & Literatur Resmi
+	Publikasi SIPSN KLHK, Portal Indikatif SIPSN, dan GoodStats/BPS
+	Menjadi landasan validasi masalah makro terkait volume timbulan sampah nasional (144.157 ton/hari), kontribusi rumah tangga (51,45%), dan rasio warga yang belum memilah (83%).
+	10
+	Bahan (Data Domain)
+	Parameter Operasional Bank Sampah RW
+	Acuan harga pengepul lokal & operasional Bank Sampah/TPS3R tingkat RW (studi kasus Cilandak Barat)
+	Menentukan simulasi harga acuan 5 komoditas sampah, skema potongan operasional kurir Tossa 10%, jam buka pos drop-off (13.00–16.00 WIB), dan alur verifikasi tiket (PLH-XXXXXX).
+	11
+	Bahan (Aset Desain)
+	Design System & Aset Visual
+	Palet warna eco-modern, font Plus Jakarta Sans, ikon vektor, dan ilustrasi komponen
+	Memperjelas visualisasi takaran sampah, kurir motor roda tiga/Tossa, integrasi e-wallet (GoPay & DANA), serta katalog produk di Toko Sirkular.
+	
+
+2.3 Alur Pembuatan
+Proses perancangan UI/UX aplikasi Pilah.in menerapkan metode Design Thinking yang berpusat pada manusia (Human-Centered Design). Metode ini dipilih karena mampu memetakan hambatan perilaku nyata masyarakat dalam memilah sampah dan menerjemahkannya menjadi solusi fungsional yang tervalidasi. Secara menyeluruh, alur pembuatan karya terbagi ke dalam lima tahapan berurutan sebagai berikut:
+  
+
+
+
+1. Tahap Empathize (Riset Literatur & Wawancara Mendalam Pengguna)
+Tim mengumpulkan data sekunder dari SIPSN KLHK, Portal Indikatif SIPSN, dan GoodStats/BPS, lalu melakukan wawancara mendalam (In-Depth Interview) tatap muka kepada 2 representasi pengguna utama:
+1. Ibu Ratna Dewi (42 thn, Ibu Rumah Tangga, Cilandak Barat): Batal memakai aplikasi sampah konvensional karena di awal wajib mengisi berat kilogram akurat padahal di rumah hanya punya timbangan kue 2 kg, serta kerepotan membawa tumpukan kardus sejauh ±2 km dengan motor bebek. Beliau memvalidasi alur "Panggil kurir dulu, timbang di teras rumah", menyetujui potongan ongkir 10% dari hasil penjualan sampah (asalkan ada peringatan di awal), dan menolak sistem poin demi saldo Rupiah nyata ke GoPay/DANA.
+2. Dimas Pratama (26 thn, Karyawan Swasta, Kebayoran Baru): Sudah memilah botol dan kaleng di apartemen, tetapi menumpuk karena jam buka bank sampah kelurahan berbenturan dengan jam kerja kantor. Beliau tidak memiliki timbangan (hanya mengira-ngira "satu kresek sedang"), membutuhkan fleksibilitas Pickup saat hari kerja dan Drop-off saat libur, menyetujui potongan ongkir 10%, menginginkan kartu multi-tiket yang praktis digeser (swipe) dengan jempol, serta memilih pencairan saldo Rupiah ke e-wallet.
+3. Penetapan Parameter Operasional: Mengacu pada wawancara dan observasi Bank Sampah RW di Cilandak Barat, ditetapkan simulasi harga acuan 5 komoditas harian (Kardus Rp1.800/kg, PET Rp3.500/kg, Jelantah Rp7.000/L, Organik Rp800/kg, Kaleng Rp5.500/kg yang diperbarui pukul 07.00 WIB), potongan ongkir kurir Tossa 10%, serta jam buka pos Drop-off pukul 13.00-16.00 WIB.
+
+
+2. Tahap Define (Perumusan Masalah, User Persona, & Analisis SWOT)
+Data kualitatif dari wawancara dan observasi diolah untuk merumuskan inti masalah (problem statement) serta menyusun profil User Persona komposit warga (Andi Pratama). Pada tahap ini, tim juga menetapkan batasan teknis sistem serta memetakan kekuatan, kelemahan, peluang, dan ancaman melalui Analisis SWOT.
+
+
+3. Tahap Ideate (Perancangan Solusi, Information Architecture, & User Flow)
+Tim melakukan brainstorming fitur untuk menjawab lima temuan fungsional wawancara, kemudian menyusun:
+1. Information Architecture (IA): Mengorganisasikan struktur aplikasi menjadi tiga area (Area Publik, Aplikasi Utama Warga dengan 4 tab navigasi bawah yaitu Beranda, Setor, Toko, Dompet ditambah akses cepat SnapSort AI Detector di Beranda, serta Portal Mitra Pengelola).
+2. User Flow 5 Fase: Memetakan alur interaksi secara logis mulai dari registrasi/login berbasis Nomor WhatsApp dan PIN 6-Digit, pemindaian sampah via SnapSort Al (beserta jalur pilih manual), pengajuan setor (Pickup Tossa 10% vs Drop-off 0%) hingga terbit tiket PLH-XXXXXX , verifikasi timbangan digital di Portal Mitra, sampai pencairan saldo Rupiah ke GoPay/DANA atau belanja di Toko Sirkular.
+
+
+4. Tahap Prototype (Wireframing, Design System, & High-Fidelity Prototype)
+1. Low-Fidelity Wireframe: Merancang kerangka tata letak layar utama untuk memastikan hierarki informasi, penerapan progressive disclosure pada pendaftaran 2 langkah, kemudahan numeric keypad PIN 6-Digit, serta keterbacaan kartu pelacakan multi-tiket dan daftar harga komoditas.
+2. Design System & High-Fidelity UI: Menerapkan sistem desain bertema eco-modern dengan tipografi Plus Jakarta Sans, kontras warna yang memenuhi standar aksesibilitas, serta merangkai alur layar menjadi interactive playable prototype di Figma yang berfokus pada skenario inti penyetoran hingga pencairan saldo.
+
+
+5. Tahap Test (Rencana & Protokol Usability Testing via Maze dan Google Forms) 
+
+
+BAB III
+HASIL DAN PEMBAHASAN
+3.1 Analisis Desain Karya
+1. Target Pengguna 
+Sasaran utama (primary target user) aplikasi Pilah.in adalah Masyarakat / Warga Penyetor Sampah Rumah Tangga (khususnya pengelola rumah tangga dan penghuni mandiri berusia 20–50 tahun di kawasan perkotaan/sub-urban), sedangkan Petugas Bank Sampah / Kurir Armada RW diposisikan sebagai pengguna pendamping operasional (supporting user) yang memverifikasi timbangan di lapangan. Pemilihan warga rumah tangga sebagai target utama didasarkan pada data Portal Indikatif SIPSN Kementerian Lingkungan Hidup yang mencatat bahwa rumah tangga menyumbang 51,45% dari 144.157 ton timbulan sampah harian di SIPSN KLHK, namun 83% diantaranya belum memilah sampah menurut laporan GoodStats & BPS. Hal ini diperkuat oleh hasil wawancara mendalam (In-Depth Interview) tim bersama representasi warga (Ibu Ratna Dewi, 42 tahun dan Dimas Pratama, 26 tahun) yang membuktikan bahwa warga sebenarnya memiliki kesadaran memisahkan kardus, botol plastik, dan kaleng di rumah, tetapi gagal menyetorkannya karena tidak memiliki timbangan barang di rumah, terkendala jarak serta jam buka bank sampah kelurahan, dan kecewa dengan sistem poin aplikasi daur ulang konvensional.
+
+
+2. Batasan Aplikasi 
+Agar cakupan solusi realistis dan dapat diuji secara terukur, sistem Pilah.in memiliki ruang lingkup dan batasan operasional sebagai berikut:
+1. Fokus Fitur Inti Prototipe vs Pengembangan Lanjutan: Prototipe utama difokuskan pada alur inti transaksi sirkular dari hulu ke hilir (Identifikasi Sampah → Pengajuan Setor dengan Estimasi Visual & Transparansi Ongkir 10% → Penerbitan & Pelacakan Tiket PLH-XXXXXX → Input Berat Riil di Portal Mitra → Pencairan Saldo Rupiah ke GoPay/DANA). Adapun modul Toko Sirkular, unduh Sertifikat Dampak, dan Gamifikasi Level Pahlawan Hijau diposisikan sebagai fitur pelengkap/pengembangan lanjutan agar pengujian utama tetap terfokus.
+
+
+2. Batasan Teknis SnapSort AI Detector & Jalur Cadangan (Fallback Mechanism): Fitur SnapSort AI Detector (berlabel Beta) mengandalkan pemindaian visual kamera yang akurasinya dipengaruhi oleh intensitas cahaya, sudut pengambilan foto, dan kebersihan permukaan objek. Karena kamera ponsel tidak dapat menjamin deteksi kandungan limbah B3 atau tingkat kontaminasi cairan/minyak secara mutlak (100%), sistem menerapkan tiga lapis pengaman:
+1. Opsi Pilih & Koreksi Manual: Jika foto buram, gelap, atau salah terklasifikasi, pengguna dapat langsung memilih atau mengubah kategori material secara manual pada daftar komoditas.
+2. Panduan Dekontaminasi Pra-Setor: Sistem menampilkan instruksi persiapan wajib (melepas label, membilas sisa cairan, meremas botol) sebelum pengguna membuat tiket.
+3. Verifikasi Fisik Akhir oleh Petugas Mitra: Keputusan kelayakan akhir tetap berada pada pengecekan fisik kurir/petugas saat penimbangan di lokasi; sampah yang tercemar berat, berminyak, atau termasuk limbah B3 berhak ditolak di tempat dengan alasan yang tercatat pada status tiket.
+
+
+3. Kelayakan Model Bisnis, Asal Dana Saldo Rupiah, & Skenario Pilot RW: Pada tahap implementasi awal, Pilah.in menggunakan skenario pilot project skala komunitas tingkat RW/Kelurahan (studi kasus Bank Sampah RW 05 Cilandak Barat):
+1. Asal Dana Saldo Warga: Uang saldo yang diterima warga bukan berasal dari subsidi bakar uang (cashburn) aplikasi, melainkan berasal dari dana deposit operasional (pre funded escrow) Bank Sampah/pengepul mitra atas nilai komoditas sampah yang disetor warga.
+2. Pembiayaan Armada dari Potongan 10%: Potongan otomatis 10% pada metode Pickup langsung masuk ke kas operasional armada motor roda tiga (Tossa) RW untuk menutup biaya bahan bakar bensin dan insentif angkut kurir dalam radius kelurahan (1–3 km).
+3. Skema Pencairan E-Wallet (0% Biaya Admin bagi Warga): Untuk menjaga daya tarik likuiditas bagi warga dengan batas penarikan minimal Rp10.000, pencairan ke GoPay/DANA diproses melalui akun kas terpusat Bank Sampah Induk/Mitra. Biaya layanan penyedia payment gateway ditutup dari selisih margin penjualan komoditas partai besar (bulk selling margin 15–25%) saat Bank Sampah RW menjual tumpukan sampah terkumpul ke pabrik daur ulang.
+
+
+4. Penanganan Fluktuasi Harga, Selisih Timbangan, & Aksesibilitas Warga:
+1. Penguncian Harga Harian (Daily Price-Lock): Indeks harga komoditas diperbarui setiap pukul 07.00 WIB dan nilai harga per kg dikunci pada saat tiket (PLH-XXXXXX) diterbitkan, sehingga warga terlindungi dari perubahan harga mendadak saat kurir sedang di perjalanan.
+2. Transparansi Selisih Estimasi vs Berat Riil: Karena warga hanya memilih estimasi takaran visual di awal, penimbangan wajib dilakukan menggunakan timbangan digital resmi yang disaksikan bersama di teras rumah atau pos RW. Sistem otomatis mengirimkan rincian berat aktual dan nilai bersih terbaru ke layar warga saat diinput petugas.
+3. Pendampingan Lansia / Warga Tanpa Smartphone: Bagi warga lansia yang tidak memiliki ponsel pintar, penyetoran tetap dapat difasilitasi secara kolektif melalui pengurus dasawisma/RT setempat saat jadwal Drop-off pos RW.
+
+
+3. Platform yang Digunakan 
+Aplikasi Pilah.in dikembangkan pada platform Mobile Application (Android dan iOS) untuk pengguna warga maupun petugas mitra di lapangan. Pemilihan platform aplikasi mobile didasari oleh empat pertimbangan utama yang mendukung kebutuhan pengguna:
+1. Integrasi Langsung dengan Perangkat Keras Ponsel (Native Hardware Access): Aplikasi mobile memberikan akses yang cepat dan stabil ke modul kamera ponsel untuk pemindaian sampah pada fitur SnapSort Al Detector, layanan lokasi (GPS) untuk memvalidasi titik penjemputan rumah dan jarak pos TPS3R/Bank Sampah terdekat, serta sensor biometrik (sidik jari) untuk otorisasi keamanan PIN transaksi 6-digit.
+2. Mobilitas Tinggi di Lapangan (Warga & Kurir Mitra): Baik warga yang ingin memotret sampah di dapur/garasi maupun kurir armada Tossa yang berkeliling menjemput dan menimbang sampah dari teras ke teras rumah membutuhkan aplikasi yang selalu siap diakses dalam genggaman (on-the-go) melalui layar smartphone.
+3. Notifikasi Real-Time (Push Notification): Platform mobile mendukung pengiriman pemberitahuan instan ke layar ponsel warga saat status tiket ( PLH-XXXXXX) berubah (misalnya ketika Kurir Meluncur, Penimbangan Digital Selesai, atau ketika Saldo Rupiah Masuk ke dompet).
+4. Kenyamanan Interaksi Satu Tangan (Thumb-Friendly UX): Tata letak mobile memungkinkan penerapan navigasi bawah (bottom navigation bar), kartu multi-tiket yang dapat digeser (swipe) dengan ibu jari sesuai kebutuhan responden wawancara, serta peralihan mulus (deep-linking) saat verifikasi OTP WhatsApp dan pencairan saldo ke aplikasi GoPay atau DANA.
+
+
+4. User Persona
+  
+
+Profil User Persona utama di atas (Andi Pratama, 34 tahun sebagai Karyawan Swasta & Kepala Keluarga di Kebayoran Baru, Jakarta Selatan) disusun sebagai representasi komposit yang mensintesis temuan wawancara mendalam dari segmen pengelola rumah tangga dan pekerja swasta. Sosok Andi menggambarkan pengguna yang aktif berbelanja online dan terbiasa memakai smartphone serta e-wallet, memiliki kesadaran memisahkan sampah botol plastik, kardus, dan sisa dapur di rumah, namun terhambat oleh ketiadaan timbangan yang memadai, jarak bank sampah yang cukup jauh dengan jam operasional terbatas saat jam kerja, serta sistem poin aplikasi daur ulang yang kurang menarik. Melalui pemetaan perilaku, tujuan, motivasi, dan hambatan pada persona ini, seluruh fitur inti Pilah.in dirancang secara terarah untuk menjawab kebutuhan Andi: alur "Panggil Dulu, Timbang di Tempat" berbasis takaran visual agar dapat menjual sampah tanpa repot menimbang sendiri, fleksibilitas memilih layanan jemput kurir (Pickup) atau antar mandiri (Drop-off), transparansi indeks harga dan pelacakan status tiket transaksi, serta imbalan saldo Rupiah nyata yang dapat langsung dicairkan ke e-wallet (GoPay/DANA) untuk kebutuhan sehari-hari.
+
+
+5. Analisis SWOT 
+  
+
+Diagram Analisis SWOT di atas memetakan posisi strategis Pilah.in, di mana Kekuatan (Strengths) utamanya terletak pada alur "Jemput dulu, timbang di tempat", fleksibilitas Pickup (potong ongkir 10%) atau Drop-off (0%), kartu tiket swipeable, dan imbalan saldo Rupiah nyata tanpa poin. Di sisi Kelemahan (Weaknesses), sistem masih bergantung pada kesiapan kurir dan kapasitas muatan motor Tossa, margin ongkir 10% yang tipis pada volume kecil, serta keterbatasan deteksi kamera AI terhadap kondisi cahaya dan sudut foto. Meski demikian, Peluang (Opportunities) adopsinya sangat besar berkat meningkatnya sampah kardus paket online, keterbatasan jam buka bank sampah bagi pekerja, dukungan komunitas PKK, dan kemitraan pabrik daur ulang, dengan tetap mengantisipasi Ancaman (Threats) berupa fluktuasi harga komoditas, pengepul keliling, aplikasi serupa, serta kendala cuaca dan lalu lintas.
+
+
+3.2 User Flow dan Information Architecture
+3.2.1 User Flow (Alur Pengguna)
+Secara umum, interaksi pengguna pada platform Pilah.in dirancang membentuk ekosistem ekonomi sirkular tertutup (closed-loop circular economy). Perjalanan pengguna (User Journey) terbagi ke dalam 5 fase terhubung seperti yang digambarkan pada diagram ringkas berikut 
+
+
+Fase 1: Registrasi, Verifikasi OTP, dan Autentikasi (Login)
+  
+
+Penjelasan Alur:
+1. Pengguna membuka platform dan masuk ke halaman landing untuk memahami visi sirkular.
+2. Bagi pengguna baru, sistem memandu pemilihan peran (Warga atau Mitra), pengisian data diri (Nama, WhatsApp, Kata Sandi), dan verifikasi 6 digit kode OTP WhatsApp.
+3. Setelah OTP terverifikasi, pengguna melengkapi alamat penjemputan dan membuat 6 digit PIN transaksi sebagai lapis keamanan finansial.
+4. Pengguna yang sudah terdaftar dapat masuk menggunakan nomor WhatsApp dan kata sandi, dilengkapi mekanisme pemulihan  sandi via kode OTP jika pengguna lupa kata sandi.
+
+
+Fase 2: Beranda Warga dan Deteksi Sampah (SnapSort AI)
+  
+
+Penjelasan Alur:
+1. Pengguna masuk ke Beranda untuk melihat saldo mengendap, estimasi harga komoditas sampah terkini, dan riwayat penyetoran.
+2. Pengguna dapat memilih menyetor sampah secara langsung atau memindai sampah terlebih dahulu menggunakan fitur kamera SnapSort AI.
+3. SnapSort AI mendeteksi jenis material (misal: botol plastik PET 96%) dan kelayakan kondisi sampah. Jika terdeteksi limbah B3/tercemar oli, sistem otomatis menolak penyetoran. Jika layak, data material otomatis terisi (auto-prefill) ke formulir setor sampah.
+
+
+Fase 3: Pengajuan Penyetoran Sampah (Jemput Tossa vs Drop-Off)
+  
+
+Penjelasan Alur:
+1. Pengguna memilih material yang akan disetor (Kardus, Botol PET, Minyak Jelantah, Organik) dan mengatur estimasi berat (kg).
+2. Sistem menyediakan dua metode penyetoran dengan transparansi biaya:
+   1. Jemput Armada Tossa: Dikenakan potongan operasional 10% untuk armada motor roda tiga RW. Pengguna mengkonfirmasi alamat dan patokan rumah.
+   2. Drop-off Mandiri: Bebas biaya operasional (0%), 100% saldo utuh menjadi hak warga. Pengguna memilih pos bank sampah RW terdekat.
+3. Sistem menerbitkan Tiket Digital ber-QR Code (PLH-XXXXXX) dengan status Menunggu Penimbangan.
+
+
+Fase 4: Operasional Timbang Lapangan dan Verifikasi Mitra
+  
+
+Penjelasan Alur:
+1. Untuk metode jemput, armada Tossa tiba di alamat warga dan melakukan penimbangan digital gantung yang disaksikan bersama di teras.
+2. Untuk metode drop-off, warga membawa sampah langsung ke pos bank sampah saat jam operasional (13.00–16.00 WIB).
+3. Petugas pengurus RW membuka Portal Mitra, memasukkan kode tiket, dan menginput bobot timbangan riil.
+4. Sistem memverifikasi data dan secara otomatis mengkreditkan saldo tunai ke dompet digital warga detik itu juga.
+
+
+Fase 5: Pemanfaatan Saldo Likuid (Belanja Toko Sirkular vs Tarik Tunai)
+  
+
+Penjelasan Alur:
+Saldo mengendap yang terkumpul dapat dimanfaatkan melalui dua kanal:
+1. Belanja Produk Daur Ulang (Toko Sirkular): Membeli pupuk kompos organik atau kerajinan hasil olahan bank sampah, mengonfirmasi PIN transaksi, dan saldo terpotong (Closed-Loop Ecosystem).
+2. Pencairan Saldo (Tarik Tunai E-Wallet): Memilih e-wallet tujuan (GoPay/DANA), memasukkan nominal (≥ Rp 10.000), memverifikasi PIN transaksi, dan dana langsung cair tanpa potongan biaya admin (0% admin fee).
+
+
+3.2.2 Information Architecture (Arsitektur Informasi)
+  
+
+Arsitektur Informasi menggambarkan struktur pengorganisasian menu, navigasi, dan aliran data pada sistem Pilah.in agar pengguna dapat mengakses fitur utama tanpa beban kognitif berlebih. Sistem ini dirancang menjembatani warga penyetor dengan berbagai Mitra Pengelola Sampah yang beroperasi di wilayah tersebut (baik Bank Sampah Komunitas, TPS3R, maupun unit lapak daur ulang mandiri):
+
+
+1. Area Publik & Tamu: 
+Halaman landing edukasi 4 alur sirkular, daftar harga sampah terkini, formulir registrasi akun, verifikasi 6 digit OTP WhatsApp, dan pemulihan lupa sandi.
+
+
+2. Aplikasi Utama Warga (5 Tab Bottom-Bar):
+   1. Tab Beranda: Pemantauan saldo mengendap siap tarik, pelacakan status tiket aktif, kartu edukasi pilah, dan info jadwal operasional mitra terdekat.
+   2. Tab SnapSort AI: Antarmuka pemindai kamera realtime, klasifikasi jenis material (PET, kardus, dll), deteksi  kontaminasi limbah B3/oli, serta auto-prefill ke formulir setor.
+   3. Tab Setor Sampah: Katalog material sampah, stepper berat (kg), pilihan metode (Jemput Armada potongan 10% vs Drop-off Mandiri 0%), pengaturan alamat & patokan rumah, serta penerbitan tiket digital ber-QR Code (PLH-XXXXXX).
+   4. Tab Toko Sirkular: Katalog produk olahan hasil daur ulang mitra (pupuk kompos organik super & kerajinan upcycle),  checkout potong saldo dompet, dan otorisasi 6 digit PIN transaksi (Closed-loop circular economy).
+   5. Tab Dompet: Ringkasan saldo tunai likuid, formulir pencairan ke e-wallet (GoPay/DANA) tanpa potongan biaya admin (0%  admin fee), dan riwayat mutasi kredit/debit.
+
+
+3. Portal Mitra Pengelola: 
+Antarmuka khusus operator/petugas mitra pengelola untuk verifikasi ID tiket, input timbangan digital riil di lapangan, otomasi kredit saldo langsung ke warga penyetor, serta dasbor rekapitulasi volume sampah dan inventaris produk daur ulang.
+3.3 Wireframe
+1. Layar Masuk (Login Screen)
+  
+
+1. Struktur & Tata Letak:
+Menggunakan tata letak vertikal terpusat (single-column center-aligned) yang memfokuskan pandangan pengguna pada form kredensial di tengah layar.
+2. Elemen Desain & Fungsinya:
+1. Top Bar: Menampilkan logo Pilah.in dan tombol “Bantuan?” di pojok kanan atas untuk akses panduan cepat jika pengguna mengalami kendala masuk.
+2. Segmented Control [Nomor HP] | [Email]: Pilihan fleksibel bagi pengguna untuk memilih metode login (default pada nomor HP yang umum digunakan masyarakat).
+3. Input Nomor WhatsApp / HP: Dilengkapi kode negara +62 dan penanda status Wajib untuk memitigasi kesalahan input nomor telepon.
+4. Input PIN Transaksi 6-Digit: Bidang input yang menyamarkan karakter (••••••) demi privasi, dilengkapi tautan “Lupa PIN?” untuk memicu alur pemulihan (recovery flow).
+5. Tombol CTA [Masuk] (Solid Dark): Tombol aksi utama berkontras tinggi untuk memproses otorisasi akun.
+6. Tombol Alternatif [Masuk via WhatsApp OTP]: Memberikan jalur masuk alternatif yang mudah bagi warga yang lupa PIN tanpa harus melewati alur reset yang rumit.
+7. Kartu Konversi Bawah: Kotak “Belum punya akun Pilah.in? [Daftar]” dan tautan “atau daftar mitra” sebagai pintu masuk bagi warga baru atau mitra pengelola.
+
+
+2. Layar Pendaftaran Akun 
+  
+
+1. Struktur & Tata Letak:
+Menerapkan prinsip Progressive Disclosure (Form Wizard 2-Langkah). Formulir panjang dipecah menjadi 2 tahap agar pengguna tidak mengalami kelelahan mental (form fatigue).
+2. Elemen Desain & Fungsinya:
+1. Header & Step Tracker: Menampilkan indikator transparan “Langkah 1 dari 2” serta tombol silang (X) untuk membatalkan proses registrasi.
+2. Sub-heading Kontekstual: “Registrasi Warga TPS3R & Bank Sampah Digital” menegaskan keterkaitan sistem dengan operasional persampahan setempat.
+3. Card Kontainer Data Diri:
+1. Nama Lengkap Sesuai KTP: Menjamin keabsahan nama pemilik akun demi keamanan saat pencairan saldo uang nyata ke bank/e-wallet.
+2. Nomor WhatsApp Aktif: Digunakan sebagai saluran verifikasi OTP dan komunikasi penjemputan armada.
+3. Alamat Email Aktif: Opsional untuk pengiriman bukti mutasi transaksi (e-receipt).
+4. Alamat Domisili / Tempat Tinggal (Text Area): Input alamat lengkap yang menjadi acuan penjemputan armada motor roda tiga (Tossa).
+4. Checkbox Persetujuan: Kotak persetujuan syarat dan ketentuan layanan sebagai kepatuhan hukum digital.
+5. Tombol CTA [Lanjut ke Pembuatan PIN →]: Tombol aksi primer yang memvalidasi data dan memunculkan pop-up modal verifikasi OTP.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3.  Modal Verifikasi Nomor WhatsApp (OTP Bottom Sheet)
+  
+
+1. Struktur & Tata Letak:
+Menggunakan komponen Bottom Sheet Modal dengan latar belakang redup (dimmed background overlay). Tata letak ini mempertahankan konteks form pendaftaran di belakangnya sehingga alur terasa menyatu.
+2. Elemen Desain & Fungsinya:
+1. Sheet Header: Dilengkapi drag handle dan tombol tutup (X).
+2. Instruksi Nomor Target: Secara eksplisit menampilkan nomor WhatsApp tujuan (+62 812-3456-7890) agar pengguna dapat langsung mengoreksi jika salah ketik.
+3. 6 Slot Input OTP Terpisah: Kotak angka terpisah yang mendukung auto-focus dan memudahkan pengguna membaca 6 digit kode verifikasi.
+4. Countdown Timer: Indikator “Kirim ulang dalam 00:45” untuk mencegah spamming permintaan kode berulang kali.
+5. Tautan Darurat “Salah nomor? Ubah Nomor WhatsApp”: Mencegah pengguna terjebak jika keliru menginput nomor handphone di layar sebelumnya.
+6. Tombol CTA [Verifikasi & Lanjutkan →]: Memvalidasi kode OTP ke server dan mengarahkan pengguna ke Langkah 2.
+
+
+4. Pembuatan PIN Saldo 6-Digit
+  
+
+1. Struktur & Tata Letak:
+Menggunakan antarmuka Custom Numeric Keypad yang terisolasi dari keyboard bawaan ponsel. Tata letak ini memberikan kesan aman layaknya aplikasi perbankan (fintech-grade security).
+2. Elemen Desain & Fungsinya:
+1. Kartu Edukasi "Proteksi Finansial Sirkular" (Ikon Gembok): Menjelaskan kepada pengguna bahwa PIN 6-digit ini bukan sekadar sandi akun, melainkan otorisasi pengaman saat mencairkan saldo tunai atau belanja di toko daur ulang.
+2. Indikator PIN 6-Titik (Masked Dots): 6 bulatan yang terisi seiring angka ditekan, dilengkapi teks bantuan agar tidak memakai tanggal lahir.
+3. Papan Tombol Angka (Keypad 0-9): Tombol sentuh berukuran besar (large touch target) yang ramah ibu jari (thumb-friendly), dilengkapi opsi sensor biometrik (sidik jari) dan tombol hapus (backspace).
+4. Tombol CTA [Selesaikan & Buat Akun →]: Mengenkripsi PIN secara one-way hash, merampungkan registrasi, dan langsung menerbitkan sesi aktif menuju beranda.
+
+
+5. Beranda Utama Warga (Citizen Dashboard Home Feed)
+  
+
+1. Struktur & Tata Letak:
+Menerapkan arsitektur Card-Based Vertical Flow dengan Sticky Bottom Navigation Bar. Tata letak ini mengelompokkan informasi ke dalam kartu-kartu modular dengan prioritas visual yang sangat jelas:
+2. Elemen Desain & Fungsinya:
+1. Top Bar & Sapaan: Menampilkan logo Pilah.in, badge “• Warga Terverifikasi”, breadcrumb lokasi “Kelurahan Cilandak”.
+2. Hero Balance Card (Kartu Saldo Gelap Kontras):
+* Menjadi pusat perhatian visual (focal point).
+* Menampilkan label “SALDO DAUR ULANG MENGENDAP” dengan status “ Siap Ditarik” (menegaskan bahwa saldo adalah uang asli, bukan poin terkunci).
+* Nominal saldo ditampilkan besar dan tegas (Rp 148.500), dilengkapi info akumulasi setoran (24.5 kg) dan pintasan “Kelola Saldo >”.
+3. Quick Action Grid (4 Aksi Utama):
+Tombol [Setor] (buat tiket setor sampah), [Tarik] (cairkan uang ke GoPay/DANA), [Toko] (belanja kompos/upcycle), dan [Riwayat] (cek mutasi).
+4. Banner SnapSort AI Detector [BETA]: Tombol akses cepat ke fitur kamera pemindai sampah pintar.
+5. Live Tracking Card (Lacak Tiket Berjalan):
+* Menampilkan status tiket berjalan secara real-time (PLH-849281, Jemput Rumah, 11 kg, Budi Tossa #04).
+* Menggunakan stepper timeline 4 tahap: Permintaan Diterima → Kurir Meluncur → Penimbangan Digital → Saldo Cair  Otomatis.
+* Dilengkapi navigasi kartu geser (carousel) jika pengguna memiliki lebih dari 1 tiket aktif.
+6.  Indeks Harga Komoditas Realtime:
+* Menampilkan harga acuan pasar harian per kg secara transparan (Kardus Rp 1.800, PET Rp 3.500, Jelantah Rp 7.000, Organik Rp 800, Kaleng Rp 5.500).
+* Dilengkapi indikator tren fluktuasi harga ( +5%,  +8%, Stabil) yang diperbarui setiap pukul 07:00 WIB.
+7. Kartu Dampak Sirkular (Gamifikasi Ekologi):
+* Menampilkan level kontribusi (Pahlawan Hijau Level 3) dan tombol unduh [Sertifikat].
+* Menyajikan 3 metrik konkret: 24.5 kg terselamatkan, 3 pohon diasuh, dan 38.2 kg reduksi emisi karbon.
+8. Bottom Navigation Bar:
+* Navigasi tetap di bawah layar dengan 4 menu utama: [Beranda] (aktif), [Setor], [Toko], dan [Dompet].
+
+
+
+
+BAB IV
+PENUTUP
+4.1 Kesimpulan
+Menjelaskan hasil akhir dari karya yang dibuat dan bagaimana karya tersebut membantu menyelesaikan masalah yang dibahas. Bagian ini juga merangkum pencapaian utama serta manfaat yang dihasilkan.
+4.2 Saran (Bersifat Opsional)
+Memberikan masukan atau rekomendasi untuk pengembangan karya ke depan. Saran dapat berupa perbaikan, tambahan fitur, atau hal lain yang bisa meningkatkan kualitas dan kegunaan karya.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LAMPIRAN
+LINK FIGMA https://www.figma.com/design/5vna6dsMBRPmg3h0IigP1a/Untitled?t=XPZAXxkBuj2ZR7tG-1
+
+
+LINK HASIL WAWANCARA:
+https://drive.google.com/file/d/18qczEf-waNWU28Sq75LFd0Du-mm38wTL/view?usp=sharing
+
+
+LINK USER PERSONA:
+https://drive.google.com/file/d/1Qg6Z2GfZvGD4urmLHDS3sr9yeEquVNE7/view?usp=sharing
+
+
+LINK SWOT:
+https://drive.google.com/file/d/1fuX-2RdQYslSLHwntFz0RN7AFMttOUB_/view?usp=drive_link
+
+
+LINK USER FLOW
+
+
+LINK ARSITEKTUR INFORMASI
+
+
+LINK HASIL TESTING
+
+
+LINK WIREFRAME
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DAFTAR PUSTAKA
+
+
+Dam, R. F., & Siang, T. Y. (2025). The 5 Stages in the Design Thinking Process. Interaction Design Foundation (IxDF). Diakses pada 9 November 2026, dari https://ixdf.org/literature/article/5-stages-in-the-design-thinking-process
+
+
+GoodStats & Badan Pusat Statistik (BPS). (2025). 83% Rumah Tangga Belum Lakukan Pemilahan, Apa Kabar Sampah Indonesia?. GoodStats Data. Diakses pada 9 November 2026, dari https://goodstats.id/article/83-rumah-tangga-belum-lakukan-pemilahan-apa-kabar-sampah-indonesia-1mZSv
+
+
+Kementerian Lingkungan Hidup / Badan Pengendalian Lingkungan Hidup Republik Indonesia. (2026). Portal Indikatif Statistik Pengelolaan Sampah Nasional: Komposisi Sumber Timbulan Sampah & Fasilitas Bank Sampah/TPS3R. Sistem Informasi Pengelolaan Sampah Nasional (SIPSN). Diakses pada 9 November 2026, dari https://sampahnasional.kemenlh.go.id/portal-indikatif/
+
+
+Kementerian Lingkungan Hidup / Badan Pengendalian Lingkungan Hidup Republik Indonesia. (2026). Sistem Informasi Pengelolaan Sampah Nasional (SIPSN): Satu Data Menuju Indonesia Asri (Data Timbulan Sampah Harian Nasional). Diakses pada 9 November 2026, dari https://sampahnasional.kemenlh.go.id/
+
+
+Nielsen Norman Group (NN/g). (2026). Usability 101: Introduction to Usability & Quantitative Metrics. Diakses pada 9 November 2026, dari https://www.nngroup.com/articles/usability-101-introduction-to-usability/
